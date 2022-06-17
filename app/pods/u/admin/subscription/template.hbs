@@ -1,0 +1,244 @@
+<h2 class="card-title">
+  Subscription details for
+  <b>
+    {{this.subscription.eventOrganiser.name}}
+  </b>
+</h2>
+<p>
+  Plan:
+  {{this.plan.name}}
+  <br />
+  Status:
+  <StatusLabel @statusObject={{this.subscription}} />
+</p>
+<LinkTo @route="u.admin.operators.view" @models={{array this.subscription.eventOrganiser.id}}
+  class="btn btn-info btn-fw btn-xs">
+  <FaIcon @icon="edit" @prefix="far" />
+  View
+  {{this.subscription.eventOrganiser.name}}
+</LinkTo>
+
+<div class="form-section">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>
+          Created
+        </label>
+        <span class="form-control">
+        {{this.subscription.createdAtDate}}
+        </span>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>
+          Started
+        </label>
+        <span class="form-control">
+        {{this.subscription.startedAtDate}}
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>
+          Activated
+        </label>
+        <span class="form-control">
+        {{this.subscription.activatedAtDate}}
+        </span>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>
+          Cancelled
+        </label>
+        <span class="form-control">
+        {{this.subscription.cancelledAtDate}}
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>
+          Updated
+        </label>
+        <span class="form-control">
+        {{this.subscription.updatedAtDate}}
+        </span>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>
+          Paused
+        </label>
+        <span class="form-control">
+        {{this.subscription.pauseDateDate}}
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>
+          Current Term Start
+        </label>
+        <span class="form-control">
+        {{this.subscription.currentTermStartDate}}
+        </span>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>
+          Current Term End
+        </label>
+        <span class="form-control">
+        {{this.subscription.currentTermEndDate}}
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>
+          Trial Ttart
+        </label>
+        <span class="form-control">
+        {{this.subscription.trialStartDate}}
+        </span>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>
+          Trial End
+        </label>
+        <span class="form-control">
+        {{this.subscription.trialEndDate}}
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>
+          Plan Quantity
+        </label>
+        <span class="form-control">
+        {{this.subscription.planQuantity}}
+        </span>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>
+          Plan Unit Price
+        </label>
+        <span class="form-control">
+        {{this.subscription.planUnitPrice}}
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>
+          Billing Period
+        </label>
+        <span class="form-control">
+        {{this.subscription.billingPeriod}}
+        </span>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>
+          Billing Period Unit
+        </label>
+        <span class="form-control">
+        {{this.subscription.billingPeriodUnit}}
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>
+          Free Quantity
+        </label>
+        <span class="form-control">
+        {{this.subscription.planFreeQuantity}}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="form-section">
+  <h3 class="form-section-title">
+    Addons
+  </h3>
+  <p class="card-description"></p>
+  <div class="table-responsive">
+    <table class="table-st">
+      <thead>
+        <tr>
+          <th>
+            Name
+          </th>
+          <th>
+            Pricing Model
+          </th>
+          <th>
+            Price
+          </th>
+          <th style="width:60px;">
+            Status
+          </th>
+          <th style="width:90px;"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each this.plan.addOns as |addon|}}
+          <tr>
+            <td>
+              {{addon.name}}
+            </td>
+            <td>
+              {{addon.pricingModel}}
+            </td>
+            <td>
+              {{addon.price}}
+            </td>
+            <td>
+              <StatusLabel @statusObject={{addon}} />
+            </td>
+            <td>
+              <LinkTo @route="u.admin.add-on-edit" @model={{addon.id}} class="btn btn-info btn-fw btn-xs">
+                <FaIcon @icon="edit" @prefix="far" />
+                View
+              </LinkTo>
+            </td>
+          </tr>
+        {{else}}
+          <tr>
+            <td colspan="5" class="text-center font-bold">There are no addons associated with this plan</td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</div>

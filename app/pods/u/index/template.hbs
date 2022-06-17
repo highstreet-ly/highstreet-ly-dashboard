@@ -1,0 +1,144 @@
+
+
+<div class="row">
+  <div class="col-md-12 grid-margin">
+    <div class="row">
+      <div class="col-12 col-xl-5 mb-4 mb-xl-0">
+        <h4 class="font-weight-bold">
+          Hi
+          {{this.userName}},
+        </h4>
+        <h4 class="font-weight-normal mb-0">
+          Welcome back!
+        </h4>
+      </div>
+      <div class="col-12 col-xl-7">
+        <div class="d-flex justify-content-end flex-wrap">
+          <div class="pr-4 mb-3 mb-xl-0 text-center">
+            <p class="text-muted">
+              Balance
+            </p>
+            <h4 class="mb-0 font-weight-bold">
+              {{currency
+                this.statsService.totalFundsDayByOrganisationStatsTotalFundsSummed
+              }}
+            </h4>
+          </div>
+          <div class="pr-4 mb-3 mb-xl-0 text-center">
+            <p class="text-muted">
+              Total Orders
+            </p>
+            <h4 class="mb-0 font-weight-bold">
+              {{this.statsService.ordersProcessedByDayByOrganisationStatsTotalsSummed }}
+            </h4>
+          </div>
+          <div class="pr-3 mb-3 mb-xl-0 text-center">
+            <p class="text-muted">
+              {{t "index-route.total-items-sold-stat-label"}}
+            </p>
+            <h4 class="mb-0 font-weight-bold">
+              {{this.statsService.ticketsSoldByDayByOrganisationStatsTotalsSummed }}
+            </h4>
+          </div>
+          {{!--<div class="mb-3 mb-xl-0">
+                        {{#link-to "u.reports" class="btn btn-warning rounded-0 text-white"}}Reports{{/link-to}}
+                    </div>--}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{{#unless this.noOrganiser}}
+  {{#unless this.currentUser.eventOrganiser.isConnectedToStripe}}
+    <div class="alert alert-warning d-flex" role="alert">
+      <div class="text-center">
+        You have not set up a payment provider
+      </div>
+      <div class="text-center">
+        <a href="{{this.stripeOauthUrl}}" class="stripe-connect dark">
+          <span>
+            Connect with
+                Stripe
+          </span>
+        </a>
+      </div>
+    </div>
+  {{/unless}}
+{{/unless}}
+<div class="row">
+  <div class="col-md-4 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <p class="card-title text-md-center text-xl-left">
+          {{t "index-route.number-items-sold-label"}}
+        </p>
+        <div
+          class="d-flex flex-wrap justify-content-between justify-content-md-center justify-content-xl-between align-items-center">
+          <h3 class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0">
+            {{this.statsService.ticketsSoldByDayByOrganisationStatsTotalsSummed }}
+          </h3>
+          <FaIcon @icon="cart-plus" class="icon-md text-muted mb-0 mb-md-3 mb-xl-0"/>
+          {{!-- <i class="ti-user icon-md text-muted mb-0 mb-md-3 mb-xl-0"></i> --}}
+        </div>
+        {{!-- <p class="mb-0 mt-2 text-danger">{{ticketSalesMonthOnMonthDifference}}% <span class="text-light ml-1"><small>(28
+                            days)</small></span></p> --}}
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <p class="card-title text-md-center text-xl-left">
+          Abandoned Orders
+        </p>
+        <div
+          class="d-flex flex-wrap justify-content-between justify-content-md-center justify-content-xl-between align-items-center">
+          <h3 class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0">
+            {{this.statsService.stats.totalOrdersAbandoned}}
+          </h3>
+          <FaIcon @icon="sad-tear" class="icon-md text-muted mb-0 mb-md-3 mb-xl-0" @prefix="far"/>
+          {{!-- <i class="ti-layers-alt icon-md text-muted mb-0 mb-md-3 mb-xl-0"></i> --}}
+        </div>
+        {{! <p class="mb-0 mt-2 text-success">22.00%<span class="text-light ml-1"><small>(30 days)</small></span> </p> }}
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <p class="card-title text-md-center text-xl-left">
+          Total Orders
+        </p>
+        <div
+          class="d-flex flex-wrap justify-content-between justify-content-md-center justify-content-xl-between align-items-center">
+          <h3 class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0">
+            {{this.statsService.ordersProcessedByDayByOrganisationStatsTotalsSummed }}
+          </h3>
+          <FaIcon @icon="chart-line" class="icon-md text-muted mb-0 mb-md-3 mb-xl-0"/>
+          {{!-- <i class="ti-layers-alt icon-md text-muted mb-0 mb-md-3 mb-xl-0"></i> --}}
+        </div>
+        {{! <p class="mb-0 mt-2 text-success">22.00%<span class="text-light ml-1"><small>(30
+                            days)</small></span></p> }}
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12 grid-margin">
+    <Panels::EventsPanel @query={{this.futureEventsQuery}} @modelType="event-instance"
+      @title={{t "upcoming-route.title-label" }} />
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12 grid-margin stretch-card">
+    <div class="card position-relative">
+      <div class="card-body">
+        <p class="card-title">
+          {{t "index-route.item-sales-graph-title-label"}}
+        </p>
+        <EmberChart @type="line" @data={{this.ticketsSoldByDayByInstanceStatsGroupedChartDataById}} @width="200"
+          @height="100" />
+      </div>
+    </div>
+  </div>
+</div>

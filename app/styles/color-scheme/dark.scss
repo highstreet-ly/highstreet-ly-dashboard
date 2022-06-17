@@ -1,0 +1,215 @@
+.dark {
+
+  body {
+    color: $text-dark;
+  }
+
+  a:not(.btn) {
+    color: $st-brand;
+  }
+
+  .table-striped tbody tr:nth-of-type(odd) {
+    background-color: $bg-dark;
+  }
+
+  .table-hover tbody tr:hover {
+    color: #212529;
+    background-color: $bg-dark;
+  }
+
+  .footer {
+    background-color: $bg-dark;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+  }
+
+  .doc-header {
+    background-color: $bg-dark;
+  }
+
+  .dropzone {
+    border: 1px solid $bg-dark-border;
+
+    &, &.dz-preview.dz-image-preview {
+      background-color: $bg-dark;
+    }
+  }
+
+  .jsgrid .jsgrid-table .jsgrid-alt-row > .jsgrid-cell {
+    background-color: $bg-dark;
+    border-color: $bg-dark-border;
+  }
+
+  .main-panel {
+    background-color: $bg-dark;
+  }
+
+  .horizontal-menu .top-navbar .navbar-menu-wrapper .navbar-nav .nav-item.dropdown .navbar-dropdown .dropdown-item:hover, .dropdown .dropdown-item:hover {
+    background-color: $bg-dark;
+  }
+
+  .horizontal-menu .bottom-navbar {
+    background-color: $panel-dark;
+    box-shadow: 0 19px 34px -15px $bg-dark;
+  }
+
+  ul.list-st li:nth-of-type(2n+1), ul.list-st tbody tr:nth-of-type(2n+1) td, table.table-st tbody tr:nth-of-type(2n+1) td {
+    background-color: $bg-dark;
+  }
+
+  .extra-group {
+    background-color: $bg-dark;
+  }
+
+
+  .dropdown-menu {
+    color: $panel-dark-text;
+    background-color: $panel-dark;
+    border-color: $panel-dark-border;
+  }
+
+  .nav-tabs {
+    .nav-link {
+      color: #b1b1b5;
+      background-color: $panel-dark-darkened;
+      border-color: $panel-dark-darkened $panel-dark-darkened $panel-dark;
+    }
+    .nav-link.active, .nav-item.show .nav-link {
+      background-color: $panel-dark;
+      border-color: $panel-dark-border $panel-dark-border $panel-dark;
+    }
+  }
+
+  .card {
+    background-color: $panel-dark;
+    border-color: $panel-dark-border;
+  }
+
+  .tab-content {
+    background-color: $panel-dark;
+    border-color: $panel-dark;
+  }
+
+  .accordion.accordion-bordered {
+    background-color: $panel-dark;
+  }
+
+  .timeline .timeline-wrapper .timeline-panel:after {
+    border-color: transparent $panel-dark $panel-dark transparent;
+  }
+
+  .email-wrapper {o
+    .mail-sidebar, .mail-list-container, .mail-view {
+      background-color: $panel-dark;
+    }
+  }
+
+  .context-menu-list {
+    border-color: $panel-dark-border;
+
+    &, & .context-menu-item {
+      background-color: $panel-dark;
+    }
+  }
+
+  .datepicker-dropdown:after {
+    border-bottom-color: $panel-dark;
+  }
+
+  .datepicker-dropdown.datepicker-orient-top:after {
+    border-top-color: $panel-dark;
+  }
+
+  .fc-external-events .fc-event {
+    background-color: $panel-dark;
+    color: #b1b1b5;
+  }
+
+  .select2-container--default .select2-dropdown {
+    background-color: $panel-dark;
+  }
+
+  .tt-menu {
+    background-color:$panel-dark;
+    border: 1px solid $panel-dark-border;
+    -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .horizontal-menu .top-navbar {
+    background-color: $bg-dark;
+    border-bottom-color: $bg-dark-border;
+  }
+
+  .input-group-append .input-group-text, .input-group-prepend .input-group-text {
+    background-color: $bg-dark;
+    border-color: $bg-dark-border;
+
+    i {
+      color: $st-brand;
+    }
+  }
+
+  .form-control, .asColorPicker-input, .dataTables_wrapper select, .jsgrid .jsgrid-table .jsgrid-filter-row input[type="text"], .jsgrid .jsgrid-table .jsgrid-filter-row select, .jsgrid .jsgrid-table .jsgrid-filter-row input[type="number"], .select2-container--default .select2-selection--single, .select2-container--default .select2-selection--single .select2-search__field, .typeahead, .tt-query, .tt-hint {
+    background-color: $panel-dark-lightened;
+    border-color: $panel-dark-darkened;
+    color: $panel-dark-text;
+  }
+
+  .form-control::placeholder, .asColorPicker-input::placeholder, .dataTables_wrapper select::placeholder, .jsgrid .jsgrid-table .jsgrid-filter-row input[type="text"]::placeholder, .jsgrid .jsgrid-table .jsgrid-filter-row select::placeholder, .jsgrid .jsgrid-table .jsgrid-filter-row input[type="number"]::placeholder, .select2-container--default .select2-selection--single::placeholder, .select2-container--default .select2-selection--single .select2-search__field::placeholder, .typeahead::placeholder, .tt-query::placeholder, .tt-hint::placeholder {
+    color: $panel-dark-text-muted;
+  }
+
+  .breadcrumb .breadcrumb-item:last-child {
+    color: $text-dark;
+  }
+
+  .horizontal-menu .bottom-navbar .page-navigation > .nav-item > .nav-link .menu-icon {
+    color: $st-brand;
+  }
+
+  .horizontal-menu .bottom-navbar .page-navigation > .nav-item:hover > .nav-link i, .horizontal-menu .bottom-navbar .page-navigation > .nav-item:hover > .nav-link .menu-title,.horizontal-menu .bottom-navbar .page-navigation > .nav-item > .nav-link.active .menu-title {
+    color: $st-brand;
+  }
+
+  .horizontal-menu .bottom-navbar .page-navigation > .nav-item:not(.mega-menu) .submenu {
+    background-color: $panel-dark;
+    border: 1px solid $panel-dark-border;
+
+    ul li a {
+      color: $panel-dark-text;
+    }
+
+    a:hover {
+      color: $st-brand;
+    }
+  }
+
+  a.dropdown-item {
+    color: $panel-dark-text;
+
+    &:hover {
+      color: $st-brand;
+    }
+  }
+
+  .dropdown .dropdown-menu {
+    box-shadow: 0px 1px 15px 1px $bg-dark;
+  }
+}
+
+.swal2-container .swal2-popup {
+  border:2px solid #111;
+  border-radius:5px;
+  background-color: #222;
+
+  .swal2-content {
+    color: #fff;
+    font-size: 20px;
+    line-height: 28px;
+  }
+
+  .swal2-icon {
+    margin-bottom: 20px;
+  }
+}

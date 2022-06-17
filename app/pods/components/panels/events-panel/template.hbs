@@ -1,0 +1,128 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-body">
+        {{#if this.title}}
+          <h4 class="card-title">
+            {{this.title}}
+          </h4>
+        {{/if}}
+        <div class="panel-search">
+          <div class="input-group">
+            <Input
+              @value={{this.search}}
+              {{on 'keyup' (fn this.doSearch this.search)}}
+              @insert-newline={{fn this.doSearch this.search}}
+              class="form-control input-lg"
+              placeholder="Search for a shop"
+            />
+            <span class="input-group-prepend">
+              <button
+                type="button"
+                class="input-group-text"
+                {{on "click" this.doSearch}}
+              >
+                {{fa-icon "search"}}
+              </button>
+            </span>
+          </div>
+        </div>
+        {{#if this.loading}}
+          <LoadingIcon />
+        {{else}}
+          <ul id="services-list" class="list-unstyled list-st mt-3">
+            {{#each this.events as |event|}}
+              <li class="list-st-item item clear">
+                <span class="event-panel-text">
+                  <b>
+                    {{event.name}}
+                  </b>
+                </span>
+                <small class="event-panel-buttons text-right">
+                  {{#if event.isPublished}}
+                    <button
+                      type="button"
+                      class="btn btn-outline-danger btn-fw btn-xs"
+                      {{on "click" (fn this.unpublishEvent event)}}
+                    >
+                      {{fa-icon "times"}}
+                      Disable Shop
+                    </button>
+                  {{else}}
+                    <button
+                      type="button"
+                      class="btn btn-outline-success btn-fw btn-xs"
+                      {{on "click" (fn this.publishEvent event)}}
+                    >
+                      {{fa-icon "check"}}
+                      Enable Shop
+                    </button>
+                  {{/if}}
+                  {{#if (eq @modelType "event-instance")}}
+                    {{#if event.isPublished}}
+                      <a
+                        href="https://{{event.url}}"
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        class="btn btn-outline-secondary btn-fw btn-xs"
+                      >
+                        <FaIcon @icon="share" />
+                        View
+                      </a>
+                    {{/if}}
+                  {{/if}}
+                  {{!TODO I don't want this visible until we have a proper UI with confirmation around it,
+                  it seems far too easy to do by accident }}
+                  {{!--<span {{action "deleteEvent" event}}
+                      class="btn btn-outline-danger btn-fw btn-xs">{{fa-icon 'times'}} Delete</span>--}}
+                  {{#if (eq this.modelType "event-series")}}
+                    {{#if (gt event.eventCount 1)}}
+                      <button
+                        type="button"
+                        name="manage"
+                        class="btn btn-info btn-fw btn-xs"
+                        {{on "click" (fn this.navigateSeries event)}}
+                      >
+                        <FaIcon @icon="edit" @prefix="far" />
+                        Manage
+                      </button>
+                    {{else}}
+                      <button
+                        type="button"
+                        name="manage"
+                        class="btn btn-info btn-fw btn-xs"
+                        {{on
+                          "click"
+                          (fn this.navigateFirstInstanceInSeries event)
+                        }}
+                      >
+                        <FaIcon @icon="edit" @prefix="far" />
+                        Manage
+                      </button>
+                    {{/if}}
+                  {{else}}
+                    <button
+                      type="button"
+                      name="manage"
+                      class="btn btn-info btn-fw btn-xs"
+                      {{on "click" (fn this.navigateInstance event)}}
+                    >
+                      <FaIcon @icon="edit" @prefix="far" />
+                      Manage
+                    </button>
+                  {{/if}}
+                </small>
+              </li>
+            {{/each}}
+          </ul>
+        {{/if}}
+        <SimplePagination
+          @recordCount={{this.recordCount}}
+          @pageSize={{this.pageSize}}
+          @pageNumber={{this.pageNumber}}
+          @onPageSelect={{this.getPage}}
+        />
+      </div>
+    </div>
+  </div>
+</div>

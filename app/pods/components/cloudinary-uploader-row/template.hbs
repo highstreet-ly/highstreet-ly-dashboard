@@ -1,0 +1,38 @@
+<div class="cloudinary-uploader-row" {{did-insert this.didInsert}}>
+  {{#if (and this.currentImageId this.previewImage)}}
+    <CloudinaryImage
+      @imageId={{this.currentImageId}}
+      alt={{@alt}}
+      @options={{this.imageOptions}}
+    />
+  {{/if}}
+  {{#if this.currentImageId}}
+    <button
+      type="button"
+      class="btn btn-default btn-xs ml-1"
+      {{on "click" this.showUploadModal}}
+    >
+      <FaIcon @icon="cloud-upload-alt" />
+      Replace
+    </button>
+    <button
+      type="button"
+      class="btn btn-danger btn-xs ml-1"
+      {{on "click" this.deleteImage}}
+    >
+      <FaIcon @icon="times" />
+      Remove
+    </button>
+  {{else}}
+    <div class="cloudinary-uploader-button">
+      <button
+        type="button"
+        class="btn btn-sm btn-primary"
+        {{on "click" this.showUploadModal}}
+      >
+        <FaIcon @icon="cloud-upload-alt" />
+        Add an image
+      </button>
+    </div>
+  {{/if}}
+</div>

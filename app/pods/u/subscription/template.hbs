@@ -1,0 +1,7 @@
+{{page-title "Subscription"}}
+
+<Forms::Subscriptions @plans={{this.plans}} @currentSubscription={{this.currentSubscription}}/>
+
+{{#if this.saving}}
+  <LoadingIcon />
+{{/if}}

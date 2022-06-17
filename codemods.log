@@ -1,0 +1,200 @@
+2020-02-20T12:32:53.647Z [warn] [app/pods/confirmemail/route.js]: FAILURE Type mismatch, expected type 'routes' did not match type of file
+2020-02-20T12:32:53.652Z [warn] [app/pods/u/payment-methods/callback/controller.js]: FAILURE Type mismatch, expected type 'routes' did not match type of file
+2020-02-20T12:32:53.647Z [warn] [app/pods/u/payment-methods/route.js]: FAILURE Type mismatch, expected type 'routes' did not match type of file
+2020-02-20T12:32:53.678Z [warn] [app/pods/u/team-members/route.js]: FAILURE Type mismatch, expected type 'routes' did not match type of file
+2020-02-20T12:32:53.714Z [warn] [app/pods/u/upcoming-events/route.js]: FAILURE Type mismatch, expected type 'routes' did not match type of file
+2020-02-20T12:32:53.818Z [warn] [app/pods/u/basic-info/controller.js]: FAILURE Type mismatch, expected type 'routes' did not match type of file
+2020-02-20T12:32:53.671Z [warn] [app/pods/request-reset-password/route.js]: FAILURE Type mismatch, expected type 'routes' did not match type of file
+2020-02-20T12:32:53.837Z [warn] [app/pods/request-reset-password/controller.js]: FAILURE Type mismatch, expected type 'routes' did not match type of file
+2020-02-20T12:32:53.848Z [warn] [app/pods/confirmemail/controller.js]: FAILURE Type mismatch, expected type 'routes' did not match type of file
+2020-02-20T12:32:53.897Z [warn] [app/pods/u/add-event-to-series/route.js]: FAILURE Type mismatch, expected type 'routes' did not match type of file
+2020-02-20T12:32:53.907Z [warn] [app/pods/components/cloudinary-uploader/component.js]: FAILURE Type mismatch, expected type 'routes' did not match type of file
+2020-02-20T12:32:53.915Z [warn] [app/pods/components/cloudinary-image/component.js]: FAILURE Type mismatch, expected type 'routes' did not match type of file
+2020-02-20T12:32:53.923Z [warn] [app/pods/components/component-loading/component.js]: FAILURE Type mismatch, expected type 'routes' did not match type of file
+2020-02-20T12:32:53.991Z [warn] [app/pods/u/event-instance/route.js]: FAILURE Type mismatch, expected type 'routes' did not match type of file
+2020-02-20T12:32:54.031Z [warn] [app/pods/u/payment-methods/callback/route.js]: FAILURE Type mismatch, expected type 'routes' did not match type of file
+2020-02-20T12:32:54.024Z [warn] [app/pods/components/reports/by-organisation/registered-interests/component.js]: FAILURE Type mismatch, expected type 'routes' did not match type of file
+2020-02-20T12:32:54.093Z [warn] [app/pods/components/tickets-summary/component.js]: FAILURE Type mismatch, expected type 'routes' did not match type of file
+2020-02-20T12:32:54.067Z [warn] [app/pods/components/forms/ticket-form/component.js]: FAILURE Type mismatch, expected type 'routes' did not match type of file
+2020-02-20T12:32:54.091Z [warn] [app/pods/components/reports/event-instance-stats/component.js]: FAILURE Type mismatch, expected type 'routes' did not match type of file
+2020-02-20T12:32:54.111Z [warn] [app/pods/components/reports/by-organisation/attendees/component.js]: FAILURE Type mismatch, expected type 'routes' did not match type of file
+2020-02-20T12:32:54.029Z [warn] [app/pods/u/event-series/controller.js]: FAILURE Type mismatch, expected type 'routes' did not match type of file
+2020-02-20T12:32:54.098Z [warn] [app/pods/u/event-series/route.js]: FAILURE Type mismatch, expected type 'routes' did not match type of file
+2020-02-20T12:32:54.115Z [warn] [app/pods/u/event-instance/controller.js]: FAILURE Type mismatch, expected type 'routes' did not match type of file
+2020-02-20T12:32:54.123Z [warn] [app/pods/u/data-protection/route.js]: FAILURE Type mismatch, expected type 'routes' did not match type of file
+2020-02-20T12:32:54.142Z [warn] [app/pods/components/stats-at-a-glance/component.js]: FAILURE Type mismatch, expected type 'routes' did not match type of file
+2020-02-20T12:32:53.802Z [warn] [app/pods/u/upcoming-events/controller.js]: FAILURE Type mismatch, expected type 'routes' did not match type of file
+2020-02-20T12:32:54.171Z [warn] [app/pods/components/forms/event-instance/component.js]: FAILURE Type mismatch, expected type 'routes' did not match type of file
+2020-02-20T12:32:54.052Z [warn] [app/pods/components/reports/by-organisation/total-orders/component.js]: FAILURE Type mismatch, expected type 'routes' did not match type of file
+2020-02-20T12:32:54.186Z [warn] [app/pods/components/reports/by-organisation/todays-orders/component.js]: FAILURE Type mismatch, expected type 'routes' did not match type of file
+2020-02-20T12:32:53.959Z [warn] [app/pods/u/basic-info/route.js]: FAILURE Type mismatch, expected type 'routes' did not match type of file
+2020-02-20T12:32:54.119Z [warn] [app/pods/u/create-new-event/controller.js]: FAILURE Type mismatch, expected type 'routes' did not match type of file
+2020-02-20T12:32:54.238Z [warn] [app/pods/u/create-new-event/route.js]: FAILURE Type mismatch, expected type 'routes' did not match type of file
+2020-02-20T12:32:54.273Z [warn] [app/pods/u/index/controller.js]: FAILURE Type mismatch, expected type 'routes' did not match type of file
+2020-02-20T12:32:54.365Z [warn] [app/pods/u/past-events/controller.js]: FAILURE Type mismatch, expected type 'routes' did not match type of file
+2020-02-20T12:32:54.462Z [warn] [app/pods/u/index/route.js]: FAILURE Type mismatch, expected type 'routes' did not match type of file
+2020-02-20T12:32:54.519Z [warn] [app/pods/u/payment-methods/controller.js]: FAILURE Type mismatch, expected type 'routes' did not match type of file
+2020-02-20T12:32:54.552Z [warn] [app/pods/u/past-events/route.js]: FAILURE Type mismatch, expected type 'routes' did not match type of file
+2020-02-20T12:32:54.259Z [warn] [app/pods/components/orders-panel/component.js]: FAILURE Type mismatch, expected type 'routes' did not match type of file
+2020-02-20T12:32:54.400Z [warn] [app/pods/components/sonaticket-header/component.js]: FAILURE Type mismatch, expected type 'routes' did not match type of file
+2020-02-20T12:32:54.569Z [warn] [app/pods/components/events-panel/component.js]: FAILURE Type mismatch, expected type 'routes' did not match type of file
+2020-02-20T12:32:54.319Z [warn] [app/pods/u/add-event-to-series/controller.js]: FAILURE Type mismatch, expected type 'routes' did not match type of file
+2020-02-20T12:32:54.588Z [warn] [app/pods/components/tickets-panel/component.js]: FAILURE Type mismatch, expected type 'routes' did not match type of file
+2020-02-20T12:32:54.648Z [warn] [app/pods/components/waiting-list-panel/component.js]: FAILURE Type mismatch, expected type 'routes' did not match type of file
+2020-02-20T12:32:57.281Z [warn] [app/pods/login/route.js]: FAILURE Type mismatch, expected type 'routes' did not match type of file
+2020-02-20T12:32:57.390Z [warn] [app/pods/resetpassword/route.js]: FAILURE Type mismatch, expected type 'routes' did not match type of file
+2020-02-20T12:32:57.441Z [warn] [app/pods/resetpassword/controller.js]: FAILURE Type mismatch, expected type 'routes' did not match type of file
+2020-02-20T12:32:57.606Z [warn] [app/pods/login/controller.js]: FAILURE Type mismatch, expected type 'routes' did not match type of file
+2020-02-20T12:32:57.641Z [warn] [app/pods/callback/route.js]: FAILURE Type mismatch, expected type 'routes' did not match type of file
+2020-02-20T12:34:08.667Z [warn] [app/pods/u/event-instance/controller.js]: FAILURE Type mismatch, expected type 'controllers' did not match type of file
+2020-02-20T12:34:08.665Z [warn] [app/pods/u/payment-methods/callback/route.js]: FAILURE Type mismatch, expected type 'controllers' did not match type of file
+2020-02-20T12:34:08.665Z [warn] [app/pods/callback/route.js]: FAILURE Type mismatch, expected type 'controllers' did not match type of file
+2020-02-20T12:34:08.664Z [warn] [app/pods/components/stats-at-a-glance/component.js]: FAILURE Type mismatch, expected type 'controllers' did not match type of file
+2020-02-20T12:34:08.667Z [warn] [app/pods/u/payment-methods/route.js]: FAILURE Type mismatch, expected type 'controllers' did not match type of file
+2020-02-20T12:34:08.665Z [warn] [app/pods/u/payment-methods/controller.js]: FAILURE Type mismatch, expected type 'controllers' did not match type of file
+2020-02-20T12:34:08.666Z [warn] [app/pods/components/reports/by-organisation/registered-interests/component.js]: FAILURE Type mismatch, expected type 'controllers' did not match type of file
+2020-02-20T12:34:08.677Z [warn] [app/pods/components/events-panel/component.js]: FAILURE Type mismatch, expected type 'controllers' did not match type of file
+2020-02-20T12:34:08.664Z [warn] [app/pods/login/controller.js]: FAILURE Type mismatch, expected type 'controllers' did not match type of file
+2020-02-20T12:34:08.687Z [warn] [app/pods/resetpassword/route.js]: FAILURE Type mismatch, expected type 'controllers' did not match type of file
+2020-02-20T12:34:08.714Z [warn] [app/pods/u/upcoming-events/route.js]: FAILURE Type mismatch, expected type 'controllers' did not match type of file
+2020-02-20T12:34:08.735Z [warn] [app/pods/components/forms/ticket-form/component.js]: FAILURE Type mismatch, expected type 'controllers' did not match type of file
+2020-02-20T12:34:08.758Z [warn] [app/pods/components/cloudinary-uploader/component.js]: FAILURE Type mismatch, expected type 'controllers' did not match type of file
+2020-02-20T12:34:08.708Z [warn] [app/pods/components/cloudinary-image/component.js]: FAILURE Type mismatch, expected type 'controllers' did not match type of file
+2020-02-20T12:34:08.733Z [warn] [app/pods/login/route.js]: FAILURE Type mismatch, expected type 'controllers' did not match type of file
+2020-02-20T12:34:08.761Z [warn] [app/pods/resetpassword/controller.js]: FAILURE Type mismatch, expected type 'controllers' did not match type of file
+2020-02-20T12:34:08.751Z [warn] [app/pods/u/index/controller.js]: FAILURE Type mismatch, expected type 'controllers' did not match type of file
+2020-02-20T12:34:08.781Z [warn] [app/pods/u/payment-methods/callback/controller.js]: FAILURE Type mismatch, expected type 'controllers' did not match type of file
+2020-02-20T12:34:08.798Z [warn] [app/pods/components/reports/event-instance-stats/component.js]: FAILURE Type mismatch, expected type 'controllers' did not match type of file
+2020-02-20T12:34:08.817Z [warn] [app/pods/components/reports/by-organisation/attendees/component.js]: FAILURE Type mismatch, expected type 'controllers' did not match type of file
+2020-02-20T12:34:08.739Z [warn] [app/pods/confirmemail/route.js]: FAILURE Type mismatch, expected type 'controllers' did not match type of file
+2020-02-20T12:34:08.823Z [warn] [app/pods/request-reset-password/controller.js]: FAILURE Type mismatch, expected type 'controllers' did not match type of file
+2020-02-20T12:34:08.831Z [warn] [app/pods/confirmemail/controller.js]: FAILURE Type mismatch, expected type 'controllers' did not match type of file
+2020-02-20T12:34:08.837Z [warn] [app/pods/request-reset-password/route.js]: FAILURE Type mismatch, expected type 'controllers' did not match type of file
+2020-02-20T12:34:08.840Z [warn] [app/pods/u/basic-info/controller.js]: FAILURE Type mismatch, expected type 'controllers' did not match type of file
+2020-02-20T12:34:08.791Z [warn] [app/pods/u/past-events/route.js]: FAILURE Type mismatch, expected type 'controllers' did not match type of file
+2020-02-20T12:34:08.827Z [warn] [app/pods/u/past-events/controller.js]: FAILURE Type mismatch, expected type 'controllers' did not match type of file
+2020-02-20T12:34:08.875Z [warn] [app/pods/u/index/route.js]: FAILURE Type mismatch, expected type 'controllers' did not match type of file
+2020-02-20T12:34:08.882Z [warn] [app/pods/u/create-new-event/route.js]: FAILURE Type mismatch, expected type 'controllers' did not match type of file
+2020-02-20T12:34:08.905Z [warn] [app/pods/components/reports/by-organisation/todays-orders/component.js]: FAILURE Type mismatch, expected type 'controllers' did not match type of file
+2020-02-20T12:34:08.922Z [warn] [app/pods/components/reports/by-organisation/total-orders/component.js]: FAILURE Type mismatch, expected type 'controllers' did not match type of file
+2020-02-20T12:34:08.804Z [warn] [app/pods/components/sonaticket-header/component.js]: FAILURE Type mismatch, expected type 'controllers' did not match type of file
+2020-02-20T12:34:08.911Z [warn] [app/pods/components/orders-panel/component.js]: FAILURE Type mismatch, expected type 'controllers' did not match type of file
+2020-02-20T12:34:08.935Z [warn] [app/pods/components/component-loading/component.js]: FAILURE Type mismatch, expected type 'controllers' did not match type of file
+2020-02-20T12:34:08.860Z [warn] [app/pods/u/event-series/route.js]: FAILURE Type mismatch, expected type 'controllers' did not match type of file
+2020-02-20T12:34:08.919Z [warn] [app/pods/u/event-series/controller.js]: FAILURE Type mismatch, expected type 'controllers' did not match type of file
+2020-02-20T12:34:08.951Z [warn] [app/pods/u/data-protection/route.js]: FAILURE Type mismatch, expected type 'controllers' did not match type of file
+2020-02-20T12:34:08.988Z [warn] [app/pods/components/tickets-panel/component.js]: FAILURE Type mismatch, expected type 'controllers' did not match type of file
+2020-02-20T12:34:08.816Z [warn] [app/pods/u/upcoming-events/controller.js]: FAILURE Type mismatch, expected type 'controllers' did not match type of file
+2020-02-20T12:34:08.828Z [warn] [app/pods/u/team-members/route.js]: FAILURE Type mismatch, expected type 'controllers' did not match type of file
+2020-02-20T12:34:09.079Z [warn] [app/pods/components/forms/event-instance/component.js]: FAILURE Type mismatch, expected type 'controllers' did not match type of file
+2020-02-20T12:34:09.089Z [warn] [app/pods/u/event-instance/route.js]: FAILURE Type mismatch, expected type 'controllers' did not match type of file
+2020-02-20T12:34:08.933Z [warn] [app/pods/u/add-event-to-series/route.js]: FAILURE Type mismatch, expected type 'controllers' did not match type of file
+2020-02-20T12:34:09.072Z [warn] [app/pods/u/create-new-event/controller.js]: FAILURE Type mismatch, expected type 'controllers' did not match type of file
+2020-02-20T12:34:09.131Z [warn] [app/pods/u/basic-info/route.js]: FAILURE Type mismatch, expected type 'controllers' did not match type of file
+2020-02-20T12:34:09.141Z [warn] [app/pods/components/waiting-list-panel/component.js]: FAILURE Type mismatch, expected type 'controllers' did not match type of file
+2020-02-20T12:34:09.146Z [warn] [app/pods/components/tickets-summary/component.js]: FAILURE Type mismatch, expected type 'controllers' did not match type of file
+2020-02-20T12:34:09.210Z [warn] [app/pods/u/add-event-to-series/controller.js]: FAILURE Type mismatch, expected type 'controllers' did not match type of file
+2020-02-20T12:36:08.690Z [warn] [app/pods/confirmemail/controller.js]: FAILURE Type mismatch, expected type 'controller' did not match type of file
+2020-02-20T12:36:08.756Z [warn] [app/pods/components/reports/by-organisation/registered-interests/component.js]: FAILURE Type mismatch, expected type 'controller' did not match type of file
+2020-02-20T12:36:08.765Z [warn] [app/pods/confirmemail/route.js]: FAILURE Type mismatch, expected type 'controller' did not match type of file
+2020-02-20T12:36:08.805Z [warn] [app/pods/resetpassword/controller.js]: FAILURE Type mismatch, expected type 'controller' did not match type of file
+2020-02-20T12:36:08.814Z [warn] [app/pods/resetpassword/route.js]: FAILURE Type mismatch, expected type 'controller' did not match type of file
+2020-02-20T12:36:08.837Z [warn] [app/pods/components/cloudinary-image/component.js]: FAILURE Type mismatch, expected type 'controller' did not match type of file
+2020-02-20T12:36:08.841Z [warn] [app/pods/u/payment-methods/route.js]: FAILURE Type mismatch, expected type 'controller' did not match type of file
+2020-02-20T12:36:08.766Z [warn] [app/pods/components/reports/by-organisation/total-orders/component.js]: FAILURE Type mismatch, expected type 'controller' did not match type of file
+2020-02-20T12:36:08.903Z [warn] [app/pods/components/reports/by-organisation/todays-orders/component.js]: FAILURE Type mismatch, expected type 'controller' did not match type of file
+2020-02-20T12:36:09.044Z [warn] [app/pods/u/index/route.js]: FAILURE Type mismatch, expected type 'controller' did not match type of file
+2020-02-20T12:36:09.084Z [warn] [app/pods/components/cloudinary-uploader/component.js]: FAILURE Type mismatch, expected type 'controller' did not match type of file
+2020-02-20T12:36:08.853Z [warn] [app/pods/u/team-members/route.js]: FAILURE Type mismatch, expected type 'controller' did not match type of file
+2020-02-20T12:36:08.895Z [warn] [app/pods/u/upcoming-events/controller.js]: FAILURE Type mismatch, expected type 'controller' did not match type of file
+2020-02-20T12:36:08.904Z [warn] [app/pods/u/upcoming-events/route.js]: FAILURE Type mismatch, expected type 'controller' did not match type of file
+2020-02-20T12:36:09.094Z [warn] [app/pods/components/forms/event-instance/component.js]: FAILURE Type mismatch, expected type 'controller' did not match type of file
+2020-02-20T12:36:09.118Z [warn] [app/pods/components/forms/ticket-form/component.js]: FAILURE Type mismatch, expected type 'controller' did not match type of file
+2020-02-20T12:36:09.095Z [warn] [app/pods/u/past-events/controller.js]: FAILURE Type mismatch, expected type 'controller' did not match type of file
+2020-02-20T12:36:09.130Z [warn] [app/pods/u/payment-methods/controller.js]: FAILURE Type mismatch, expected type 'controller' did not match type of file
+2020-02-20T12:36:09.137Z [warn] [app/pods/u/past-events/route.js]: FAILURE Type mismatch, expected type 'controller' did not match type of file
+2020-02-20T12:36:09.145Z [warn] [app/pods/u/index/controller.js]: FAILURE Type mismatch, expected type 'controller' did not match type of file
+2020-02-20T12:36:09.191Z [warn] [app/pods/u/add-event-to-series/route.js]: FAILURE Type mismatch, expected type 'controller' did not match type of file
+2020-02-20T12:36:09.192Z [warn] [app/pods/u/data-protection/route.js]: FAILURE Type mismatch, expected type 'controller' did not match type of file
+2020-02-20T12:36:09.224Z [warn] [app/pods/components/stats-at-a-glance/component.js]: FAILURE Type mismatch, expected type 'controller' did not match type of file
+2020-02-20T12:36:09.128Z [warn] [app/pods/components/reports/event-instance-stats/component.js]: FAILURE Type mismatch, expected type 'controller' did not match type of file
+2020-02-20T12:36:09.153Z [warn] [app/pods/u/payment-methods/callback/controller.js]: FAILURE Type mismatch, expected type 'controller' did not match type of file
+2020-02-20T12:36:09.367Z [warn] [app/pods/u/payment-methods/callback/route.js]: FAILURE Type mismatch, expected type 'controller' did not match type of file
+2020-02-20T12:36:09.400Z [warn] [app/pods/components/reports/by-organisation/attendees/component.js]: FAILURE Type mismatch, expected type 'controller' did not match type of file
+2020-02-20T12:36:09.103Z [warn] [app/pods/components/component-loading/component.js]: FAILURE Type mismatch, expected type 'controller' did not match type of file
+2020-02-20T12:36:09.322Z [warn] [app/pods/components/events-panel/component.js]: FAILURE Type mismatch, expected type 'controller' did not match type of file
+2020-02-20T12:36:09.400Z [warn] [app/pods/components/sonaticket-header/component.js]: FAILURE Type mismatch, expected type 'controller' did not match type of file
+2020-02-20T12:36:09.457Z [warn] [app/pods/components/orders-panel/component.js]: FAILURE Type mismatch, expected type 'controller' did not match type of file
+2020-02-20T12:36:09.288Z [warn] [app/pods/u/event-series/controller.js]: FAILURE Type mismatch, expected type 'controller' did not match type of file
+2020-02-20T12:36:09.366Z [warn] [app/pods/u/event-series/route.js]: FAILURE Type mismatch, expected type 'controller' did not match type of file
+2020-02-20T12:36:09.375Z [warn] [app/pods/u/event-instance/controller.js]: FAILURE Type mismatch, expected type 'controller' did not match type of file
+2020-02-20T12:36:09.474Z [warn] [app/pods/u/event-instance/route.js]: FAILURE Type mismatch, expected type 'controller' did not match type of file
+2020-02-20T12:36:09.279Z [warn] [app/pods/u/basic-info/controller.js]: FAILURE Type mismatch, expected type 'controller' did not match type of file
+2020-02-20T12:36:09.326Z [warn] [app/pods/u/basic-info/route.js]: FAILURE Type mismatch, expected type 'controller' did not match type of file
+2020-02-20T12:36:09.459Z [warn] [app/pods/u/create-new-event/controller.js]: FAILURE Type mismatch, expected type 'controller' did not match type of file
+2020-02-20T12:36:09.502Z [warn] [app/pods/u/create-new-event/route.js]: FAILURE Type mismatch, expected type 'controller' did not match type of file
+2020-02-20T12:36:09.593Z [warn] [app/pods/login/controller.js]: FAILURE Type mismatch, expected type 'controller' did not match type of file
+2020-02-20T12:36:09.241Z [warn] [app/pods/components/tickets-summary/component.js]: FAILURE Type mismatch, expected type 'controller' did not match type of file
+2020-02-20T12:36:09.487Z [warn] [app/pods/components/tickets-panel/component.js]: FAILURE Type mismatch, expected type 'controller' did not match type of file
+2020-02-20T12:36:09.570Z [warn] [app/pods/components/waiting-list-panel/component.js]: FAILURE Type mismatch, expected type 'controller' did not match type of file
+2020-02-20T12:36:09.618Z [warn] [app/pods/u/add-event-to-series/controller.js]: FAILURE Type mismatch, expected type 'controller' did not match type of file
+2020-02-20T12:36:09.655Z [warn] [app/pods/callback/route.js]: FAILURE Type mismatch, expected type 'controller' did not match type of file
+2020-02-20T12:36:09.704Z [warn] [app/pods/request-reset-password/controller.js]: FAILURE Type mismatch, expected type 'controller' did not match type of file
+2020-02-20T12:36:09.722Z [warn] [app/pods/login/route.js]: FAILURE Type mismatch, expected type 'controller' did not match type of file
+2020-02-20T12:36:09.730Z [warn] [app/pods/request-reset-password/route.js]: FAILURE Type mismatch, expected type 'controller' did not match type of file
+2020-02-20T12:38:10.409Z [info] [app/pods/components/forms/ticket-form/component.js]: SUCCESS
+2020-02-20T12:38:10.424Z [info] [app/pods/components/stats-at-a-glance/component.js]: SUCCESS
+2020-02-20T12:38:10.452Z [info] [app/pods/components/reports/event-instance-stats/component.js]: SUCCESS
+2020-02-20T12:38:10.483Z [info] [app/pods/u/payment-methods/callback/controller.js]: SUCCESS
+2020-02-20T12:38:10.677Z [info] [app/pods/u/payment-methods/callback/route.js]: SUCCESS
+2020-02-20T12:38:10.722Z [info] [app/pods/components/reports/by-organisation/attendees/component.js]: SUCCESS
+2020-02-20T12:38:10.775Z [info] [app/pods/u/data-protection/route.js]: SUCCESS
+2020-02-20T12:38:10.886Z [info] [app/pods/components/reports/by-organisation/registered-interests/component.js]: SUCCESS
+2020-02-20T12:38:10.901Z [info] [app/pods/u/payment-methods/route.js]: SUCCESS
+2020-02-20T12:38:10.680Z [info] [app/pods/components/tickets-panel/component.js]: SUCCESS
+2020-02-20T12:38:10.747Z [info] [app/pods/components/tickets-summary/component.js]: SUCCESS
+2020-02-20T12:38:10.863Z [info] [app/pods/u/add-event-to-series/controller.js]: SUCCESS
+2020-02-20T12:38:10.948Z [info] [app/pods/components/waiting-list-panel/component.js]: SUCCESS
+2020-02-20T12:38:11.017Z [info] [app/pods/u/index/controller.js]: SUCCESS
+2020-02-20T12:38:11.050Z [warn] [app/pods/components/cloudinary-uploader/component.js]: FAILURE 
+Validation errors: 
+	[options]: Transform not supported - value is of type object. For more details: eslint-plugin-ember/avoid-leaking-state-in-ember-objects
+2020-02-20T12:38:11.068Z [info] [app/pods/callback/route.js]: SUCCESS
+2020-02-20T12:38:11.097Z [info] [app/pods/components/reports/by-organisation/todays-orders/component.js]: SUCCESS
+2020-02-20T12:38:11.129Z [info] [app/pods/components/reports/by-organisation/total-orders/component.js]: SUCCESS
+2020-02-20T12:38:11.202Z [info] [app/pods/u/add-event-to-series/route.js]: SUCCESS
+2020-02-20T12:38:11.250Z [info] [app/pods/resetpassword/controller.js]: SUCCESS
+2020-02-20T12:38:10.941Z [info] [app/pods/u/team-members/route.js]: SUCCESS
+2020-02-20T12:38:10.992Z [warn] [app/pods/u/upcoming-events/controller.js]: FAILURE 
+Validation errors: 
+	[futureEventsQuery]: Transform not supported - value is of type object. For more details: eslint-plugin-ember/avoid-leaking-state-in-ember-objects
+2020-02-20T12:38:11.284Z [warn] [app/pods/components/forms/event-instance/component.js]: FAILURE 
+Validation errors: 
+	[heroImageOpts]: Transform not supported - value is of type object. For more details: eslint-plugin-ember/avoid-leaking-state-in-ember-objects
+2020-02-20T12:38:11.328Z [info] [app/pods/u/upcoming-events/route.js]: SUCCESS
+2020-02-20T12:38:10.943Z [info] [app/pods/u/event-series/controller.js]: SUCCESS
+2020-02-20T12:38:11.139Z [info] [app/pods/u/event-instance/route.js]: SUCCESS
+2020-02-20T12:38:11.210Z [info] [app/pods/u/event-instance/controller.js]: SUCCESS
+2020-02-20T12:38:11.310Z [info] [app/pods/u/event-series/route.js]: SUCCESS
+2020-02-20T12:38:11.199Z [info] [app/pods/u/index/route.js]: SUCCESS
+2020-02-20T12:38:11.317Z [warn] [app/pods/u/past-events/controller.js]: FAILURE 
+Validation errors: 
+	[pastEventsQuery]: Transform not supported - value is of type object. For more details: eslint-plugin-ember/avoid-leaking-state-in-ember-objects
+2020-02-20T12:38:11.344Z [info] [app/pods/u/past-events/route.js]: SUCCESS
+2020-02-20T12:38:11.434Z [info] [app/pods/u/payment-methods/controller.js]: SUCCESS
+2020-02-20T12:38:11.422Z [info] [app/pods/login/controller.js]: SUCCESS
+2020-02-20T12:38:11.472Z [info] [app/pods/confirmemail/route.js]: SUCCESS
+2020-02-20T12:38:11.492Z [info] [app/pods/confirmemail/controller.js]: SUCCESS
+2020-02-20T12:38:11.504Z [info] [app/pods/login/route.js]: SUCCESS
+2020-02-20T12:38:11.312Z [info] [app/pods/resetpassword/route.js]: SUCCESS
+2020-02-20T12:38:11.339Z [info] [app/pods/request-reset-password/route.js]: SUCCESS
+2020-02-20T12:38:11.509Z [info] [app/pods/request-reset-password/controller.js]: SUCCESS
+2020-02-20T12:38:11.564Z [info] [app/pods/components/cloudinary-image/component.js]: SUCCESS
+2020-02-20T12:38:11.073Z [info] [app/pods/components/component-loading/component.js]: SUCCESS
+2020-02-20T12:38:11.506Z [info] [app/pods/components/events-panel/component.js]: SUCCESS
+2020-02-20T12:38:11.731Z [info] [app/pods/components/orders-panel/component.js]: SUCCESS
+2020-02-20T12:38:11.815Z [info] [app/pods/components/sonaticket-header/component.js]: SUCCESS
+2020-02-20T12:38:11.507Z [info] [app/pods/u/basic-info/controller.js]: SUCCESS
+2020-02-20T12:38:11.584Z [info] [app/pods/u/basic-info/route.js]: SUCCESS
+2020-02-20T12:38:11.748Z [info] [app/pods/u/create-new-event/controller.js]: SUCCESS
+2020-02-20T12:38:11.827Z [info] [app/pods/u/create-new-event/route.js]: SUCCESS

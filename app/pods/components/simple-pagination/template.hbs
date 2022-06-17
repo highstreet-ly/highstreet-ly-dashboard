@@ -1,0 +1,88 @@
+{{#if this.displayPaginator}}
+  <nav aria-label="Page navigation" data-test-selector="page-navigation">
+    <ul class="paginator">
+      {{#unless this.isPrevDisabled}}
+      <li
+          class={{if this.isPrevDisabled "disabled"}}
+          data-test-selector="previous-page"
+        >
+          <button
+            type="button"
+            aria-label="Previous"
+            data-test-selector="first-page-link"
+            {{on 'click' (fn this.getPage 1)}}
+          >
+            <span aria-hidden="true">
+              <FaIcon @icon="angle-double-left"/>
+            </span>
+          </button>
+        </li>
+        <li
+          class={{if this.isPrevDisabled "disabled"}}
+          data-test-selector="previous-page"
+        >
+          <button
+            type="button"
+            aria-label="Previous"
+            data-test-selector="previous-page-link"
+            {{on 'click' (fn this.getPage this.prevPageNumber)}}
+          >
+            <span aria-hidden="true">
+              <FaIcon @icon="angle-left"/>
+            </span>
+          </button>
+        </li>
+      {{/unless}}
+      {{#each this.pages as |page|}}
+        <li
+          class="page-number{{if page.active " active"}}"
+          data-test-selector="page-number"
+        >
+          {{#if page.active}}
+            <span data-test-selector="page-number-link" class="current">{{page.number}}</span>
+          {{else}}
+          <button
+            type="button"
+            data-test-selector="page-number-link"
+            {{on 'click' (fn this.getPage page.number)}}
+          >
+            {{page.number}}
+          </button>
+          {{/if}}
+        </li>
+      {{/each}}
+      {{#unless this.isNextDisabled}}
+        <li
+          class={{if this.isNextDisabled "disabled"}}
+          data-test-selector="next-page"
+        >
+          <button
+            type="button"
+            aria-label="Next"
+            data-test-selector="next-page-link"
+            {{on 'click' (fn this.getPage this.nextPageNumber)}}
+          >
+            <span aria-hidden="true">
+              <FaIcon @icon="angle-right"/>
+            </span>
+          </button>
+        </li>
+        <li
+          class={{if this.isNextDisabled "disabled"}}
+          data-test-selector="last-page"
+        >
+          <button
+            type="button"
+            aria-label="Next"
+            data-test-selector="next-page-link"
+            {{on 'click' (fn this.getPage this.totalPages)}}
+          >
+            <span aria-hidden="true">
+              <FaIcon @icon="angle-double-right"/>
+            </span>
+          </button>
+        </li>
+      {{/unless}}
+    </ul>
+  </nav>
+{{/if}}

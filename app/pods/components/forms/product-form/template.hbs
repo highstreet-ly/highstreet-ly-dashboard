@@ -1,0 +1,318 @@
+{{#if this.loading}}
+  <LoadingBlocker />
+{{/if}}
+<div class="position-relative">
+  <div class="form-section">
+    <div class="row">
+      <div class="col-lg-{{if @product.id "9" "12"}}">
+        <div class="row">
+          <div class="col-lg-{{if @product.id "6" "4"}}">
+            <div class="form-group">
+              <label for="product-name">
+                {{t "product-form.item-name-label"}}
+              </label>
+              <Input
+                @value={{@product.name}}
+                id="product-name"
+                class="form-control"
+                maxlength="100"
+              />
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div class="form-group">
+              <label for="product-category">
+                {{t "product-form.item-tags-label"}} 
+              </label>
+               <UI::Select
+                @value={{@product.productCategory}}
+                @onSelect={{this.didSelectCategory}} as |sb|
+              >
+                <sb.SelectedOption @value={{sb.value}}>
+                  {{sb.value.name}}
+                </sb.SelectedOption>
+                <sb.Options>
+                  {{#each @productCategories as |productCategory|}}
+                    <sb.Option @value={{productCategory}}>
+                      {{productCategory.name}}
+                    </sb.Option>
+                  {{/each}}
+                </sb.Options>
+              </UI::Select> 
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div class="form-group">
+              <label for="product-price">
+                {{t "product-form.item-price-label"}}
+              </label>
+              <div class="d-flex">
+                {{#unless this.freeTier}}
+                  <div class="input-group">
+                    <span class="input-group-prepend">
+                      <span class="input-group-text">
+                        £
+                      </span>
+                    </span>
+                    <InputMoney
+                      @number={{this.price}}
+                      class="form-control"
+                      id="product-price"
+                    />
+                  </div>
+                {{/unless}}
+              </div>
+            </div>
+          </div>
+          {{#unless @product.id}}
+          {{#if this.eventInstance.isStockManaged}}
+            <div class="col-lg-2">
+              <div class="form-group">
+                <label for="product-quantity">
+                  Initial Stock
+                </label>
+                <Input
+                  id="product-quantity"
+                  @value={{@product.quantity}}
+                  @type="number"
+                  min="1"
+                  placeholder="0"
+                  class="form-control"
+                  size="30"
+                />
+                {{!--{{#if @product.id}}
+                  <Input id="product-quantity" @value={{@product.quantity}} type="number" min="1" placeholder="0" class="form-control" size="30" disabled=true/>
+                {{else}}
+
+                {{/if}}
+              {{else}}
+                <label for="product-available-quantity">Stock</label>
+                <Input id="product-available-quantity" @value={{@product.availableQuantity}} type="number" min="1" placeholder="0" class="form-control" size="30" disabled=true/>--}}
+              </div>
+            </div>
+            {{/if}}
+          {{/unless}}
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="form-group">
+              <label for="product-description">
+                {{t "product-form.item-desciption-label"}}
+              </label>
+              <Quill as |Ql|>
+                <Ql.toolbar as |Tb|>
+                  <Tb.group>
+                    <Tb.bold />
+                    <Tb.italic />
+                    <Tb.underline />
+                  </Tb.group>
+                  <Tb.group>
+                    <Tb.list value="ordered" />
+                    <Tb.list value="bullet" />
+                  </Tb.group>
+                </Ql.toolbar>
+                <Ql.editor
+                  @name="product-description-editor"
+                  @theme="snow"
+                  @onTextChange={{fn this.updateText}}
+                  @delta={{this.delta}}
+                  @placeholder="Give your product a short description (not required)"
+                />
+              </Quill>
+            </div>
+          </div>
+        </div>
+      </div>
+      {{#if @product.id}} 
+      {{#if this.eventInstance.isStockManaged}}
+        <div class="col-lg-3">
+          <div class="bg-dark">
+            <Forms::StockForm @product={{@product}} />
+          </div>
+        </div>
+      {{/if}}
+      {{/if}}
+    </div>
+  </div>
+  <div class="form-section">
+    <h2 class="form-section-title">
+      Images
+    </h2>
+    <div class="row">
+      <div class="col-12 col-md-4">
+        <div class="form-group">
+          <h5 class="mb-1">
+            Main product image
+          </h5>
+          <div class="mb-3">
+            <small class="text-muted">
+              This is image used on the menu. Make it a good one!
+            </small>
+          </div>
+          <CloudinaryUploaderRow
+            @imageId={{@product.mainImageId}}
+            @hsImageId={{@image.id}}
+            @onDeleteImage={{this.deleteMainImage}}
+            @preset="productImage"
+            @cropping={{true}}
+            @croppingAspectRatio="2"
+            @previewImage={{true}}
+            @onUploadedImageComplete={{this.uploadedMainImage}}
+          />
+        </div>
+      </div>
+      <div class="col-12 col-md-8">
+        <div class="form-group">
+          <h5 class="mb-1">
+            Other images
+          </h5>
+          <div class="mb-3">
+            <small class="text-muted">
+              These will be displayed on the popup gallery (optional) -
+              <b>
+                Maximum 5
+              </b>
+            </small>
+          </div>
+          <div class="row">
+            {{#each @product.images as |image|}}
+              <div class="col-md-6 mb-4">
+                <CloudinaryUploaderRow
+                  @imageId={{image.externalImageId}}
+                  @hsImageId={{image.id}}
+                  @preset="productImage"
+                  @cropping={{true}}
+                  @croppingAspectRatio="1.7"
+                  @onUploadedImageComplete={{this.onUpdateImageComplete}}
+                  @onDeleteImage={{this.deleteImage}}
+                />
+              </div>
+            {{/each}}
+            {{#if (lt @product.images.length 5)}}
+              <div class="col-md-6">
+                <CloudinaryUploaderButton
+                  @imageId={{this.newProductImage.mainImageId}}
+                  @hsImage={{this.newProductImage}}
+                  @preset="productImage"
+                  @cropping={{true}}
+                  @croppingAspectRatio="1.7"
+                  @onUploadedImageComplete={{this.onUploadedImageComplete}}
+                />
+              </div>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-section">
+    <h2 class="form-section-title">
+      Product Options / Extras
+    </h2>
+    <div class="extras">
+      <div class="d-flex">
+        <small class="text-muted flex-grow pr-5">
+          Does/can this product come with extras? Toppings for a pizza? Different sizes available for clothing? Add them here! You can group
+          them into sections, specifying the minimum/maximum number of items in that group that can be selected.
+        </small>
+        
+      </div>
+
+      <div class="d-flex">
+      
+        <div class="text-right">
+          <button
+            type="button"
+            id="add-extra-button"
+            class="btn btn-primary btn-sm"
+            {{on "click" this.addGroup}}
+          >
+            <FaIcon @icon="plus-circle" />
+            Add an extras group
+          </button>
+
+          <button
+            type="button"
+            id="add-extra-button"
+            class="btn btn-primary btn-sm"
+            {{on "click" this.showAddSavedGroup}}
+          >
+            <FaIcon @icon="plus-circle" />
+            Add a saved extras group
+          </button>
+        </div>
+      </div>
+
+    {{#if addingSavedExtra}}
+      <div class="mt-4">
+        <div class="form-group">
+          <label for="product-category">
+            {{t "product-form.item-tags-label"}}
+          </label>
+          <UI::Select 
+            @value={{this.selectedGroup}}
+            
+            @onSelect={{this.didSelectSavedExtraGroup}} as |sb|>
+            <sb.SelectedOption>
+              {{sb.value.name}}
+            </sb.SelectedOption>
+            <sb.Options>
+              {{#each @allGroups as |g|}}
+              <sb.Option @value={{g}}>
+               {{g.ticketTypeConfiguration.name}} - {{g.name}}
+              </sb.Option>
+              {{/each}}
+            </sb.Options>
+          </UI::Select>
+          <button type="button" id="add-extra-button" class="btn btn-primary btn-sm" {{on "click" this.addSavedGroup}}>
+            <FaIcon @icon="plus-circle" />
+            Add
+          </button>
+        </div>
+      </div>
+    {{/if}}
+
+
+
+
+      {{#each @product.productExtraGroups as |group|}}
+        <div class="mt-4">
+          <Forms::ExtrasGroup
+            @product={{@product}}
+            @group={{group}}
+            @editMode={{group.edit}}
+          />
+        </div>
+      {{else}}
+        <div class="extra-group mt-3 text-center">
+          No options/extras added yet
+        </div>
+      {{/each}}
+    </div>
+
+    <EmberWormhole @to="action-bar-bottom-right">
+        <button
+          id="save-product"
+          type="button"
+          class="btn btn-success"
+          {{on "click" (fn this.save @eventInstance)}}
+        >
+          <FaIcon @icon="save" @prefix="far"/>
+          Save Changes
+        </button>
+    </EmberWormhole>
+
+    {{!-- <EmberWormhole @to="action-bar-top-right">
+        <button
+          id="save-product"
+          type="button"
+          class="btn btn-success btn-sm"
+          {{on "click" (fn this.save @eventInstance)}}
+        >
+          {{fa-icon "save"}}
+          Save Changes
+        </button>
+    </EmberWormhole> --}}
+
+  </div>
+</div>

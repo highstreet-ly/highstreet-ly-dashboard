@@ -1,0 +1,54 @@
+<div class="container-fluid page-body-wrapper full-page-wrapper auth">
+  <div class="main-panel login">
+    <div class="content-wrapper d-flex align-items-center px-0">
+      <div class="auth-form-light text-left py-5 px-4 px-sm-5 mx-auto">
+        <div class="brand-logo auth__logo mb-5">
+          <img src="/img/logo.png" alt="Highstreet.ly" />
+        </div>
+        <h4>
+          Forgotten your password?
+        </h4>
+        <h6 class="font-weight-light">
+          Enter your email below
+        </h6>
+        <form class="pt-3">
+          {{#if this.resetSuccess}}
+            <div class="alert alert-success" role="alert">
+              If this email address exists on our system you should receive an email shortly with instructions on how to reset your password
+            </div>
+          {{else}}
+            <div class="form-group">
+              <Input
+                @type="email"
+                class="form-control form-control-lg"
+                placeholder="email address"
+                required={{true}}
+                @value={{this.resetEmail}}
+              />
+            </div>
+            <div class="mt-3">
+              <button
+                type="button"
+                class="btn btn-primary btn-block btn"
+                {{on "click" this.requestResetPassword}}
+              >
+                Reset password
+              </button>
+            </div>
+          {{/if}}
+          <div class="mt-5 auth__otheractions">
+            <LinkTo @route="login">
+              login
+            </LinkTo>
+            <span class="sep">
+              |
+            </span>
+            <a href="{{this.env.sonatribe.MainUi}}/#register">
+              create an account
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

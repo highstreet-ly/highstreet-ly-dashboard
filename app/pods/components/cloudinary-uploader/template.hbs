@@ -1,0 +1,29 @@
+<div class="cloudinary-uploader" {{did-insert this.didInsert}}>
+  {{#if this.currentImageId}}
+    {{#if this.previewImage}}
+      <CloudinaryImage
+        @imageId={{this.currentImageId}}
+        @alt={{@alt}}
+        @options={{this.imageOptions}}
+      />
+    {{/if}}
+    <br />
+    <button
+      type="button"
+      class="btn btn-default btn-sm mt-2"
+      {{on "click" this.showUploadModal}}
+    >
+      Replace Image
+    </button>
+  {{else}}
+    <button
+      type="button"
+      class="btn btn-sm btn-primary"
+      {{on "click" this.showUploadModal}}
+    >
+      <FaIcon @icon="cloud-upload-alt" />
+      Upload Image
+    </button>
+  {{/if}}
+  {{yield}}
+</div>

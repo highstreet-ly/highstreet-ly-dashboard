@@ -1,0 +1,74 @@
+{{page-title (concat "Viewing Order")}}
+<div class="tab-content">
+  <div
+    class="tab-pane active show"
+    id="tickets-1"
+    role="tabpanel"
+    aria-labelledby="tickets-tab"
+  >
+    <div class="card">
+      <div class="card-body">
+        <div class="card">
+          <div class="card-body text-center">
+            <p>
+              <h3 class="warning">
+                NOTE:
+              </h3>
+              You will be refunding the platform fees along with the cost of the products in this order. The
+                        entire refund will be deducted from your Stripe account.
+            </p>
+            <hr />
+            <p class="text-left">
+              You are about to issue a refund for the following payment:
+            </p>
+            <p class="text-left">
+              payment intent ID:
+              {{this.payment.paymentIntentId}}
+              <br />
+              order ID:
+              {{this.payment.orderId}}
+              <br />
+              email:
+              {{this.payment.email}}
+              <br />
+            </p>
+            <p class="text-left">
+              The payment has the following applicable charges:
+            </p>
+            <p class="text-left">
+              {{#each this.charges as |charge|}}
+                charge ID:{{charge.chargeId}}<br />
+              {{/each}}
+            </p>
+            <div class="col-md-12 mb-4 pb-4">
+              <div class="btn-toolbar float-right">
+                <div class="btn-group">
+                  <LinkTo
+                    @route="u.event-instance.orders.view"
+                    @models={{array this.eventInstance.slug this.editingOrder.id
+                    }}
+                    @query={{hash backroute=this.backRoute}}
+                    class="btn btn-info btn-fw btn-xs"
+                  >
+                    <FaIcon @icon="edit" @prefix="far" />
+                    Back
+                  </LinkTo>
+                  {{#if (not-eq this.editingOrder.status 6)}}
+                    <button
+                      type="button"
+                      class="btn btn-sm btn-outline-secondary"
+                      {{on "click" (fn this.issueRefund this.backRoute)}}
+                    >
+                      <i class="ti-reload text-primary mr-1"></i>
+                      Issue Refund
+                    </button>
+                  {{/if}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

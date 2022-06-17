@@ -1,0 +1,101 @@
+{{#if this.loading}}
+<LoadingBlocker />
+{{/if}}
+<div class="options text-right position-absolute top-0 right-0">
+  {{#if this.reorderMode}}
+  <button type="button" class="btn btn-outline-danger btn-xs" role="button" {{on "click" this.cancel}}>
+    <FaIcon @icon="times" />
+    Cancel
+  </button>
+  <button type="button" class="btn btn-outline-success btn-xs" role="button" {{on "click" this.save}}>
+    <FaIcon @icon="save" @prefix="far" />
+    Save
+  </button>
+  {{else}}
+  <button class="btn btn-outline-secondary btn-xs" type="button" role="button" {{on "click" (fn (mut this.reorderMode)
+    true)}}>
+    <FaIcon @icon="edit" @prefix="far" />
+    Reorder
+  </button>
+  {{/if}}
+</div>
+<h2 class="card-title">
+  Features
+</h2>
+<div class="col-lg-4">
+  <div class="form-group">
+    <label for="product-category">
+      Feature type
+      <br />
+    </label>
+    <UI::Select @value={{selectedFeatureTypeType}} @onSelect={{this.didSelectFeatureType}} as |sb|>
+      <sb.SelectedOption>
+        {{if sb.value.name sb.value.name "Select an option"}}
+      </sb.SelectedOption>
+      <sb.Options>
+        <sb.Option @value="">
+          Select an option
+        </sb.Option>
+        {{#each this.featureTypes as |featureType|}}
+        <sb.Option @value={{featureType}}>
+          {{featureType.name}}
+        </sb.Option>
+        {{/each}}
+      </sb.Options>
+    </UI::Select>
+  </div>
+</div>
+{{#if this.reorderMode}}
+<div class="mb-3">
+  <p>
+    <b>
+      Set what order the categories will display in your shop by dragging/dropping them into the desired order. Click
+      "Save" when you're happy.
+    </b>
+  </p>
+</div>
+{{/if}}
+<div class="table-st product-categories">
+  <div class="thead">
+    <div class="tr">
+      <div class="th name grow">
+        Name
+      </div>
+      <div class="th options"></div>
+    </div>
+  </div>
+  <div class="tbody">
+    {{#if this.reorderMode}}
+    <SortableObjects @sortableObjectList={{this.features}} @enableSort={{true}} @sortEndAction={{fn this.reordered}}>
+      {{#each this.features as |feature|}}
+      <DraggableObject @content={{feature}} @overrideClass="tr" @isSortable={{true}}>
+        <div class="td name grow">
+          {{feature.name}}
+        </div>
+        <div class="td options text-right">
+          <FaIcon @icon="arrows-alt-v" />
+        </div>
+      </DraggableObject>
+      {{/each}}
+    </SortableObjects>
+    {{else}}
+    {{#each this.sortedFeatures as |feature|}}
+    <div class="tr">
+      <div class="td name grow">
+        {{feature.name}}
+      </div>
+      <div class="td options text-right">
+        <LinkTo @route="u.admin.feature-edit" @model={{feature.id}} class="btn btn-info btn-fw btn-xs">
+          <FaIcon @icon="edit" @prefix="far" />
+          Manage
+        </LinkTo>
+      </div>
+    </div>
+    {{else}}
+    <div class="tr">
+      <div class="td grow text-center font-bold">There are no features yet</div>
+    </div>
+    {{/each}}
+    {{/if}}
+  </div>
+</div>

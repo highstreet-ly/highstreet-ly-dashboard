@@ -1,0 +1,29 @@
+{{page-title 'Products'}}
+
+<EmberWormhole @to="action-bar-top-left">
+  <ul class="nav nav-pills mb-0">
+    <li class="nav-item">
+      <LinkTo
+        @route="u.event-instance.products"
+        @model="{{this.eventInstance.slug}}"
+        @activeClass="open"
+        class="nav-link btn {{if (eq this.tab "products") "active"}}"
+        id="view-products-button"
+      >
+        {{t "event-instance-route.items-label"}}
+      </LinkTo>
+    </li>
+    <li class="nav-item">
+      <LinkTo
+        @route="u.event-instance.products.categories"
+        @model="{{this.eventInstance.slug}}"
+        @activeClass="open"
+        class="nav-link btn {{if (eq this.tab "categories") "active"}}"
+        id="view-categories-button"
+      >
+        Categories
+      </LinkTo>
+    </li>
+  </ul>
+</EmberWormhole>
+{{outlet}}

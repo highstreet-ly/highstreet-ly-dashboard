@@ -1,0 +1,204 @@
+<div class="position-relative">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">
+            Your Account Details
+          </h4>
+          <div class="row">
+            <div class="col-lg-4">
+              <div class="form-group">
+                <label for="exampleInputName1">
+                  Email
+                </label>
+                <Input
+                  @value={{this.currentUser.user.email}}
+                  class="form-control m-b-5"
+                  disabled
+                />
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="form-group">
+                <label for="exampleInputName1">
+                  First Name
+                </label>
+                <Input
+                  @value={{this.currentUser.userModel.firstName}}
+                  class="form-control m-b-5"
+                />
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="form-group">
+                <label for="exampleInputName1">
+                  Last Name
+                </label>
+                <Input
+                  @value={{@currentUser.userModel.lastName}}
+                  class="form-control m-b-5"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 mt-4">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">
+            Your Avatar
+          </h4>
+          <p class="card-description">
+            Select Avatar
+          </p>
+          <div class="forms-sample">
+            <div class="row">
+              <div class="col-md-4">
+                <div
+                  class="card account-card
+                    {{if
+                      (eq this.currentUser.userModel.avatarType 0)
+                      " account-card-selected"
+                      "account-card-unselected"
+                    }}"
+                  onclick={{fn this.selectAvatarType 0}}
+                >
+                  <div class="card-body">
+                    <div
+                      class="d-sm-flex flex-row flex-wrap text-center text-sm-left align-items-center"
+                    >
+                      <img
+                        src="https://www.gravatar.com/avatar/
+                          {{this.currentUser.emailHash}}
+                           ?d=mp"
+                        alt="You!"
+                        class="img-lg rounded"
+                      />
+                      <div
+                        class="ml-sm-3 ml-md-0 ml-xl-3 mt-2 mt-sm-0 mt-md-2 mt-xl-0"
+                      >
+                        <h6 class="mb-0">
+                          Gravatar
+                        </h6>
+                        <p class="text-muted mb-1">
+                          {{this.currentUser.user.email}}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4 grid-margin stretch-card">
+                <div
+                  class="card account-card
+                    {{if
+                      (eq this.currentUser.userModel.avatarType 1)
+                      " account-card-selected"
+                      " account-card-unselected"
+                    }}"
+                  onclick={{fn this.selectAvatarType 1}}
+                >
+                  <div class="card-body">
+                    <div
+                      class="d-sm-flex flex-row flex-wrap text-center text-sm-left align-items-center"
+                    >
+                      <LetterAvatar
+                        @text={{this.currentUser.firstLetter}}
+                        @size="80"
+                        class="img-lg rounded"
+                      />
+                      <div
+                        class="ml-sm-3 ml-md-0 ml-xl-3 mt-2 mt-sm-0 mt-md-2 mt-xl-0"
+                      >
+                        <h6 class="mb-0">
+                          Auto Generated
+                        </h6>
+                        <p class="text-muted mb-1">
+                          {{this.currentUser.user.email}}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div
+                  class="card account-card
+                    {{if
+                      (eq this.currentUser.userModel.avatarType 2)
+                      " account-card-selected"
+                      "account-card-unselected"
+                    }}"
+                  onclick={{fn this.selectAvatarType 2}}
+                >
+                  <div class="card-body">
+                    <div
+                      class="d-sm-flex flex-row flex-wrap text-center text-sm-left align-items-center"
+                    >
+                      {{#if this.currentUser.userModel.uploadedAvatarId}}
+                        <CloudinaryImage
+                          @imageId={{this.currentUser.userModel.uploadedAvatarId}}
+                          class="img-lg rounded"
+                          @options={{this.imageOptions}}
+                        />
+                      {{else}}
+                        <img
+                          src="https://www.gravatar.com/avatar/{{this.currentUser.emailHash}}?d=mp"
+                          alt="You!"
+                          class="img-lg rounded"
+                        />
+                      {{/if}}
+                      <div
+                        class="ml-sm-3 ml-md-0 ml-xl-3 mt-2 mt-sm-0 mt-md-2 mt-xl-0"
+                      >
+                        <h6 class="mb-0">
+                          Upload
+                        </h6>
+                        <p class="text-muted mb-1">
+                          {{this.currentUser.user.email}}
+                        </p>
+                        <p>
+                          <CloudinaryUploader
+                            id="avatar-uploader"
+                            @imageId={{this.currentUser.userModel.uploadedAvatarId}}
+                            @preset="userAvatar"
+                            @cropping={{true}}
+                            @croppingAspectRatio="1"
+                            @previewImage={{false}}
+                            onUploadedImageComplete={{fn
+                              this.onUploadedImageComplete
+                            }}
+                          />
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12 mb-4 pb-4">
+      <div class="btn-toolbar float-right">
+        <div class="btn-group">
+          <button
+            type="button"
+            class="btn btn-sm btn-primary"
+            {{on "click" this.saveUser}}
+          >
+            <FaIcon @icon="save" @prefix="far"/>
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{#if this.loading}}
+    <LoadingBlocker />
+  {{/if}}
+</div>

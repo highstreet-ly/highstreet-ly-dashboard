@@ -1,0 +1,322 @@
+<h2 class="card-title">
+  Edit Plan:
+</h2>
+
+<div class="card-options top position-absolute top-0 right-0">
+  <LinkTo @route="u.admin.plans" class="btn btn-outline-danger btn-sm">
+    {{fa-icon "backward"}}
+    Back
+  </LinkTo>
+  <PlanToggle @plan={{this.plan}} @onClick={{togglePlanPubliclyVisible}} />
+</div>
+
+<div class="form-section">
+  <h3 class="form-section-title">
+    {{this.plan.name}}
+  </h3>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group ">
+        <label>
+          Price
+        </label>
+
+          <span class="form-control">
+            {{this.plan.price}}
+          </span>
+
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group ">
+        <label>
+          Pricing plan
+        </label>
+
+          <span class="form-control">
+            {{this.plan.pricingplan}} &nbsp;
+          </span>
+
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group ">
+        <label>
+          Status
+        </label>
+
+          <span class="form-control">
+            {{this.plan.status}}
+          </span>
+
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group ">
+        <label>
+          Charge plan
+        </label>
+
+          <span class="form-control">
+            {{this.plan.chargeplan}} &nbsp;
+          </span>
+
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group ">
+        <label>
+          Currency Code
+        </label>
+
+          <span class="form-control">
+            {{this.plan.currencyCode}}
+          </span>
+
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group ">
+        <label>
+          Enabled In Hosted Pages
+        </label>
+
+          <span class="form-control">
+            {{this.plan.enabledInHostedPages}}
+          </span>
+
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group ">
+        <label>
+          Enabled In Hosted Pages
+        </label>
+
+          <span class="form-control">
+            {{this.plan.enabledInHostedPages}}
+          </span>
+
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group ">
+        <label>
+          Enabled In Portal
+        </label>
+
+          <span class="form-control">
+            {{this.plan.enabledInPortal}}
+          </span>
+
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group ">
+        <label>
+          Free Quantity
+        </label>
+
+          <span class="form-control">
+            {{this.plan.freeQuantity}}
+          </span>
+
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group ">
+        <label>
+          Period
+        </label>
+
+          <span class="form-control">
+            {{this.plan.period}}
+          </span>
+
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group ">
+        <label>
+          Period Unit
+        </label>
+
+          <span class="form-control">
+            {{this.plan.periodUnit}}
+          </span>
+
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group ">
+        <label>
+          Show Description In Invoices
+        </label>
+
+          <span class="form-control">
+            {{this.plan.showDescriptionInInvoices}}
+          </span>
+
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group ">
+        <label>
+          Show Description In Quotes
+        </label>
+
+          <span class="form-control">
+            {{this.plan.showDescriptionInQuotes}}
+          </span>
+
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group ">
+        <label>
+          Show Description In Invoices
+        </label>
+
+          <span class="form-control">
+            {{this.plan.showDescriptionInInvoices}}
+          </span>
+
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group ">
+        <label>
+          Taxable
+        </label>
+
+          <span class="form-control">
+            {{this.plan.taxable}}
+          </span>
+
+      </div>
+    </div>
+    <div class="col-md-6"></div>
+  </div>
+</div>
+
+<div class="form-section">
+  <h3 class="form-section-title">
+    Features
+  </h3>
+  <p class="small lighter">
+    Features directly linked to this plan.
+  </p>
+  <div class="table-responsive">
+    <table class="table-st">
+      <thead>
+        <tr>
+          <th>
+            Name
+          </th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each this.features as |feature|}}
+          <tr>
+            <td>
+              {{feature.name}}
+            </td>
+            <td class="text-right">
+              <FeatureToggle
+                @feature={{feature}}
+                @parent={{this.plan}}
+                @onClick={{this.toggleFeature}}
+              />
+              <LinkTo
+                @route="u.admin.feature-edit"
+                @model={{feature.id}}
+                class="btn btn-info btn-xs ml-2"
+              >
+                <FaIcon @icon="edit" @prefix="far" />
+                Manage
+              </LinkTo>
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="form-section">
+  <h3 class="form-section-title">
+    Add-ons
+  </h3>
+  <p class="small lighter">
+    Add-ons directly linked to this plan.
+  </p>
+  <div class="table-responsive">
+    <table class="table-st">
+      <thead>
+        <tr>
+          <th>
+            Name
+          </th>
+          <th>
+            Pricing plan
+          </th>
+          <th>
+            Price
+          </th>
+          <th style="width:50px;">
+            Status
+          </th>
+          <th style="width:90px;"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each this.plan.addOns as |addon|}}
+          <tr>
+            <td>
+              {{addon.name}}
+            </td>
+            <td>
+              {{addon.pricingplan}}
+            </td>
+            <td>
+              {{addon.price}}
+            </td>
+            <td>
+              {{! TODO: need a status component }}
+              {{!-- <label class="badge badge-danger">{{addon.status}}</label> --}}
+              <StatusLabel @statusObject={{addon}} />
+            </td>
+            <td>
+              <LinkTo
+                @route="u.admin.add-on-edit"
+                @model={{addon.id}}
+                class="btn btn-info btn-fw btn-xs"
+              >
+                <FaIcon @icon="edit" @prefix="far" />
+                View
+              </LinkTo>
+            </td>
+          </tr>
+        {{else}}
+          <tr>
+            <td colspan="5" class="text-center font-bold">There are no add-ons associated with this plan</td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</div>

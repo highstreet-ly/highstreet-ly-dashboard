@@ -1,0 +1,533 @@
+<div class="position-relative">
+  {{#if this.saving}}
+    <LoadingBlocker />
+  {{/if}}
+  <div class="form-section">
+    <h2 class="form-section-title">
+      Business details
+    </h2>
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="form-group">
+          <label>
+            Name
+            <br />
+            <small class="text-muted">
+              This is displayed on your shop page
+            </small>
+          </label>
+          <Input id="service-name" @value={{@eventInstance.name}} class="form-control m-b-5" disabled={{if (eq
+            @mode "edit" ) "disabled" "" }} />
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="form-group">
+          <label for="product-category">
+            Business type
+            <br />
+            <small class="text-muted">
+              Give us an idea of what you sell
+            </small>
+          </label>
+          <UI::Select @value={{@eventInstance.businessType}} @onSelect={{this.didSelectBusinessType}} as |sb|>
+            <sb.SelectedOption>
+              {{if sb.value.name sb.value.name "Select an option"}}
+            </sb.SelectedOption>
+            <sb.Options>
+              <sb.Option @value="">
+                Select an option
+              </sb.Option>
+              {{#each @businessTypes as |businessType|}}
+                <sb.Option @value={{businessType}}>
+                  {{businessType.name}}
+                </sb.Option>
+              {{/each}}
+            </sb.Options>
+          </UI::Select>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="form-group">
+          <label for="">
+            Description
+            <br />
+            <small class="text-muted">
+              This is displayed under your name on your shop page. Try to keep
+              it short and catchy (maximum
+              {{this.maxCharCount}}
+              characters)
+            </small>
+          </label>
+          <Quill as |Ql|>
+            <Ql.toolbar as |Tb|>
+              <Tb.group>
+                <Tb.bold />
+                <Tb.italic />
+                <Tb.underline />
+              </Tb.group>
+              <Tb.group>
+                <Tb.list value="ordered" />
+                <Tb.list value="bullet" />
+              </Tb.group>
+            </Ql.toolbar>
+            <Ql.editor @name="event-instance-description-editor" @theme="snow" @onTextChange={{this.updateText}}
+              @delta={{this.delta}} @placeholder="Let your your customers know what you do" />
+          </Quill>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-section">
+    <h2 class="form-section-title">
+      Delivery/Collection
+    </h2>
+    <div class="form-group">
+      <div>
+        <label for="">
+          <small class="text-muted">
+            What options do you want available at checkout? The general
+            expectation for
+            local delivery is a day/time slot drop off delivery. If you plan to ship everything
+            via Royal
+            Mail/Courier, select National only
+          </small>
+        </label>
+      </div>
+      <div class="form-group">
+        <label class="checkbox-inline" for="check-click-collect">
+          <Input id="check-click-collect" @type="checkbox" @checked={{@eventInstance.isToTable}} class="mr-1"
+            {{on "change" this.toggleIsToTable}} />
+          To Table
+        </label>
+        <label class="checkbox-inline" for="check-click-collect">
+          <Input id="check-click-collect" @type="checkbox" @checked={{@eventInstance.isClickAndCollect}} class="mr-1"
+            {{on "change" this.toggleIsClickAndCollect}} />
+          Click and collect
+        </label>
+        {{!-- <label class="checkbox-inline ml-3" for="check-local-delivery">
+          <Input id="check-local-delivery" @type="checkbox" @checked={{@eventInstance.isLocalDelivery}} class="mr-1"
+            {{on "change" this.toggleIsLocalDelivery}} />
+          Local Delivery (day / time slot - operator delivers)
+        </label>
+        <label class="checkbox-inline ml-3" for="check-national-delivery">
+          <Input id="check-national-delivery" @type="checkbox" @checked={{@eventInstance.isNationalDelivery}}
+            class="mr-1" {{on "change" this.toggleIsNationalDelivery}} />
+          National Delivery (courier)
+        </label> --}}
+      </div>
+    </div>
+    {{#if @eventInstance.isLocalDelivery}}
+      <label for="" class="mb-3">
+        Local delivery options
+        <br />
+        <small class="text-muted">
+          We use this to work out whether an address is within range of what you
+          consider
+          "local delivery"
+        </small>
+      </label>
+      <div class="row mb-4">
+        <div class="col-md-3 col-sm-6">
+          <div class="form-group">
+            <label for="exampleInputName1">
+              Delivery radius
+              <br />
+              <small class="text-muted">
+                How far will you deliver?
+              </small>
+            </label>
+            <div class="input-group">
+              <Input id="service-delivery-radius" @value={{@eventInstance.deliveryRadiusMiles}}
+                class="form-control m-b-5" @type="number" min="0" max="30" step="1" />
+              <div class="input-group-append">
+                <span class="input-group-text">
+                          miles
+                        </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {{/if}}
+    {{#if @eventInstance.isNationalDelivery}}
+      <label for="" class="mb-3">
+        National delivery options
+        <br />
+        <small class="text-muted">
+          You can set an optional flat fee for delivery - this fee will apply to
+          all orders
+          which are national delivery for this service
+        </small>
+      </label>
+      <div class="row mb-4">
+        <div class="col-md-6 col-lg-3">
+          <div class="form-group">
+            <label for="delivery-flat-fee">
+              Flat fee
+              <br />
+              <small class="text-muted">
+                (optional)
+              </small>
+            </label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">
+                          £
+                        </span>
+              </div>
+              <Input id="delivery-flat-fee" @value={{@eventInstance.nationalDeliveryFlatFeeAsPounds }}
+                class="form-control m-b-5" @type="number" />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="form-group">
+            <label for="delivery-free-if-over">
+              Free delivery if subtotal over:
+              <br />
+              <small class="text-muted">
+                (optional)
+              </small>
+            </label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                          £
+                        </span>
+              </div>
+              <Input id="delivery-free-if-over" @value={{@eventInstance.nationalDeliveryFlatFeeFreeAfterAsPounds }}
+                class="form-control m-b-5" @type="number" />
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-4"></div>
+      </div>
+    {{/if}}
+    <p>
+      <small class="text-muted">
+        Address details are required to calculate whether orders are within
+        your allowed
+        delivery radius
+      </small>
+    </p>
+    <div class="row">
+      <div class="col-12 col-md-6">
+        <div class="form-group">
+          <label for="exampleInputName1">
+            Address
+            <br />
+            <small class="text-muted">
+              Shop address minus postcode
+            </small>
+          </label>
+          <Input id="service-address" @value={{@eventInstance.location}} class="form-control m-b-5" maxlength="100" />
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6">
+        <div class="form-group">
+          <label for="exampleInputName1">
+            Postcode
+            <br />
+            <small class="text-muted">Your shop postcode</small>
+          </label>
+          <Input id="service-postcode" @value={{@eventInstance.postcode}} class="form-control m-b-5" maxlength="20" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-section">
+    <h2 class="form-section-title">
+      Contact/Notification details
+    </h2>
+    <div class="row">
+      <div class="col-12 col-md-6">
+        <div class="form-group">
+          <label for="exampleInputEmail3">
+            Business Email
+            <br />
+            <small class="text-muted">
+              This is displayed on your shop page
+            </small>
+          </label>
+          <Input id="service-support-email" @value={{@eventInstance.supportEmail}} @type="email"
+            class="form-control m-b-5" maxlength="200" />
+        </div>
+      </div>
+      <div class="col-12 col-md-6">
+        <div class="form-group">
+          <label for="exampleInputName1">
+            Business phone number
+            <br />
+            <small class="text-muted">
+              This is displayed on your shop page
+            </small>
+          </label>
+          <Input id="service-support-phone" @value={{@eventInstance.supportPhone}} class="form-control m-b-5"
+            maxlength="100" />
+        </div>
+      </div>
+      <div class="col-12 col-md-6">
+        <div class="form-group">
+          <label for="exampleInputEmail3">
+            Notification Email address
+            <br />
+            <small class="text-muted">
+              This is how you'll receive new order notifications
+            </small>
+          </label>
+          <Input id="service-notification-email" @value={{@eventInstance.notificationEmail}} @type="email"
+            class="form-control m-b-5" maxlength="100" />
+        </div>
+      </div>
+      <div class="col-12 col-md-6">
+        <div class="form-group">
+          <label for="exampleInputName1">
+            Notification phone number
+            <br />
+            <small class="text-muted">
+              This is how you'll receive new order notifications
+            </small>
+          </label>
+          <Input id="service-notification-phone" @value={{@eventInstance.notificationPhone}} class="form-control m-b-5"
+            maxlength="100" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-section">
+    <h2 class="form-section-title">
+      Branding
+    </h2>
+    <div class="row">
+      <div class="col-12 col-md-6">
+        <div class="form-group">
+          <label class="mb-3">
+            Header image
+            <br />
+            <small class="text-muted">
+              This is image used for the background in the header on
+              your shop.
+              Recommended dimensions are 2000x400px. Try to make it as high quality as
+              possible to reduce the risk of it coming out blurry
+            </small>
+          </label>
+          <CloudinaryUploader id="service-main-image-uploader" @imageId={{@eventInstance.heroImageId}}
+            @preset="storeHero" @cropping={{true}} @croppingAspectRatio="5"
+            @onUploadedImageComplete={{this.replaceShopHeader}} />
+        </div>
+      </div>
+      <div class="col-12 col-md-6">
+        <div class="form-group">
+          <label class="mb-3">
+            Shop image (logo, shop front, etc)
+            <br />
+            <small class="text-muted">
+              This is image used for the logo in the header on your shop page. Recommended
+              dimensions are 400x400px and will be cropped to a square
+            </small>
+          </label>
+          <CloudinaryUploader id="service-logo-image-uploader" @imageId={{@eventInstance.mainImageId}}
+            @preset="storeLogo" @cropping={{true}} @croppingAspectRatio="1"
+            @onUploadedImageComplete={{this.replaceShopImage}} />
+        </div>
+      </div>
+    </div>
+  </div>
+  {{#unless @eventInstance.isAdHocOpeningTimes}}
+
+  <div class="form-section">
+    <h2 class="form-section-title">
+      Opening times
+    </h2>
+    {{#if @eventInstance.openingTimes}}
+      <div class="row">
+        <div class="col-12">
+          <div class="form-group">
+            <small class="text-muted">
+              These are displayed on your shop page
+            </small>
+            <div class="opening-times-form row">
+              <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+                <div class="mb-1 mt-3">
+                  <small>
+                    Monday
+                  </small>
+                </div>
+                <div class="d-flex">
+                  <div class="mr-1">
+                    <label for="openingtimes-monday-open">
+                      Open
+                    </label>
+                    <Input id="openingtimes-monday-open" @type="time" class="form-control m-b-5"
+                      @value={{@eventInstance.openingTimes.monday.open}} />
+                  </div>
+                  <div>
+                    <label for="openingtimes-monday-close">
+                      Close
+                    </label>
+                    <Input id="openingtimes-monday-close" @type="time" class="form-control m-b-5"
+                      @value={{@eventInstance.openingTimes.monday.close }} />
+                  </div>
+                </div>
+                <div class="text-center">
+                  <button type="button" class="btn btn-xs btn-secondary hover-cursor mt-2" {{on "click" (fn
+                    this.copyTimes @eventInstance)}}>
+                    Copy to other days
+                  </button>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+                <div class="mb-1 mt-3">
+                  <small>
+                    Tuesday
+                  </small>
+                </div>
+                <div class="d-flex">
+                  <div class="mr-1">
+                    <label for="openingtimes-tuesday-open">
+                      Open
+                    </label>
+                    <Input id="openingtimes-tuesday-open" @type="time" step="1800" class="form-control m-b-5"
+                      @value={{@eventInstance.openingTimes.tuesday.open }} />
+                  </div>
+                  <div>
+                    <label for="openingtimes-tuesday-closed">
+                      Close
+                    </label>
+                    <Input id="openingtimes-tuesday-closed" @type="time" class="form-control m-b-5"
+                      @value={{@eventInstance.openingTimes.tuesday.close }} />
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+                <div class="mb-1 mt-3">
+                  <small>
+                    Wednesday
+                  </small>
+                </div>
+                <div class="d-flex">
+                  <div class="mr-1">
+                    <label for="openingtimes-wednesday-open">
+                      Open
+                    </label>
+                    <Input id="openingtimes-wednesday-open" @type="time" class="form-control m-b-5"
+                      @value={{@eventInstance.openingTimes.wednesday.open }} />
+                  </div>
+                  <div>
+                    <label for="openingtimes-wednesday-closed">
+                      Close
+                    </label>
+                    <Input id="openingtimes-wednesday-closed" @type="time" class="form-control m-b-5"
+                      @value={{@eventInstance.openingTimes.wednesday.close }} />
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+                <div class="mb-1 mt-3">
+                  <small>
+                    Thursday
+                  </small>
+                </div>
+                <div class="d-flex">
+                  <div class="mr-1">
+                    <label for="openingtimes-thursday-open">
+                      Open
+                    </label>
+                    <Input id="openingtimes-thursday-open" @type="time" class="form-control m-b-5"
+                      @value={{@eventInstance.openingTimes.thursday.open }} />
+                  </div>
+                  <div>
+                    <label for="openingtimes-thursday-closed">
+                      Close
+                    </label>
+                    <Input id="openingtimes-thursday-closed" @type="time" class="form-control m-b-5"
+                      @value={{@eventInstance.openingTimes.thursday.close }} />
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+                <div class="mb-1 mt-3">
+                  <small>
+                    Friday
+                  </small>
+                </div>
+                <div class="d-flex">
+                  <div class="mr-1">
+                    <label for="openingtimes-friday-open">
+                      Open
+                    </label>
+                    <Input id="openingtimes-friday-open" @type="time" class="form-control m-b-5"
+                      @value={{@eventInstance.openingTimes.friday.open}} />
+                  </div>
+                  <div>
+                    <label for="openingtimes-friday-closed">
+                      Close
+                    </label>
+                    <Input id="openingtimes-friday-closed" @type="time" class="form-control m-b-5"
+                      @value={{@eventInstance.openingTimes.friday.close }} />
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+                <div class="mb-1 mt-3">
+                  <small>
+                    Saturday
+                  </small>
+                </div>
+                <div class="d-flex">
+                  <div class="mr-1">
+                    <label for="openingtimes-saturday-open">
+                      Open
+                    </label>
+                    <Input id="openingtimes-saturday-open" @type="time" class="form-control m-b-5"
+                      @value={{@eventInstance.openingTimes.saturday.open }} />
+                  </div>
+                  <div>
+                    <label for="openingtimes-saturday-closed">
+                      Close
+                    </label>
+                    <Input id="openingtimes-saturday-closed" @type="time" class="form-control m-b-5"
+                      @value={{@eventInstance.openingTimes.saturday.close }} />
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+                <div class="mb-1 mt-3">
+                  <small>
+                    Sunday
+                  </small>
+                </div>
+                <div class="d-flex">
+                  <div class="mr-1">
+                    <label for="openingtimes-sunday-open">
+                      Open
+                    </label>
+                    <Input id="openingtimes-sunday-open" @type="time" class="form-control m-b-5"
+                      @value={{@eventInstance.openingTimes.sunday.open}} />
+                  </div>
+                  <div>
+                    <label for="openingtimes-sunday-closed">
+                      Close
+                    </label>
+                    <Input id="openingtimes-sunday-closed" @type="time" class="form-control m-b-5"
+                      @value={{@eventInstance.openingTimes.sunday.close }} />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {{/if}}
+  </div>
+  {{/unless}}
+</div>
+
+<EmberWormhole @to="action-bar-bottom-right">
+  <button type="button" class="btn btn-success" {{on "click" (fn this.save @eventInstance)}}>
+      <FaIcon @icon="save" @prefix="far"/>
+      Save Changes
+    </button>
+</EmberWormhole>

@@ -1,0 +1,58 @@
+event-instance-panel:
+  search-place-holder: Search...
+  table-header-label: Service
+
+event-instance-form:
+  go-to-widget-label: View Shop
+  form-heading-label: Your listing details
+  item-business-type-label: Select a Business Type
+
+product-form:
+  item-name-label: Name
+  item-desciption-label: Description
+  free-item-label: Free Product
+  item-price-label: Price
+  item-tags-label: Select a Category
+  item-image-label: Main Image
+  item-other-images-label: Other Images
+
+event-instance-route:
+  total-items-sold-stat-label: Total Items Sold
+  create-new-item-group-label: Add a Shop
+  items-label: Products
+  items-sold-label: Products Sold
+
+event-series-route:
+  total-items-sold-stat-label: Total Items Sold
+  create-new-item-group-label: Add a Shop
+  panel-title: Shop Details
+  item-groups-title-label: Menus
+
+index-route:
+  total-items-sold-stat-label: Total Items Sold
+  number-items-sold-label: Number of Items Sold
+  item-sales-graph-title-label: Items Sold
+
+upcoming-route:
+  title-label: Shops
+
+ticket-panel:
+  create-new-label: Add Product
+  panel-title-label: Products
+  search-place-holder: Search...
+  table-header-name-label: Name
+  table-header-price-label: Price
+  item-published-label: Published with listing
+  item-edit-button-label: Edit
+  item-view-button-label: Manage
+  modal-edit-label: Change a Product
+  modal-new-label: Add a Product
+
+
+operators-panel:
+  item-view-button-label: Manage
+
+header:
+  item-group-label: Your Shops
+  item-label: View All Shops
+  create-new-label: Add a Shop

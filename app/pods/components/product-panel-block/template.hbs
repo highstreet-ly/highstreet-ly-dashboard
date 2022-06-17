@@ -1,0 +1,128 @@
+<div class="position-relative mb-5">
+  <div class="thead">
+    <div class="tr">
+      <div class="th name">
+        <div class="group-title text-left">
+          {{#if this.reorderMode}}
+          <p class="light card-note">
+            <b>
+              <FaIcon @icon="info-circle" class="text-info mr-1" />
+              Set what order the products will display in this category by dragging/dropping them into the desired
+              order. Click "Save" when you're happy.
+            </b>
+          </p>
+          {{/if}}
+          {{@productCategory.name}}
+        </div>
+      </div>
+      {{#if (and (not this.reorderMode) this.sortedProducts.length)}}
+      <div class="th price d-none d-lg-block">
+        {{t "ticket-panel.table-header-price-label"}}
+      </div>
+      {{#if this.eventInstance.isStockManaged}}
+      <div class="th qty d-none d-lg-block">
+        Qty. Left
+      </div>
+      {{/if}}
+      {{/if}}
+      <div class="th options text-right">
+        {{#unless @hideReorder}}
+        {{#if this.reorderMode}}
+        <span class="btn btn-outline-danger btn-xs" role="button" {{on "click" (fn this.cancel)}}>
+          <FaIcon @icon="times" />
+          Cancel
+        </span>
+        <span class="btn btn-outline-success btn-xs" role="button" {{on "click" (fn this.save)}}>
+          <FaIcon @icon="save" @prefix="far" />
+          Save
+        </span>
+        {{else if this.sortedProducts.length}}
+        <span class="btn btn-outline-secondary btn-xs" role="button" {{on "click" (fn (mut this.reorderMode) true)}}>
+          <FaIcon @icon="sync-alt" />
+          Reorder
+        </span>
+        {{/if}}
+        {{/unless}}
+      </div>
+    </div>
+  </div>
+  <div class="tbody">
+    {{#if this.reorderMode}}
+    <SortableObjects @sortableObjectList={{@productCategory.ticketTypeConfigurations}} @enableSort={{true}}
+      @sortEndAction={{fn this.reordered}}>
+      {{#each @productCategory.ticketTypeConfigurations as |product|}}
+      <DraggableObject @content={{product}} @overrideClass="tr" @isSortable={{true}}>
+        <div class="td name">
+          {{product.name}}
+        </div>
+        <div class="td options text-right">
+          <FaIcon @icon="arrows-alt-v" />
+        </div>
+      </DraggableObject>
+      {{/each}}
+    </SortableObjects>
+    {{else}}
+    {{#each this.sortedProducts as |product|}}
+    {{#if product.id}}
+    <div class="tr {{if product.isPublished "" " lightest"}}">
+      <div class="td name">
+        {{product.name}}
+      </div>
+      <div class="td price d-none d-lg-block">
+        {{currency product.price}}
+      </div>
+      {{!--<div class="td">{{ticket.quantity}}</div>--}}
+       {{#if @eventInstance.isStockManaged}}
+      <div class="td qty d-none d-lg-block">
+        {{#if product.isPublished}}
+        {{product.availableQuantity}}
+        {{/if}}
+      </div>
+      {{/if}}
+      {{#if @selectionOnly}}
+      <div class="td options">
+        <ProductToggle @product={{product}} @addProduct={{@addProduct}} @removeProduct={{@removeProduct}}
+          @plan={{@plan}} />
+      </div>
+      {{else}}
+      <div class="td options text-right">
+        {{#if product.isPublished}}
+        <button type="button" class="btn btn-outline-danger btn-xs" {{on "click" (fn this.unpublishTicket product)}}>
+          <FaIcon @icon="times" />
+          Disable
+        </button>
+        {{else}}
+        <button type="button" class="btn btn-outline-success btn-xs" {{on "click" (fn this.publishTicket product)}}>
+          <FaIcon @icon="check" />
+          Enable
+        </button>
+        {{/if}}
+        <LinkTo @route="u.event-instance.products.edit" @models={{array @eventInstance.slug product.id}}
+          class="btn btn-info btn-xs edit-product">
+          <FaIcon @icon="edit" @prefix="far" />
+          {{t "ticket-panel.item-edit-button-label"}}
+        </LinkTo>
+      </div>
+      {{/if}}
+    </div>
+    {{/if}}
+    {{else}}
+    <div class="tr">
+      <div class="td d-block w-100 text-center font-italic">
+        There are no products in the
+        <b>
+          {{@productCategory.name}}
+        </b>
+        category yet.
+        <LinkTo @route="u.event-instance.products.new" @model={{@eventInstance}}>
+          Add one now →
+        </LinkTo>
+      </div>
+    </div>
+    {{/each}}
+    {{/if}}
+  </div>
+  {{#if this.loading}}
+  <LoadingBlocker />
+  {{/if}}
+</div>

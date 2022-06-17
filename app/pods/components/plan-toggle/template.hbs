@@ -1,0 +1,11 @@
+Visibility: <button
+  type="button"
+  class="btn {{this.buttonClass}} btn-fw btn-xs"
+  {{on "click" (fn @onClick @plan)}}
+>
+  {{#if @plan.publiclyVisible}}
+    {{fa-icon "check"}} Enabled (publicly visible)
+  {{else}}
+    {{fa-icon "times"}} Disabled (not publicly visible)
+  {{/if}}
+</button>

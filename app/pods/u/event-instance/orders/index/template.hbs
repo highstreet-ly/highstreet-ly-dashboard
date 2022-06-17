@@ -1,0 +1,13 @@
+{{page-title (concat "Orders for " this.eventInstance.name)}}
+
+<div class="tab-content">
+  <div class="tab-pane active show" id="orders-1" role="tabpanel" aria-labelledby="orders-tab">
+    <Panels::OrdersPanel
+      @query={{this.ordersQuery}}
+      @eventInstance={{this.eventInstance}}
+      @title="Orders"
+      @commandType="order-confirmed,order-processing,order-refunded"
+      @backRoute="index"
+    />
+  </div>
+</div>

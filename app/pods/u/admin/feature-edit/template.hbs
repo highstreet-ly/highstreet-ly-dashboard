@@ -1,0 +1,214 @@
+
+{{#if this.saving}}
+  <LoadingBlocker />
+{{/if}}
+
+<h2 class="card-title">
+  Edit Feature
+</h2>
+<div class="form-section">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>
+          Name
+        </label>
+        <span class="form-control">
+          {{this.feature.name}}
+        </span>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>
+          Description
+        </label>
+        <Input @value={{this.feature.description}} class="form-control" />
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>
+          Claim
+        </label>
+        <span class="form-control">
+          {{this.feature.claimValue}}
+        </span>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group text-right">
+        <label class="d-block">&nbsp;</label>
+        <button type="button" class="btn btn-success" {{on "click" this.save}}>
+          <FaIcon @icon="save" @prefix="far"/>
+          Save
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{#if (eq this.feature.featureType "EventInstance")}}
+<div class="form-section">
+  <h4 class="form-section-title">
+    Business Types
+  </h4>
+  <p class="small lighter">
+    Business types directly linked to this feature.
+  </p>
+  <div class="table-responsive">
+    <table class="table-st">
+      <thead>
+        <tr>
+          <th>
+            Name
+          </th>
+          <th style="width:50px;">
+            Status
+          </th>
+          <th style="width:90px;"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each this.feature.businessTypeFeatureTemplates as |featureTemplate|}}
+          <tr>
+            <td>
+              {{featureTemplate.businessType.name}}
+            </td>
+            <td>
+             
+            </td>
+            <td>
+              <LinkTo
+                @route="u.admin.business-types-feature-mappings"
+                @model={{featureTemplate.businessType.id}}
+                class="btn btn-info btn-fw btn-xs"
+              >
+                <FaIcon @icon="edit" @prefix="far" />
+                View
+              </LinkTo>
+            </td>
+          </tr>
+        {{else}}
+          <tr>
+            <td colspan="3" class="text-center font-bold">There are no plans associated with this feature</td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</div>
+{{/if}}
+
+{{#if (eq this.feature.featureType "Plan")}}
+<div class="form-section">
+  <h4 class="form-section-title">
+    Plans
+  </h4>
+  <p class="small lighter">
+    Plans directly linked to this feature.
+  </p>
+  <div class="table-responsive">
+    <table class="table-st">
+      <thead>
+        <tr>
+          <th>
+            Name
+          </th>
+          <th style="width:50px;">
+            Status
+          </th>
+          <th style="width:90px;"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each this.feature.plans as |plan|}}
+          <tr>
+            <td>
+              {{plan.name}}
+            </td>
+            <td>
+              <StatusLabel @statusObject={{plan}} />
+            </td>
+            <td>
+              <LinkTo
+                @route="u.admin.plan-edit"
+                @model={{plan.id}}
+                class="btn btn-info btn-fw btn-xs"
+              >
+                <FaIcon @icon="edit" @prefix="far" />
+                View
+              </LinkTo>
+            </td>
+          </tr>
+        {{else}}
+          <tr>
+            <td colspan="3" class="text-center font-bold">There are no plans associated with this feature</td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="form-section mb-3">
+  <h4 class="form-section-title">
+    Addons
+  </h4>
+  <p class="small lighter">
+    Addons directly linked to this plan.
+  </p>
+  <div class="table-responsive">
+    <table class="table-st">
+      <thead>
+        <tr>
+          <th>
+            Name
+          </th>
+          <th>
+            Pricing plan
+          </th>
+          <th>
+            Price
+          </th>
+          <th style="width:50px;">
+            Status
+          </th>
+          <th style="width:90px;"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each this.feature.addOns as |addon|}}
+          <tr>
+            <td>
+              {{addon.name}}
+            </td>
+            <td>
+              {{addon.pricingplan}}
+            </td>
+            <td>
+              {{addon.price}}
+            </td>
+            <td>
+              <StatusLabel @statusObject={{addon}} />
+            </td>
+            <td>
+              <LinkTo
+                @route="u.admin.add-on-edit"
+                @model={{addon.id}}
+                class="btn btn-info btn-fw btn-xs"
+              >
+                <FaIcon @icon="edit" @prefix="far" />
+                View
+              </LinkTo>
+            </td>
+          </tr>
+        {{else}}
+          <tr>
+            <td colspan="5" class="text-center font-bold">There are no add-ons associated with this feature</td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</div>
+{{/if}}

@@ -1,0 +1,12 @@
+{{page-title "New product"}}
+
+<h2 class="card-title">Add a new product</h2>
+<Forms::ProductForm 
+    @allGroups={{this.allGroups}}
+    @product={{this.product}} 
+    @allProducts={{this.products}} 
+    @searchQuery={{this.searchQuery}} 
+    @eventInstance={{this.eventInstance}} 
+    @productCategories={{this.productCategories}}></Forms::ProductForm>
+
+{{outlet}}

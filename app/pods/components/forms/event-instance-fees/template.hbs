@@ -1,0 +1,87 @@
+<div class="position-relative">
+  {{#if this.loading}}
+    <LoadingBlocker />
+  {{/if}}
+
+  <h5 class="card-title">
+    Who pays the fees?
+  </h5>
+  <div class="forms-sample">
+    <div class="form-group">
+      <label for="exampleTextarea1">
+        Platform fees
+        <br />
+        <small class="text-muted">
+          These are the fees paid to highstreet.ly for use of the platform - this is a per order
+          flat fee of
+          {{currency @eventOrganiser.formattedPlatformFee}}
+          .
+          <br />
+          If customer is selected, the cost will be added at checkout.
+        </small>
+      </label>
+      <div class="form-group">
+        <label class="checkbox-inline">
+          <RadioButton @value={{2}} @groupValue={{@eventInstance.platformFeePaidBy}}
+            @changed={{this.togglePlatformFee}}>
+            <span>
+                      Customer
+                    </span>
+          </RadioButton>
+        </label>
+        <label class="checkbox-inline ml-3">
+          <RadioButton @value={{3}} @groupValue={{@eventInstance.platformFeePaidBy}}
+            @changed={{this.togglePlatformFee}}>
+            <span>
+                      Operator
+                    </span>
+          </RadioButton>
+        </label>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="exampleTextarea1">
+        Payment platform fees
+        <br />
+        <small class="text-muted">
+          These are the fees paid to Stripe for processing payment - their simple pricing structure is
+          <a href="https://stripe.com/gb/pricing" target="_blank" rel="noreferrer noopener">
+            here
+          </a>
+          (for most orders in the UK, the fee will be
+          <b>
+            1.4% + 20p
+          </b>
+          ).
+          <br />
+          If customer is selected, the cost will be added at checkout.
+        </small>
+      </label>
+      <div class="form-group">
+        <label class="checkbox-inline">
+          <RadioButton @value={{2}} @groupValue={{@eventInstance.paymentPlatformFeePaidBy}}
+            @changed={{this.togglePaymentPlatformFee}}>
+            <span>
+                      Customer
+                    </span>
+          </RadioButton>
+        </label>
+        <label class="checkbox-inline ml-3">
+          <RadioButton @value={{3}} @groupValue={{@eventInstance.paymentPlatformFeePaidBy}}
+            @changed={{this.togglePaymentPlatformFee}}>
+            <span>
+                      Operator
+                    </span>
+          </RadioButton>
+        </label>
+      </div>
+    </div>
+  </div>
+</div>
+
+<EmberWormhole @to="action-bar-bottom-right">
+  <button id="save-service" type="button" class="btn btn-success" {{on "click" (fn this.save @eventInstance)}}>
+    <FaIcon @icon="save" @prefix="far"/>
+    Save Changes
+  </button>
+</EmberWormhole>

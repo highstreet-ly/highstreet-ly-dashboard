@@ -1,0 +1,7 @@
+{{page-title "Account Settings"}}
+
+<Forms::AccountSettings @save={{fn this.save}} @cancel={{fn this.cancel}} />
+{{#if this.saving}}
+<LoadingIcon />
+{{/if}}
+

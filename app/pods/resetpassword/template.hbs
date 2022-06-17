@@ -1,0 +1,49 @@
+<div class="container-fluid page-body-wrapper full-page-wrapper auth">
+  <div class="main-panel login">
+    <div class="content-wrapper d-flex align-items-center px-0">
+      <div class="auth-form-light text-left py-5 px-4 px-sm-5 mx-auto">
+        <div class="brand-logo auth__logo mb-5">
+          <img src="/img/logo.png" alt="Highstreet.ly" />
+        </div>
+        {{#if this.canLogin}}
+          <div class="text-center">
+            <h4 class="font-weight-light">
+              Thanks! You can now
+              <LinkTo @route="login" class="auth-link">
+                sign in here
+              </LinkTo>
+            </h4>
+          </div>
+        {{else}}
+          <h4>
+            Reset your password
+          </h4>
+          <h6 class="font-weight-light">
+            Enter enter a new password below:
+          </h6>
+          <form class="pt-3">
+            <div class="form-group">
+              <Input
+                @type="password"
+                class="form-control form-control-lg"
+                placeholder="new password"
+                required={{true}}
+                @value={{this.password}}
+                @insert-newline={{fn this.resetPassword}}
+              />
+            </div>
+            <div class="mt-3">
+              <button
+                type="button"
+                class="btn btn-primary btn-block btn-lg"
+                {{on "click" this.resetPassword}}
+              >
+                Save new password
+              </button>
+            </div>
+          </form>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</div>

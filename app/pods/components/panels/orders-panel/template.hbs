@@ -1,0 +1,136 @@
+<EmberWormhole @to="action-bar-top-right">
+  {{! This maybe needs moving out to it's own area - it's too noisy for the default tab }}
+  {{! <LinkTo
+            @route="u.event-instance.orders.priced"
+            class="btn btn-sm btn-outline-secondary"
+          >
+            Priced
+          </LinkTo> }}
+  <LinkTo
+    @route="u.event-instance.orders.index"
+    class="btn btn-sm btn-outline-info"
+  >
+    Ready to process
+  </LinkTo>
+  <LinkTo
+    @route="u.event-instance.orders.doing"
+    class="btn btn-sm btn-outline-warning"
+  >
+    Processing
+  </LinkTo>
+  <LinkTo
+    @route="u.event-instance.orders.done"
+    class="btn btn-sm btn-outline-success"
+  >
+    Complete
+  </LinkTo>
+  {{!-- <LinkTo
+    @route="u.event-instance.orders.expired"
+    class="ml-3 btn btn-sm btn-outline-danger"
+  >
+    Abandoned
+  </LinkTo> --}}
+  {{!-- <LinkTo
+    @route="u.event-instance.orders.refunded"
+    class="btn btn-sm btn-outline-secondary"
+  >
+    Refunded
+  </LinkTo> --}}
+</EmberWormhole>
+<div class="panel-search">
+  <div class="input-group">
+    <Input
+      @value={{this.search}}
+      @key-up={{fn this.doSearch this.search}}
+      @insert-newline={{fn this.doSearch this.search}}
+      class="form-control input-lg"
+      placeholder="Search for an order"
+    />
+    <span class="input-group-prepend">
+      <button
+        type="button"
+        class="input-group-text"
+        {{on "click" this.doSearch}}
+      >
+        {{fa-icon "search"}}
+      </button>
+    </span>
+  </div>
+</div>
+{{#if this.loading}}
+  <LoadingIcon />
+{{else if this.orders.length}}
+  <div class="table-responsive">
+    <table class="table-st">
+      <thead>
+        <tr>
+          <th>
+            Order Id
+          </th>
+          <th>
+            Owner
+          </th>
+          <th>
+            Total Amount
+          </th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each this.orders as |order|}}
+          <tr>
+            <td>
+              {{order.humanReadableId}}
+            </td>
+            <td>
+              {{#if (is-empty order.ownerEmail)}}
+                Unassigned
+              {{else}}
+                {{order.ownerEmail}}
+              {{/if}}
+            </td>
+            <td>
+              {{currency order.totalAmount}}
+            </td>
+            <td>
+              {{#if order.isToTable}}
+                To-Table order
+              {{/if}}
+              {{#if order.isClickAndCollect}}
+                Click and collect order
+              {{/if}}
+              {{#if order.isLocalDelivery}}
+                Local delivery order (shop delivers)
+              {{/if}}
+              {{#if order.isNationalDelivery}}
+                National delivery order (courier)
+              {{/if}}
+            </td>
+            <td class="text-right">
+              <LinkTo
+                @route="u.event-instance.orders.view"
+                @models={{array @eventInstance.slug order.id}}
+                @query={{hash backroute=@backRoute}}
+                class="btn btn-info btn-fw btn-xs"
+              >
+                <FaIcon @icon="edit" @prefix="far" />
+                {{t "ticket-panel.item-view-button-label"}}
+              </LinkTo>
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+{{else}}
+  <div class="my-5 text-center font-bold">
+    There are no orders to display yet
+  </div>
+{{/if}}
+<SimplePagination
+  @recordCount={{this.recordCount}}
+  @pageSize={{this.pageSize}}
+  @pageNumber={{this.pageNumber}}
+  @onPageSelect={{this.getPage}}
+/>

@@ -1,0 +1,11 @@
+<button
+  type="button"
+  class="btn {{this.buttonClass}} btn-fw btn-xs"
+  {{on "click" (fn @onClick @businessType)}}
+>
+  {{#if @businessType.isPublished}}
+    {{fa-icon "check"}} Enabled (publicly visible)
+  {{else}}
+    {{fa-icon "times"}} Disabled (not publicly visible)
+  {{/if}}
+</button>

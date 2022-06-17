@@ -1,0 +1,87 @@
+<div class="container-scroller">
+  <div class="container-fluid page-body-wrapper full-page-wrapper">
+    <div class="main-panel login">
+      <div class="content-wrapper d-flex align-items-center auth px-0">
+        <div class="row w-100 mx-0">
+          <div class="col-lg-4 mx-auto">
+            <div class="auth-form-light text-left py-5 px-4 px-sm-5">
+              <div class="brand-logo">
+                <img src="/img/logo.png" alt="Highstreet.ly" />
+              </div>
+              <form>
+                {{#if this.showConfirmSent}}
+                  <div class="alert alert-success" role="alert">
+                    Check your email!
+                  </div>
+                {{/if}}
+                <div class="pt-3">
+                  <div class="form-group">
+                    <Input
+                      @type="text"
+                      class="form-control form-control-lg"
+                      id="business-name"
+                      placeholder="Business Name"
+                      required={{true}}
+                      @value={{this.registerData.businessName}}
+                    />
+                  </div>
+                  <div class="form-group">
+                    <Input
+                      @type="text"
+                      class="form-control form-control-lg"
+                      placeholder="First Name"
+                      id="first-name"
+                      required={{true}}
+                      @value={{this.registerData.firstName}}
+                    />
+                  </div>
+                  <div class="form-group">
+                    <Input
+                      @type="text"
+                      class="form-control form-control-lg"
+                      placeholder="Last Name"
+                      id="last-name"
+                      required={{true}}
+                      @value={{this.registerData.lastName}}
+                    />
+                  </div>
+                  <div class="form-group">
+                    <Input
+                      @type="email"
+                      class="form-control form-control-lg"
+                      id="email"
+                      placeholder="Email Address"
+                      required={{true}}
+                      @value={{this.registerData.email}}
+                    />
+                  </div>
+                  <div class="form-group">
+                    <Input
+                      @type="password"
+                      class="form-control form-control-lg"
+                      id="password"
+                      placeholder="Password"
+                      required={{true}}
+                      @value={{this.registerData.password}}
+                      @insert-newline={{fn this.register}}
+                    />
+                  </div>
+                  <div class="mt-3">
+                    <button
+                      type="button"
+                      id="register"
+                      class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn"
+                      {{on "click" this.register}}
+                    >
+                      REGISTER
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

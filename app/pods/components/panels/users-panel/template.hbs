@@ -1,0 +1,114 @@
+<h2 class="card-title">
+  Users
+</h2>
+{{#if this.showAddUser}}
+  <div class="row">
+    <div class="col-12">
+      <div class="btn-toolbar">
+        <LinkTo
+          id="add-user"
+          @route="u.admin.add-team-member"
+          class="btn btn-primary btn-sm"
+        >
+          {{fa-icon "plus"}}
+          Invite new team member
+        </LinkTo>
+      </div>
+    </div>
+  </div>
+{{/if}}
+<div class="panel-search">
+  <div class="input-group">
+    <Input
+      @value={{this.search}}
+      @key-up={{fn this.doSearch this.search}}
+      @insert-newline={{fn this.doSearch this.search}}
+      class="form-control input-lg"
+      placeholder="Search for an operator"
+    />
+    <span class="input-group-prepend">
+      <button
+        type="button"
+        class="input-group-text"
+        {{on "click" this.doSearch}}
+      >
+        <FaIcon @icon="search" />
+      </button>
+    </span>
+  </div>
+</div>
+{{#if this.loading}}
+  <LoadingIcon />
+{{else}}
+  <div class="table-responsive">
+    <table class="table-st">
+      <thead>
+        <tr>
+          <th>
+            Email
+          </th>
+          {{#if this.currentUser.isAdmin}}
+            <th class="text-center">
+              Confirmed?
+            </th>
+          {{/if}}
+          <th>
+            Roles
+          </th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each this.uniqueUsers as |claim|}}
+          <tr>
+            <td>
+              {{claim.user.email}}
+            </td>
+            {{#if this.currentUser.isAdmin}}
+              <td class="text-center">
+                {{#if claim.user.emailConfirmed}}
+                  <FaIcon @icon="check" class="text-success" />
+                {{else}}
+                  <FaIcon @icon="times" class="text-danger" />
+                {{/if}}
+              </td>
+            {{/if}}
+            <td>
+              {{#each claim.user.roles as |role|}}
+                <span class="d-inline-block">
+                  {{role.name}}
+                </span>
+              {{/each}}
+            </td>
+            <td class="text-right">
+              <LinkTo
+                @route="u.admin.edit-team-member"
+                @models={{array claim.user.id}}
+                class="btn btn-info btn-fw btn-xs"
+              >
+                <FaIcon @icon="edit" @prefix="far" />
+                Manage
+              </LinkTo>
+            </td>
+          </tr>
+        {{else}}
+          <tr>
+            <td
+              colspan="{{if this.currentUser.isAdmin "4" "3"}}"
+              class="text-center font-bold"
+            >
+              There are no add-ons
+              associated with this feature
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+    <SimplePagination
+      @recordCount={{this.recordCount}}
+      @pageSize={{this.pageSize}}
+      @pageNumber={{this.pageNumber}}
+      @onPageSelect={{fn this.getPage}}
+    />
+  </div>
+{{/if}}

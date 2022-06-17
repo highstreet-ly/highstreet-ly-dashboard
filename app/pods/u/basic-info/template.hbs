@@ -1,0 +1,119 @@
+{{page-title "Your Info"}}
+<div class="col-12 grid-margin stretch-card">
+  <div class="card">
+    <div class="card-body">
+      <h4 class="card-title">
+        Organisation Info
+      </h4>
+      <p class="card-description">
+        Your company details
+      </p>
+      <div class="forms-sample">
+        <div class="form-group">
+          <label for="exampleInputName1">
+            Name
+          </label>
+          <Input
+            @value={{this.organiser.name}}
+            class="form-control m-b-5"
+            placeholder="Name"
+            maxlength="100"
+          />
+        </div>
+        {{#if this.currentUser.isAdmin}}
+          <div class="form-group">
+            <label for="exampleInputName1">
+              Platform Fee
+            </label>
+            <Input
+              @value={{this.organiser.platformFee}}
+              min="0"
+              @type="number"
+              class="form-control m-b-5"
+              placeholder="Name"
+            />
+          </div>
+        {{/if}}
+        {{#if this.currentUser.isAdmin}}
+          <div class="form-group">
+            <label for="exampleInputName1">
+              Schema Type
+            </label>
+            <button
+              type="button"
+              class="btn btn-sm
+                {{if
+                  (eq this.organiser.schemaType "Simple")
+                  "active btn-success"
+                  "btn-primary"
+                }}"
+              {{on "click" (fn this.selectSchema "Simple")}}
+            >
+              Simple
+            </button>
+            <button
+              type="button"
+              class="btn btn-sm
+                {{if
+                  (eq this.organiser.schemaType "Extended")
+                  "active btn-success"
+                  "btn-primary"
+                }}"
+              {{on "click" (fn this.selectSchema "Extended")}}
+            >
+              Extended
+            </button>
+          </div>
+        {{/if}}
+        <div class="form-group">
+          <label for="exampleTextarea1">
+            Description
+          </label>
+          <Textarea
+            class="form-control"
+            rows="4"
+            @value={{this.organiser.description}}
+          />
+          {{#if this.invalidUrl}}
+            invalidUrl
+          {{/if}}
+          {{#if this.duplicateUrl}}
+            duplicateUrl
+          {{/if}}
+        </div>
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                {{this.env.sonatribe.MainUi}}
+                /
+              </span>
+            </div>
+            <Input
+              @value={{this.organiser.url}}
+              class="form-control"
+              maxlength="100"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="col-12 mb-4 pb-4">
+  <div class="btn-toolbar float-right">
+    <div class="btn-group">
+      <button
+        type="button"
+        class="btn btn-outline-primary"
+        {{on "click" this.save}}
+      >
+        <FaIcon @icon="save" @prefix="far"/>
+        Save
+      </button>
+    </div>
+  </div>
+</div>
+{{#if this.saving}}
+  <LoadingIcon />
+{{/if}}

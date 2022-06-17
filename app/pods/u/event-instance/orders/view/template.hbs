@@ -1,0 +1,632 @@
+{{page-title (concat "Order" this.editingOrder.humanReadableStatus)}}
+
+{{#if this.saving}}
+<LoadingBlocker />
+{{/if}}
+
+<div class="tab-content">
+  <div class="tab-pane active show" id="tickets-1" role="tabpanel" aria-labelledby="tickets-tab">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-lg-8">
+            <div class="row">
+              <div class="col-md-6">
+                <h2 class="card-title mb-5">
+                  Order #{{this.editingOrder.humanReadableId}}
+                </h2>
+              </div>
+              <div class="col-md-6">
+                Status: <b>{{this.editingOrder.humanReadableStatus}}</b>
+              </div>
+            </div>
+            <div class="form-section">
+              <div class="row">
+                <div class="col-md-6">
+                  <h2 class="form-section-title">
+                    Customer
+                  </h2>
+                  <ul class="list-unstyled">
+                    <li>{{this.editingOrder.ownerName}}</li>
+                    <li>{{this.editingOrder.ownerPhone}}</li>
+                    <li>{{this.editingOrder.ownerEmail}}</li>
+                  </ul>
+                </div>
+                <div class="col-md-6">
+                  <h2 class="form-section-title">
+                    Address
+                  </h2>
+                  <ul class="list-unstyled">
+                    <li>{{this.editingOrder.deliveryLine1}}</li>
+                    <li>{{this.editingOrder.deliveryPostcode}}</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="form-section">
+              <h2 class="form-section-title mb-3">
+                Order
+              </h2>
+              <table class="table-st">
+                <thead>
+                  <tr>
+                    <th>
+                      Item
+                    </th>
+                    <th width="100">
+                      Unit Price
+                    </th>
+                    <th width="100" class="text-center">
+                      Quantity
+                    </th>
+                    <th width="100">
+                      Total
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each this.editingOrder.tickets as |item|}}
+                  <tr>
+                    <td class="font-weight-bold" valign="top">
+                      {{item.ticketDetails.name}}
+                      {{#if item.ticketDetails.productExtras.length}}
+                      <ul class="list-unstyled mb-0 mt-1">
+                        {{#each item.ticketDetails.productExtras as |extra|}}
+                        <li class="small lighter">+ {{extra.name}}</li>
+                        {{!-- <div class="small lightest mt-1">with: {{item.ticketDetails.extrasString}}</div> --}}
+                        {{/each}}
+                      </ul>
+                      {{/if}}
+                    </td>
+                    <td valign="top">
+                      {{currency item.ticketDetails.price}}
+                    </td>
+                    <td class="text-center" valign="top">
+                      {{item.ticketDetails.quantity}}
+                    </td>
+                    <td valign="top">
+                      {{currency item.ticketDetails.totalPrice}}
+                    </td>
+                  </tr>
+                  {{/each}}
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan="2"></td>
+                  </tr>
+                  <tr>
+                    <td colspan="2"></td>
+                    <td class="text-right bg-dark">Fees:</td>
+                    <td class="bg-dark">{{currency this.platformFees}}</td>
+                  </tr>
+                  <tr>
+                    <td colspan="2"></td>
+                    <td class="font-weight-bold text-right bg-dark">TOTAL:</td>
+                    <td class="text-xl font-weight-bold bg-dark">{{currency this.editingOrder.totalAmount}}</td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+
+
+
+
+
+
+
+
+            <div class="form-section">
+              <h2 class="form-section-title mb-3">
+                Charges
+              </h2>
+              <table class="table-st">
+                <thead>
+                  <tr>
+                    <th>
+                      Charge ID
+                    </th>
+                    <th width="100">
+                      Amount Requested
+                    </th>
+                    <th>
+                      Amount Captured
+                    </th>
+                    <th width="100" class="text-center">
+                      Refunded
+                    </th>
+                    <th width="100" class="text-center">
+                      Amount Refunded
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each payment.charges as |charge|}}
+                  <tr>
+                    <td>
+                      {{#if (is-empty charge.failureMessage)}}
+                      Charge Successful.
+                      {{else}}
+                      {{charge.failureMessage}}
+                      {{/if}}
+                    </td>
+                    <td valign="top">
+                      {{currency charge.amount}}
+                    </td>
+
+                    <td valign="top">
+                      {{currency charge.amountCaptured}}
+                    </td>
+
+                    <td class="text-center" valign="top">
+                      {{#if charge.refunded}}
+                      Yes.
+                      {{else}}
+                      No.
+                      {{/if}}
+                    </td>
+                    <td>
+                      {{currency (refunds-from-charge charge)}}
+                    </td>
+
+                  </tr>
+
+                  {{/each}}
+                </tbody>
+              </table>
+
+            </div>
+
+
+
+
+
+            <div class="form-section">
+              <h2 class="form-section-title mb-3">
+                Refunds
+              </h2>
+              <table class="table-st">
+                <thead>
+                  <tr>
+                    <th>
+                      Refund Reason
+                    </th>
+                    <th width="100">
+                      Amount Refunded
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each payment.charges as |charge|}}
+                  {{#each charge.refunds as |refund|}}
+                  <tr>
+                    <td>
+                      {{#unless (is-empty refund.refundNote)}}
+                      {{refund.refundNote}}
+                      {{else}}
+                      No note recorded.
+                      {{/unless}}
+                    </td>
+                    <td valign="top">
+                      {{currency refund.amount}}
+                    </td>
+                  </tr>
+                  {{else}}
+                  <tr>
+                    <td colspan="2">
+                      No refunds issued.
+                    </td>
+                  </tr>
+                  {{/each}}
+                  {{else}}
+                  <tr>
+                    <td colspan="2">
+                      No refunds issued.
+                    </td>
+                  </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+            </div>
+
+
+
+            {{!-- {{#if (eq this.editingOrder.status "Refunded")}}
+            <tr>
+
+              <td colspan="3">
+                <h4>Refunds</h4>
+                <table class="table-st">
+                  <thead>
+                    <tr>
+
+                      <th width="100">
+                        Amount
+                      </th>
+                      <th width="100" class="text-center">
+                        Status
+                      </th>
+
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {{#each charge.refunds as |refund|}}
+
+                    <tr>
+                      <td>
+                        {{currency refund.amount}}
+                      </td>
+                      <td>
+                        {{refund.status}}
+                      </td>
+
+
+                    </tr>
+                    {{/each}}
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+            {{/if}} --}}
+
+
+
+
+          </div>
+
+          <div class="col-lg-4">
+            <div class="mb-3">
+              <div class="row row-tight">
+                {{#if this.canRefund}}
+                <div class="col-6 col-lg-4 col-xl-5">
+                  <button type="button" class="btn btn-danger btn-block" {{on 'click' (fn (mut this.showRefund) true)}}>
+                    Refund
+                  </button>
+                </div>
+                {{/if}}
+                <div class="{{if (eq this.buttonsVisible 2) 'col-12' 'col-6 col-lg-8 col-xl-7'}}">
+                  <OrderActionButton @order={{this.editingOrder}} @onBeforeSave={{this.onBeforeSave}}
+                    @onAfterSave={{this.onAfterSave}} class="btn btn-sm btn-success" />
+                </div>
+              </div>
+            </div>
+
+            {{#if (eq this.editingOrder.status "Processing")}}
+            <div class="form-section bg-dark mb-3">
+              <div class="p-3">
+                <h5 class="form-section-title">
+                  {{#if this.editingOrder.isClickAndCollect}}
+                  Let your customer know when this order is ready for collection.
+                  {{else}}
+                  Let your customer know a day and AM/PM slot for the delivery.
+                  {{/if}}
+                </h5>
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="form-label">
+                        Day
+                      </label>
+                      <EmberFlatpickr @date={{this.dateValue}} @onChange={{this.onDateChange}} @dateFormat="d/m/Y"
+                        class="form-control" />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>
+                        AM/PM
+                      </label>
+
+                      <UI::Select @value="AM" @onSelect={{this.onTimeofDayChange}} as |sb|>
+                        <sb.SelectedOption>
+                          AM
+                        </sb.SelectedOption>
+                        <sb.Options>
+                          <sb.Option @value="AM">
+                            AM
+                          </sb.Option>
+                          <sb.Option @value="PM">
+                            PM
+                          </sb.Option>
+                        </sb.Options>
+                      </UI::Select>
+
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <label for="tracking-notes" class="small">Any other info - tracking number, etc</label>
+                  <Textarea @value={{this.editingOrder.customerDispatchAdvisory}} class="form-control m-b-5" rows="5"
+                    id="tracking-notes" />
+                </div>
+              </div>
+            </div>
+            {{/if}}
+
+            <div class="form-section bg-dark">
+              <div class="p-3">
+                <ul class="list-key-val">
+                  <li>
+                    <span class="key">Reference:</span>
+                    <span class="val">{{this.editingOrder.humanReadableId}}</span>
+                  </li>
+                  <li>
+                    <span class="key">Ordered:</span>
+                    <span class="val">{{moment-from-now this.editingOrder.createdOn}}</span>
+                  </li>
+                  <li>
+                    <span class="key">Status:</span>
+                    <span class="val">{{this.editingOrder.humanReadableStatus}}</span>
+                  </li>
+                  <li>
+                    <span class="key">Shipping:</span>
+                    <span class="val">{{this.editingOrder.deliveryTypeString}}</span>
+                  </li>
+
+                  {{#if this.editingOrder.isToTable}}
+                  <li>
+                    <span class="key">Table #:</span>
+                    <span class="val">{{this.editingOrder.tableInfo}}</span>
+                  </li>
+                  {{/if}}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{#if this.showRefund}}
+<Forms::refundForm @order={{this.editingOrder}} @onRefundCancel={{fn (mut this.showRefund) false }}
+  @onAfterRefundSave={{fn (mut this.showRefund) false }} />
+{{/if}}
+
+{{!--
+
+{{#if (eq this.editingOrder.status 3)}}
+{{#if this.editingOrder.isClickAndCollect}}
+<p class="text-left">
+  Let your customer know when this order is ready for collection.
+</p>
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group row">
+      <label class="col-sm-3 col-form-label">
+        Day
+      </label>
+      <div class="col-sm-9" data-children-count="1">
+        <EmberFlatpickr @date={{this.dateValue}} @onChange={{this.onDateChange}} @dateFormat="d/m/Y"
+          class="form-control m-b-5 ember-text-field ember-view" />
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group row">
+      <label class="col-sm-3 col-form-label">
+        AM/PM
+      </label>
+      <div class="col-sm-9" data-children-count="1">
+        <select class="form-control" {{on "change" (pick "target.value" this.onTimeofDayChange) }}>
+          <option value="AM">
+            AM
+          </option>
+          <option value="PM">
+            PM
+          </option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+{{/if}}
+{{#if this.editingOrder.isLocalDelivery}}
+<p class="text-left">
+  Let your customer know a day and AMP/PM slot for when you plan to deliver this order.
+</p>
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group row">
+      <label class="col-sm-3 col-form-label">
+        Day
+      </label>
+      <div class="col-sm-9" data-children-count="1">
+        <EmberFlatpickr @date={{this.dateValue}} @onChange={{this.onDateChange}} @dateFormat="d/m/Y"
+          class="form-control m-b-5 ember-text-field ember-view" />
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group row">
+      <label class="col-sm-3 col-form-label">
+        AM/PM
+      </label>
+      <div class="col-sm-9" data-children-count="1">
+        <select class="form-control" {{on "change" (pick "target.value" this.onTimeofDayChange) }}>
+          <option value="AM">
+            AM
+          </option>
+          <option value="PM">
+            PM
+          </option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+{{/if}}
+{{#if this.editingOrder.isNationalDelivery}}
+<p class="text-left">
+  Let your customer know a day and AM/PM slot for when you plan to deliver this order.
+</p>
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group row">
+      <label class="col-sm-3 col-form-label">
+        Day
+      </label>
+      <div class="col-sm-9" data-children-count="1">
+        <EmberFlatpickr @date={{this.dateValue}} @onChange={{this.onDateChange}} @dateFormat="d/m/Y"
+          class="form-control m-b-5 ember-text-field ember-view" />
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group row">
+      <label class="col-sm-3 col-form-label">
+        AM/PM
+      </label>
+      <div class="col-sm-9" data-children-count="1">
+        <select class="form-control" {{on "change" (pick "target.value" this.onTimeofDayChange) }}>
+          <option value="AM">
+            AM
+          </option>
+          <option value="PM">
+            PM
+          </option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+<p class="text-left">
+  Provide the tracking number and any notes to your customer.
+</p>
+<Textarea @value={{this.editingOrder.customerDispatchAdvisory}} class="form-control m-b-5" rows="5" />
+{{/if}}
+<br />
+{{/if}}
+<div class="col-md-12">
+  <div class="btn-toolbar text-left mt-5">
+
+  </div>
+</div>
+
+--}}
+
+
+{{!--
+<div>
+  <div>
+    <div>
+      <div>
+        <div>
+          <div>
+            <h3>
+              {{this.editingOrder.humanReadableId}}
+            </h3>
+            <p class="text-muted mb-0">
+              <b>
+                {{#if this.editingOrder.isClickAndCollect}}
+                Click and collect order
+                {{/if}}
+                {{#if this.editingOrder.isLocalDelivery}}
+                Local delivery order
+                {{/if}}
+                {{#if this.editingOrder.isNationalDelivery}}
+                National delivery order
+                {{/if}}
+              </b>
+              placed
+              {{moment-from-now this.editingOrder.createdOn}}
+            </p>
+          </div>
+          <p class="mt-2 card-text">
+            Order state:
+            {{this.editingOrder.status}}
+          </p>
+          <div class="border-top pt-3">
+            <div class="row">
+              <div class="col-4">
+                <h6>
+                  Phone
+                </h6>
+                <p>
+                  {{this.editingOrder.ownerPhone}}
+                </p>
+              </div>
+              <div class="col-4">
+                <h6>
+                  Address
+                </h6>
+                <p>
+                  {{this.editingOrder.deliveryLine1}}
+                  ,
+                  <br />
+                  {{this.editingOrder.deliveryPostcode}}
+                </p>
+              </div>
+              <div class="col-4">
+                <h6>
+                  Email
+                </h6>
+                <p>
+                  {{this.editingOrder.ownerEmail}}
+                </p>
+              </div>
+            </div>
+          </div>
+          <p>
+          <h4>
+            Order Details
+          </h4>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th class="pt-1 pl-0">
+                    Info
+                  </th>
+                  <th class="pt-1">
+                    Requested
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each this.editingOrder.tickets as |item|}}
+                <tr>
+                  <td class="py-1 pl-0">
+                    <div class="d-flex align-items-center">
+                      {{#if item.ticketTypeConfiguration.mainImageId}}
+                      <CloudinaryImage @imageId={{item.ticketTypeConfiguration.mainImageId }} class="img-lg rounded"
+                        @options={{this.imageOptions}} />
+                      {{/if}}
+                      <div class="ml-3">
+                        <p class="mb-0">
+                          {{item.ticketDetails.name}}
+                          (
+                          {{item.ticketDetails.displayName}}
+                          )
+                        </p>
+                        {{#each
+                        item.ticketDetails.productExtras as |extra|
+                        }}
+                        <p class="mb-0 text-muted text-small">
+                          {{extra.name}}
+                        </p>
+                        {{/each}}
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    {{item.ticketDetails.quantity}}
+                  </td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+--}}

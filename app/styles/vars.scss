@@ -1,0 +1,13 @@
+$st-brand: #F18700;
+
+$text-dark: #e1e1e1;
+
+$bg-dark: #121212;
+$bg-dark-border: #121212;
+
+$panel-dark: #1f1f1f;
+$panel-dark-border: #1e1e1e;
+$panel-dark-darkened: darken($color: $panel-dark, $amount: 3);
+$panel-dark-lightened: lighten($color: $panel-dark, $amount: 10);
+$panel-dark-text: #fff;
+$panel-dark-text-muted: darken($color: $panel-dark-text, $amount: 60);

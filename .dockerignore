@@ -1,0 +1,8 @@
+# Ignore everything
+**
+
+# allow dist
+!/dist
+
+# allow nginx.conf
+!/nginx.conf

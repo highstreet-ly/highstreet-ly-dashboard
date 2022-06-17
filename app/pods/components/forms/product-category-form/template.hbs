@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="col-12">
+    <div class="form-group">
+      <label for="category-name">Name</label>
+      <Input @value={{@productCategory.name}} @id="category-name" type="text" class="form-control category-name" />
+    </div>
+  </div>
+  <div class="col-12">
+    <div class="form-group">
+      <label for="category-description">Description</label>
+      <Textarea @value={{@productCategory.description}} @id="category-description" rows="4"
+        class="form-control category-description" />
+    </div>
+  </div>
+</div>
+
+<EmberWormhole @to="action-bar-bottom-right">
+  {{#if @productCategory.id}}
+    <button type="button" class="btn btn-outline-danger" role="button" {{on "click" (fn (mut this.confirmDelete) true)}}>
+      <FaIcon @icon="times" />
+      Delete
+    </button>
+  {{/if}}
+  <button type="button" class="btn btn-success" {{on 'click' this.save}} id="save-category">
+    <FaIcon @icon="save" @prefix="far"/> Save Changes
+  </button>
+</EmberWormhole>
+
+{{#if this.loading}}
+  <LoadingBlocker />
+{{/if}}
+
+<SweetAlert @show={{this.confirmDelete}} @text="Are you sure you want to delete this category? This cannot be undone."
+  @icon="warning" @iconColor="#ff4747" @showCancelButton={{true}} @confirmButtonText="Yes, delete this category"
+  @confirmButtonColor="#ff4747" @onConfirm={{fn this.deleteCategory @productCategory}} @onCancel={{fn (mut
+  this.confirmDelete) false}} />

@@ -1,0 +1,6 @@
+{{page-title "Stats"}}
+
+<h2 class="card-title">{{t "event-instance-route.items-sold-label"}}</h2>
+
+<Reports::EventInstanceStats @eventInstance={{this.eventInstance}} @eventSeries={{this.eventSeries}}
+  @lineData={{this.ticketsSoldByDayByInstanceStatsGroupedChartDataById}} />

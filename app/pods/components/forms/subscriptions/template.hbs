@@ -1,0 +1,77 @@
+<div {{did-insert this.didInsert}}>
+  <h2 class="mb-3 mt-5 text-center">
+    Super charge your business!
+  </h2>
+  <p class="mb-5 text-center">
+    Choose a plan that suits you the best. If you are not fully satisfied, we offer 30-day
+    money-back guarantee
+  </p>
+  <div class="row subs">
+    {{#each @plans as |plan idx|}}
+    <div class="col-12 col-md-4 px-0">
+      <div class="sub-card
+          {{if (eq @currentSubscription.plan.id plan.integrationId) " current"}} {{if (eq
+        plan.integrationId "starter-plus" ) "popular" }}">
+        {{#if (eq plan.integrationId "starter-plus")}}
+        <div class="info-graphic">
+          <img src="/img/most-popular.svg" alt="Most popular!" class="w-pc-50" />
+        </div>
+        {{/if}}
+        <div class="text-center sub-card-head sub-card-padded">
+          <h2 class="sub-title">
+            {{plan.name}}
+          </h2>
+          <p class="sub-desc">
+            {{plan.description}}
+          </p>
+        </div>
+        <div class="sub-pricing">
+          <div class="sub-card-padded">
+            <h3 class="sub-price">
+              {{currency plan.price true}}<span>/mo</span>
+            </h3>
+            <div class="sub-buy">
+              {{#if
+              (eq @currentSubscription.plan.integrationId plan.integrationId)
+              }}
+              <span class="btn">
+                Your current plan!
+              </span>
+              {{else}}
+              <a href="javascript:void(0)" data-cb-type="checkout" data-cb-plan-id={{plan.integrationId}} class="btn
+                    {{if
+                      (eq plan.integrationId " starter-plus") " btn-primary" " btn-outline-primary" }} btn-block">
+                Subscribe
+              </a>
+              {{/if}}
+            </div>
+          </div>
+        </div>
+        <div class="sub-features">
+          <ul class="list-unstyled">
+            {{#if (gt plan.sortOrder 0)}}
+            <li>
+              <b>
+                Everything in the
+                <span class="text-lg">
+                  {{get-plan-by-idx @plans plan.sortOrder}}
+                </span>
+                plan, including:
+              </b>
+            </li>
+            {{/if}}
+            {{#each (plan-diff plan @plans idx) as |feature|}}
+            <li>
+              <FaIcon @icon="check" class="text-success" />
+              <span>
+                {{feature.name}}
+              </span>
+            </li>
+            {{/each}}
+          </ul>
+        </div>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+</div>

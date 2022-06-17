@@ -1,0 +1,56 @@
+{{page-title "Payment Methods"}}
+<div>
+  <img
+    class="mx-auto d-block wmax-px-300"
+    src="/images/stripe/powered_by_stripe@3x.png"
+    alt="Powered by Stripe"
+  />
+</div>
+{{#if this.currentUser.loading}}
+  <LoadingIcon />
+{{/if}}
+<div class="row mt-4">
+  <div class="col-12 text-center">
+    <p>
+      This section shows the integrations for payment processing that are available. For now we only support Stripe.
+    </p>
+    <p>
+      When you link stripe to your account, you can begin taking payments.
+    </p>
+  </div>
+</div>
+<div class="row mt-4">
+  <div class="col-12 text-center">
+    {{#if this.noOrganiser}}
+      You're not an set up yet - you'll need to create an event before you can edit this information
+    {{else if this.currentUser.eventOrganiser.isConnectedToStripe}}
+      <div class="text-success mt-4 stripe-page-logo">
+        <FaIcon @icon="check" />
+        Stripe connected successfully
+      </div>
+      {{!-- <a href="{{stripeOauthUrl}}" class="stripe-connect dark large"><span>Reconnect with Stripe</span></a> --}}
+    {{else}}
+      <a href="{{this.stripeOauthUrl}}" class="stripe-connect dark large">
+        <span>
+          Connect with Stripe
+        </span>
+      </a>
+    {{/if}}
+    {{#if this.loadingConnection}}
+      <LoadingIcon />
+    {{/if}}
+  </div>
+  {{! <div id="payment-element"></div>
+
+  <script>
+    new SonaticketWidget.PurchaseFlow({
+      target: document.getElementById('payment-element'),
+
+      props: {
+        apiUrl: 'https://api.shop.highstreetly.live/api/v1/',
+        eventId: '12b20000-41ad-ee4f-55d2-08d8ff4a9e1c',
+        stripeKey: 'pk_test_KLsvb9WFdUIEjkyEv0UyefHQ'
+      }
+    })
+  </script>  }}
+</div>

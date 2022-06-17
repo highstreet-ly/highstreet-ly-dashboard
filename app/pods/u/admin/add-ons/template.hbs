@@ -1,0 +1,57 @@
+<div class="card-body-header">
+  <h2 class="card-title">
+    Add ons
+  </h2>
+</div>
+{{#if this.loading}}
+  <LoadingIcon />
+{{else}}
+  <div class="table-responsive">
+    <table class="table-st">
+      <thead>
+        <tr>
+          <th>
+            Name
+          </th>
+          <th>
+            Pricing Model
+          </th>
+          <th>
+            Price
+          </th>
+          <th style="width:60px;">
+            Status
+          </th>
+          <th style="width:90px;"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each this.model as |addon|}}
+          <tr>
+            <td>
+              {{addon.name}}
+            </td>
+            <td>
+              {{addon.pricingModel}}
+            </td>
+            <td>
+              {{currency addon.price true}}
+            </td>
+            <td>
+              <StatusLabel @statusObject={{addon}} />
+            </td>
+            <td class="text-right">
+              <LinkTo @route="u.admin.add-on-edit" @model={{addon.id}} class="btn btn-info btn-fw btn-xs">
+                {{fa-icon "edit"}} Manage
+              </LinkTo>
+            </td>
+          </tr>
+        {{else}}
+          <tr>
+            <td colspan="5" class="text-center font-bold">There are no addons yet</td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+{{/if}}

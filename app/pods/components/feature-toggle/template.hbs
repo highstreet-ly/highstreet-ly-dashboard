@@ -1,0 +1,11 @@
+<button
+  type="button"
+  class="btn {{this.buttonClass}} btn-fw btn-xs"
+  {{on "click" (fn @onClick @feature)}}
+>
+  {{#if this.parentDoesNotHaveFeature}}
+    {{fa-icon "check"}}Enabled
+  {{else}}
+    {{fa-icon "times"}}Disabled
+  {{/if}}
+</button>

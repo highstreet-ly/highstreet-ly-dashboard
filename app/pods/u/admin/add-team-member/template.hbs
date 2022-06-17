@@ -1,0 +1,68 @@
+{{page-title "Onboarding"}}
+
+<h4 class="card-title">
+  Team Member Details
+</h4>
+<p class="card-description">
+  New team member
+</p>
+{{#if this.showConfirmSent}}
+  <div class="alert alert-success" role="alert">
+    Check your email!
+  </div>
+{{/if}}
+<div class="pt-3">
+  <div class="form-group">
+    <Input @type="email" class="form-control form-control-lg" id="email" placeholder="Team Members Email Address"
+      required={{true}} @value={{this.registerData.email}} />
+    {{#if this.emailExists}}
+      Looks like the customer already registered
+    {{/if}}
+    {{#if this.emailInvalid}}
+      <p class="error">
+        That email address doesn't look right?
+      </p>
+    {{/if}}
+  </div>
+  {{!-- <div class="form-group">
+                            <Input @type="password" class="form-control form-control-lg" id="password"
+                                placeholder="Password" required={{true}} @value={{this.registerData.password}}
+                                @insert-newline={{action "addTeamMember" }} />
+                            {{#if passwordInvalid}}
+                            Password must contain a mixture of uppercase and lowercase characters and at least one
+                            number.
+                            {{/if}}
+                        </div>             --}}
+  <div class="form-group">
+    <div>
+      <label for="">
+        User options
+        <br />
+        <small class="text-muted">
+          What options do you want available at checkout? The
+          general expectation for
+          local delivery is a day/time slot drop off delivery. If you plan to ship
+          everything via Royal
+          Mail/Courier, select National only
+        </small>
+      </label>
+    </div>
+    <div class="form-group">
+      <label class="checkbox-inline">
+        <Input @type="checkbox" @checked={{this.isDash}} class="mr-1" {{on "change" this.toggleIsDash}} />
+        Dashboard access
+      </label>
+      <label class="checkbox-inline ml-3">
+        <Input @type="checkbox" @checked={{this.isOperator}} class="mr-1" {{on "change" this.toggleIsOperator}} />
+        Operator app access
+      </label>
+    </div>
+  </div>
+</div>
+
+<EmberWormhole @to="action-bar-bottom-right">
+  <button type="button" class="btn btn-success" {{on "click" this.addTeamMember}}>
+      <FaIcon @icon="save" @prefix="far"/>
+      Save Changes
+    </button>
+</EmberWormhole>

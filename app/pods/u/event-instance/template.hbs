@@ -1,0 +1,153 @@
+{{page-title this.eventInstance.name}}
+
+<div class="row mb-4">
+  <div class="col-12">
+    <div class="row">
+      <div class="col-12 col-md-6">
+        <div class="d-flex justify-content-md-start flex-wrap">
+          <div class="pr-4 mb-3 mb-xl-0 text-center">
+            <p class="text-muted">
+              Balance
+            </p>
+            <h4 class="mb-0 font-weight-bold">
+              {{currency this.totalFundsDayByInstanceStatsTotalFundsSummedById}}
+            </h4>
+          </div>
+          <div class="pr-4 mb-3 mb-xl-0 text-center">
+            <p class="text-muted">
+              Total Orders
+            </p>
+            <h4 class="mb-0 font-weight-bold">
+              {{this.totalOrdersProcessedByInstanceStatsById}}
+            </h4>
+          </div>
+          <div class="pr-4 mb-3 mb-xl-0 text-center">
+            <p class="text-muted">
+              {{t "event-instance-route.total-items-sold-stat-label"}}
+            </p>
+            <h4 class="mb-0 font-weight-bold">
+              {{this.totalTicketsSoldDayByInstanceStatsTotalFundsSummedById}}
+            </h4>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6">
+        <div class="btn-toolbar text-left text-md-right mt-2">
+
+          {{#if this.eventInstance.isPublished}}
+          <button type="button" class="btn btn-xs btn-outline-danger" {{on "click" this.unPublishEvent}}>
+            Disable Shop
+          </button>
+          <a href="https://{{this.eventInstance.url}}" class="btn btn-xs btn-outline-secondary" target="_blank"
+            rel="noreferrer noopener">
+            <FaIcon @icon="share" />
+            {{t "event-instance-form.go-to-widget-label"}}
+          </a>
+          {{#if this.eventInstance.isAdHocOpeningTimes}}
+          {{#if this.eventInstance.isOpen}}
+          <button type="button" class="btn btn-xs btn-outline-success" {{on "click" this.toggleShopOpen}}>
+            Close Shop
+          </button>
+          {{else}}
+          <button type="button" class="btn btn-xs btn-outline-success" {{on "click" this.toggleShopOpen}}>
+            Open Shop
+          </button>
+          {{/if}}
+          {{/if}}
+          {{#if this.hasOperatorAppFeature}}
+          <a href="{{this.opsURL}}" class="btn btn-xs btn-outline-success" target="_blank" rel="noreferrer noopener">
+            <FaIcon @icon="share" />
+            Operator app
+          </a>
+          {{else}}
+          <LinkTo @route="u.subscription" class="btn btn-xs btn-outline-success">
+            <FaIcon @icon="share" />
+            Operator app
+          </LinkTo>
+          {{/if}}
+          {{else if this.eventInstance.id}}
+          <button type="button" class="btn btn-xs btn-outline-success" {{on "click" this.publishEvent}}>
+            <FaIcon @icon="check" />
+            Enable Shop
+          </button>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<div class="nav-tab-container d-flex align-items-center">
+  <div class="flex-grow-1">
+    <ul class="nav nav-tabs" role="tablist">
+      <li class="nav-item">
+        <LinkTo @route="u.event-instance.index" @model="{{this.eventInstance.slug}}" class="nav-link">
+          Shop Info
+        </LinkTo>
+      </li>
+      <li class="nav-item">
+        <LinkTo @route="u.event-instance.fees" @model="{{this.eventInstance.slug}}" class="nav-link">
+          Fees
+        </LinkTo>
+      </li>
+      <li class="nav-item">
+        <LinkTo @route="u.event-instance.products" @model="{{this.eventInstance.slug}}" class="nav-link"
+          id="products-link">
+          {{t "event-instance-route.items-label"}}
+        </LinkTo>
+      </li>
+      {{#if this.isProductSubscriptionsEnabled}}
+      <li class="nav-item">
+        <LinkTo @route="u.event-instance.subscribables" @model="{{this.eventInstance.slug}}" class="nav-link"
+          id="subscribables-link">
+          Subscribables
+        </LinkTo>
+      </li>
+      {{/if}}
+      <li class="nav-item">
+        <LinkTo @route="u.event-instance.orders" @model="{{this.eventInstance.slug}}" class="nav-link">
+          Orders
+        </LinkTo>
+      </li>
+      <li class="nav-item">
+        <LinkTo @route="u.event-instance.stats" @model="{{this.eventInstance.slug}}" class="nav-link">
+          Stats
+        </LinkTo>
+      </li>
+      <li class="nav-item">
+        <LinkTo @route="u.event-instance.features" @model="{{this.eventInstance.slug}}" class="nav-link">
+          Optional Features
+        </LinkTo>
+      </li>
+      {{#if this.hasWidgetFeature}}
+      <li class="nav-item">
+        <LinkTo @route="u.event-instance.widget" @model="{{this.eventInstance.slug}}" class="nav-link">
+          Widget
+        </LinkTo>
+      </li>
+      {{else}}
+      <li class="nav-item">
+        <LinkTo @route="u.subscription" class="nav-link">
+          Widget
+        </LinkTo>
+      </li>
+      {{/if}}
+    </ul>
+  </div>
+</div>
+
+<div class="tab-content">
+  <div class="tab-pane active show">
+    <div class="card">
+      <div class="card-body">
+
+        <ActionBar @position="top" />
+
+        {{outlet}}
+
+        <ActionBar @position="bottom" />
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,147 @@
+<div class="position-relative">
+  <EmberWormhole @to="action-bar-top-right">
+    <div>
+      {{#if this.reorderMode}}
+      <button
+      type="button"
+        class="btn btn-outline-danger btn-sm"
+        role="button"
+        {{on "click" (fn this.cancel)}}
+      >
+        <FaIcon @icon="times" />
+        Cancel
+      </button>
+      <button
+      type="button"
+        class="btn btn-outline-success btn-sm"
+        role="button"
+        {{on "click" (fn this.save)}}
+      >
+        <FaIcon @icon="save" @prefix="far"/>
+        Save
+      </button>
+    {{else}}
+      {{#unless this.search}}
+        <button
+          type="button"
+          class="btn btn-outline-secondary btn-sm"
+          role="button"
+          {{on "click" (fn (mut this.reorderMode) true)}}
+        >
+          <FaIcon @icon="sync-alt"/>
+          Reorder
+        </button>
+      {{/unless}}
+      <LinkTo @route="u.event-instance.products.categories.new" @model="{{@eventInstance.slug}}"
+        class="btn btn-primary btn-sm" id="add-category">
+        <FaIcon @icon="plus-circle" />
+        New Category
+      </LinkTo>
+    {{/if}}
+    </div>
+  </EmberWormhole>
+
+  {{#if this.reorderMode}}
+    <div class="row mt-5 mb-2">
+      <div class="col-12">
+        <p class="light card-note">
+          <b>
+            <FaIcon @icon="info-circle" class="text-info mr-1" />
+            Set what order the categories will display in your shop by dragging/dropping them into the desired order.
+            Click "Save" when you're happy.
+          </b>
+        </p>
+      </div>
+    </div>
+  {{else}}
+    <div class="row">
+      <div class="col-12">
+        <p class="light card-note">
+          Product categories are the sections of your shop - use them to group similar products together under. You can
+          also decide which order to list them in on your shop by clicking the "Reorder" button above.
+        </p>
+      </div>
+    </div>
+  {{/if}}
+  {{#unless this.reorderMode}}
+    <div class="panel-search">
+      <div class="input-group">
+        <Input @value={{this.search}} @insert-newline={{fn this.doSearch this.search}} class="form-control input-lg"
+          placeholder="Search for a product category" {{on "keyup" (fn this.doSearch this.search)}} />
+        <span class="input-group-prepend">
+          <button
+            type="button"
+            class="input-group-text"
+            {{on "click" this.doSearch}}
+          >
+            {{fa-icon "search"}}
+          </button>
+        </span>
+      </div>
+    </div>
+  {{/unless}}
+  {{#if this.loading}}
+    <LoadingIcon />
+  {{else if this.productCategories.length}}
+    <div class="table-st product-categories">
+      <div class="thead">
+        <div class="tr">
+          <div class="th name">
+            Name
+          </div>
+          {{#unless this.reorderMode}}
+            <div class="th description d-none d-lg-flex">
+              Description
+            </div>
+          {{/unless}}
+          <div class="th options"></div>
+        </div>
+      </div>
+      <div class="tbody">
+        {{#if this.reorderMode}}
+          <SortableObjects @sortableObjectList={{this.productCategories}} @enableSort={{true}} @sortEndAction={{fn
+            this.reordered}}>
+            {{#each this.productCategories as |category|}}
+              <DraggableObject @content={{category}} @overrideClass="tr" @isSortable={{true}}>
+                <div class="td name">
+                  {{category.name}}
+                </div>
+                <div class="td options text-right">
+                  <FaIcon @icon="arrows-alt-v" />
+                </div>
+              </DraggableObject>
+            {{/each}}
+          </SortableObjects>
+        {{else}}
+          {{#each this.sortedProductCategories as |category|}}
+            <div class="tr">
+              <div class="td name">
+                {{category.name}}
+              </div>
+              <div class="td description d-none d-lg-flex">
+                {{category.description}}
+              </div>
+              <div class="td options text-right">
+                <LinkTo class="btn btn-info btn-xs" @route="u.event-instance.products.categories.edit" @models={{array
+                  @eventInstance.slug category.id}}>
+                  <FaIcon @icon="edit" @prefix="far" />
+                  Manage
+                </LinkTo>
+              </div>
+            </div>
+          {{/each}}
+        {{/if}}
+      </div>
+    </div>
+  {{else}}
+    <div class="my-5 text-center font-bold">
+      You've not added any categories yet.
+      <LinkTo @route="u.event-instance.products.categories.new" @model="{{@eventInstance.slug}}">
+        Lets get started →
+      </LinkTo>
+    </div>
+  {{/if}}
+</div>
+{{#if this.saving}}
+  <LoadingBlocker />
+{{/if}}

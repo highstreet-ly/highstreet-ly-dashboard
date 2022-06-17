@@ -1,0 +1,12 @@
+<SelectBox
+  class="foo"
+  @value={{@value}}
+  @onSelect={{@onSelect}} as |sb|
+>
+  <sb.SelectedOption {{on "click" sb.toggle}}>
+    {{sb.value.name}}
+  </sb.SelectedOption>
+  <sb.Options>
+    {{yield sb}}
+  </sb.Options>
+</SelectBox>

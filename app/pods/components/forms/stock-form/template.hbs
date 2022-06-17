@@ -1,0 +1,37 @@
+<div class="position-relative">
+  <div class="form-group mb-0 add-product-stock">
+    {{#if this.loading}}
+      <LoadingBlocker />
+    {{/if}}
+    <label for="add-product-stock-quantity" class="add-product-stock-label">
+      Update Stock
+    </label>
+    <p>
+      <small>
+        Current stock:
+        <b>
+          {{@product.availableQuantity}}
+        </b>
+      </small>
+    </p>
+    <Input
+      id="add-product-stock-quantity"
+      class="text-center form-control"
+      @value={{this.newQuantity}}
+      @type="number"
+      min="1"
+      placeholder="0"
+      size="30"
+      @insert-newline={{this.addStockQuantity}}
+    />
+    <div class="text-center mt-3">
+      <button
+        class="btn btn-primary btn-sm"
+        type="button"
+        {{on "click" this.addStockQuantity}}
+      >
+        Update
+      </button>
+    </div>
+  </div>
+</div>

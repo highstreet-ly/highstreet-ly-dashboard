@@ -1,0 +1,86 @@
+
+{{#if this.saving}}
+  <LoadingBlocker />
+{{/if}}
+
+<h2 class="card-title">
+  Edit Business Type {{this.businessType.name}}
+</h2>
+
+<div class="form-section">
+
+  <div class="row">
+    <div class="col-lg-8">
+      <div class="form-group">
+        <label>
+          Description
+          <br />
+          <small class="text-muted">
+            Describe this business type.
+          </small>
+        </label>
+        <Input id="business-type-description" @value={{this.businessType.description}}
+          class="form-control m-b-5" />
+      </div>
+    </div>
+  </div>
+
+
+   <div class="row">
+    <div class="col-lg-8">
+      <div class="form-group">
+        <label>
+          Published?
+          <br />
+          <small class="text-muted">
+            Toggle business type on the public UIs.
+          </small>
+        </label>
+        <BusinessTypeToggle @businessType={{this.businessType}} @onClick={{this.togglePublished}} />
+      </div>
+    </div>
+  </div>
+
+  <EmberWormhole @to="action-bar-bottom-right">
+    <button type="button" class="btn btn-success" {{on "click" (fn this.save)}}>
+      <FaIcon @icon="save" @prefix="far" />
+      Save Changes
+    </button>
+  </EmberWormhole>
+</div>
+<div class="form-section">
+  <h3 class="form-section-title">
+    Features
+  </h3>
+  <p class="small lighter">
+    Features directly linked to this business type.
+  </p>
+  <div class="table-responsive">
+    <table class="table-st">
+      <thead>
+        <tr>
+          <th>
+            Name
+          </th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each this.features as |feature|}}
+        <tr>
+          <td>
+            {{feature.name}}
+          </td>
+          <td class="text-right">
+            <FeatureToggle @feature={{feature}} @parent={{this.featureTemplate}} @onClick={{this.toggleFeature}} />
+            <LinkTo @route="u.admin.feature-edit" @model={{feature.id}} class="btn btn-info btn-xs ml-2">
+              <FaIcon @icon="edit" @prefix="far" />
+              Manage
+            </LinkTo>
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</div>

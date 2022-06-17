@@ -1,0 +1,99 @@
+{{page-title "Onboarding"}}
+
+<h4 class="card-title">
+  Team Member Details
+</h4>
+
+{{#if this.showConfirmSent}}
+<div class="alert alert-success" role="alert">
+  Check your email!
+</div>
+{{/if}}
+<div class="pt-3">
+  <div class="form-group">
+    <Input @type="email" class="form-control" id="email" placeholder="Team Members Email Address"
+      @value={{this.user.email}} disabled="true" />
+  </div>
+  <div class="form-group">
+    <div>
+      <label for="">
+        User options
+        <br />
+        <small class="text-muted">
+          What options do you want available at checkout? The
+          general expectation for
+          local delivery is a day/time slot drop off delivery. If you plan to ship
+          everything via Royal
+          Mail/Courier, select National only
+        </small>
+      </label>
+    </div>
+    <div class="form-group">
+      <div>
+        <label class="checkbox-inline ml-3">
+          <Input @type="checkbox" @checked={{this.isOperator}} class="mr-1" {{on "change" this.toggleIsOperator}} />
+          Operator app access
+        </label>
+      </div>
+      <div>
+        <label class="checkbox-inline ml-3">
+          <Input @type="checkbox" @checked={{this.isDash}} class="mr-1" {{on "change" this.toggleIsDash}} />
+          Dashboard access
+        </label>
+      </div>
+      <div>
+        <label class="checkbox-inline ml-3">
+          <Input @type="checkbox" @checked={{this.isAdmin}} class="mr-1" {{on "change" this.toggleIsAdmin}} />
+          Super User (Admin)
+        </label>
+      </div>
+    </div>
+  </div>
+  {{#if this.currentUser.isAdmin}}
+  <div class="form-group">
+    <div>
+      <label for="">
+        Email Confirmed
+        <br />
+        <small class="text-muted">
+          You should only manually change this if you are 100% sure
+          the user is who they say they are. This will allow a
+          user to sign in without needing to validate their email address.
+        </small>
+      </label>
+    </div>
+    <div class="form-group">
+      <label class="checkbox-inline ml-3">
+        <Input @type="checkbox" @checked={{this.emailConfirmed}} class="mr-1" {{on "change"
+          this.toggleEmailConfirmed}} />
+        Email confirmed?
+      </label>
+    </div>
+  </div>
+  {{/if}}
+  {{#if this.hasSubscription}}
+  <div class="form-group">
+    <div>
+      <label for="">
+        Subscription
+        <br />
+      </label>
+    </div>
+    <span class="btn btn-sm btn-secondary">
+      {{this.subscription.plan.name}}
+    </span>
+  </div>
+  {{else}}
+  <button type="button" class="btn btn-outline-primary" {{on "click" this.setUserSubscription}}>
+    <FaIcon @icon="save" @prefix="far" />
+    Set default subscription tier
+  </button>
+  {{/if}}
+
+  <div class="mt-3">
+    <button type="button" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" {{on "click"
+      this.save}}>
+      SAVE
+    </button>
+  </div>
+</div>

@@ -1,0 +1,107 @@
+<div {{did-insert this.didInsert}}>
+  <ModalBox @title={{concat "Refund order " @order.humanReadableId "?" }} @loading={{this.loading}}
+    @saving={{this.saving}}>
+    <:content>
+
+      <div class="form-group">
+        <label class="checkbox-inline">
+          <RadioButton @value="full" @groupValue={{this.refundType}} @changed={{this.toggleRefundType}}>
+            <span>Full refund</span>
+          </RadioButton>
+        </label>
+        <label class="checkbox-inline ml-3">
+          <RadioButton @value="items" @groupValue={{this.refundType}} @changed={{this.toggleRefundType}}>
+            <span>Item(s) refund</span>
+          </RadioButton>
+        </label>
+
+        <label class="checkbox-inline ml-3">
+          <RadioButton @value="custom" @groupValue={{this.refundType}} @changed={{this.toggleRefundType}}>
+            <span>Custom refund</span>
+          </RadioButton>
+        </label>
+      </div>
+
+      {{#if (eq this.refundType 'full')}}
+        <p>Note: You will be refunding the platform fees along with the cost of the products in this order. The
+          entire refund will be deducted from your Stripe account.</p>
+
+        <p>You are about to issue a refund for the following payment:</p>
+
+        <table class="table-st text-left my-4 text-sm">
+          <tbody>
+            <tr>
+              <td>Payment Reference:</td>
+              <td>{{this.payment.paymentIntentId}}</td>
+            </tr>
+            <tr>
+              <td>Payee:</td>
+              <td>{{this.payment.email}}</td>
+            </tr>
+            <tr>
+              <td>Order Reference:</td>
+              <td>{{@order.humanReadableId}}</td>
+            </tr>
+            <tr>
+              <td>Amount:</td>
+              <td>{{currency @order.totalAmount}}</td>
+            </tr>
+          </tbody>
+        </table>
+      {{/if}}
+
+      {{#if (eq this.refundType 'items')}}
+        <ul class="list-st mb-3">
+          {{#each @order.tickets as |item|}}
+            <li class="list-st-item">
+              <label class="checkbox text-left" for="item-{{item.id}}">
+                <div class="d-flex align-items-center">
+                  <Input @type="checkbox" @checked={{item.selected}} id="item-{{item.id}}"/>
+                  <span class="checkmark"></span>
+                  <div class="name flex-grow-1" style="line-height:16px;">
+                    {{item.ticketDetails.name}}
+                    {{#if item.ticketDetails.productExtras.length}}
+                      <div class="lighter" style="font-size:9px;">{{item.ticketDetails.extrasString}}</div>
+                    {{/if}}
+                  </div>
+                  <div class="price">
+                    {{currency item.ticketDetails.price}}
+                  </div>
+                </div>
+              </label>
+            </li>
+          {{/each}}
+        </ul>
+        <h5 class="text-right pr-2 mb-3">Total: {{currency this.itemsAmount}}</h5>
+      {{/if}}
+
+      {{#if (eq this.refundType 'custom')}}
+        <div class="form-group">
+          <label for="custom-amount">
+            How much do you want to refund?
+          </label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                £
+              </span>
+            </div>
+            <Input id="custom-amount" @value={{this.customAmount}}
+              class="form-control m-b-5" @type="number" min="0" max="{{@order.totalAmountReal}}" step="0.01" />
+          </div>
+        </div>
+      {{/if}}
+
+      <div class="form-group">
+        <label for="refund-reason" class="small">Why are you refunding? (optional)</label>
+        <Textarea id="refund-reason" @value={{this.refundNote}} class="form-control" />
+      </div>
+
+      <p>Are you sure you want to issue this refund? <b>This cannot be undone</b>.</p>
+    </:content>
+    <:actions>
+      <button type="button" class="btn btn-danger" {{on 'click' this.issueRefund}}>Issue refund</button>
+      <button type="button" class="btn btn-secondary" {{on 'click' @onRefundCancel}}>Cancel</button>
+    </:actions>
+  </ModalBox>
+</div>

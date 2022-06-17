@@ -1,0 +1,80 @@
+{{page-title "Your Info"}}
+{{#if this.saving}}
+  <LoadingBlocker />
+{{/if}}
+<h4 class="card-title">
+  Organisation Info
+</h4>
+<p class="card-description">
+  Your company details
+</p>
+<div class="forms-sample">
+  <div class="form-group">
+    <label for="exampleInputName1">
+      Name
+    </label>
+    <Input @value={{this.organiser.name}} class="form-control m-b-5" @placeholder="Name" />
+  </div>
+  <div class="form-group">
+    <label for="exampleInputName1">
+      Platform Fee
+    </label>
+    <Input @value={{this.organiser.platformFee}} class="form-control m-b-5" @placeholder="Name" />
+  </div>
+  <div class="form-group">
+    <label for="exampleInputName1">
+      Schema Type
+    </label>
+    <button type="button" class="btn btn-sm
+        {{if
+          (eq this.organiser.schemaType " Simple") "active btn-success" "btn-primary" }}" {{on "click" (fn
+      this.selectSchema "Simple" )}}>
+      Simple
+    </button>
+    <button type="button" class="btn btn-sm
+        {{if
+          (eq this.organiser.schemaType " Extended") "active btn-success" "btn-primary" }}" {{on "click" (fn
+      this.selectSchema "Extended" )}}>
+      Extended
+    </button>
+  </div>
+  <div class="form-group">
+    <label for="exampleInputName1">
+      Switch to
+      {{this.organiser.name}}
+    </label>
+    <button type="button" class="btn btn-sm btn-primary" {{on "click" this.becomeOrg}}>
+      Become
+    </button>
+  </div>
+  <div class="form-group">
+    <label for="exampleTextarea1">
+      Description
+    </label>
+    <Textarea class="form-control" rows="4" @value={{this.organiser.description}} />
+    {{#if this.invalidUrl}}
+      invalidUrl
+    {{/if}}
+    {{#if this.duplicateUrl}}
+      duplicateUrl
+    {{/if}}
+  </div>
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text">
+        {{this.env.sonatribe.MainUi}}
+        /
+        </span>
+      </div>
+      <Input @value={{this.organiser.url}} class="form-control" />
+    </div>
+  </div>
+</div>
+
+<EmberWormhole @to="action-bar-bottom-right">
+  <button type="button" class="btn btn-success" {{on "click" this.save}}>
+    <FaIcon @icon="save" @prefix="far"/>
+    Save Changes
+  </button>
+</EmberWormhole>

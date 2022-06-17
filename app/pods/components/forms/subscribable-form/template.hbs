@@ -1,0 +1,159 @@
+<div class="forms-sample">
+  <div class="row">
+    <div class="col-12 col-xl-4">
+      <div class="form-group">
+        <label for="product-name">
+          {{t "product-form.item-name-label"}}
+        </label>
+        <Input @value={{@plan.name}} id="product-name" class="form-control" />
+      </div>
+    </div>
+  </div>
+  <div class="forms-sample">
+    <div class="row">
+      <div class="col-12 col-xl-4">
+        <div class="form-group">
+          <label for="subscription-period">
+            Subscription Period
+          </label>
+          <select
+            id="subscription-period"
+            class="form-control"
+            value="target.value"
+            }}
+            {{on "change" this.onPeriodChange}}
+          >
+            {{#if this.isWeekly}}
+              <option value="week" selected>
+                Weekly
+              </option>
+            {{else}}
+              <option value="week">
+                Weekly
+              </option>
+            {{/if}}
+            {{#if this.isMonthly}}
+              <option value="month" selected>
+                Monthly
+              </option>
+            {{else}}
+              <option value="month">
+                Monthly
+              </option>
+            {{/if}}
+          </select>
+        </div>
+      </div>
+      <div class="col-12 col-xl-8">
+        <div class="form-group">
+          <label for="subscription-period-unit">
+            Subscription Frequency
+          </label>
+          <Input
+            id="subscription-period-unit"
+            @value={{@plan.period}}
+            type="number"
+            min="0"
+            step="1"
+            placeholder="0"
+            max="12"
+            class="form-control"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 col-xl-12">
+        <div class="form-group">
+          <label for="exampleTextarea1">
+            Description
+            <br />
+            <small class="text-muted">
+              This is displayed under your name on your shop page. Please keep
+                            it short (less than
+              {{this.maxCharCount}}
+              characters)
+            </small>
+          </label>
+          <Quill as |Ql|>
+            <Ql.toolbar as |Tb|>
+              <Tb.group>
+                <Tb.bold />
+                <Tb.italic />
+                <Tb.underline />
+              </Tb.group>
+              <Tb.group>
+                <Tb.list value="ordered" />
+                <Tb.list value="bullet" />
+              </Tb.group>
+            </Ql.toolbar>
+            <Ql.editor
+              @name="subscribable-description-editor"
+              @theme="snow"
+              @onTextChange={{fn this.updateText}}
+              @delta={{this.delta}}
+              @placeholder="Tell us your story."
+            />
+            {{!-- <div>
+                            Characters: {{Ql.characters}}<br>
+                        </div> --}}
+          </Quill>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-4">
+        <div class="form-group">
+          <label for="product-price">
+            {{t "product-form.item-price-label"}}
+          </label>
+          <div class="d-flex">
+            <div class="input-group mr-3">
+              <span class="input-group-prepend">
+                <span class="input-group-text">
+                  £
+                </span>
+              </span>
+              <InputMoney @number={{this.price}} class="form-control" />
+              {{!-- <Input id="product-price" @value={{@plan.price}} type="number" min="0.00" step="0.01"
+                                placeholder="0.00" id="product-price" class="form-control" /> --}}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-8">
+        <div class="form-group">
+          <label>
+            {{t "product-form.item-image-label"}}
+          </label>
+          <div>
+            <CloudinaryUploader
+              @imageId={{@plan.mainImageId}}
+              @preset="productImage"
+              @cropping={{true}}
+              @croppingAspectRatio="1.7"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <TicketsPanel
+      @query={{@productsQuery}}
+      @eventInstance={{@eventInstance}}
+      @selectionOnly={{true}}
+      @searchQuery={{@searchQuery}}
+      @title="Tickets"
+      @addProduct={{@addProduct}}
+      @removeProduct={{@removeProduct}}
+      @plan={{@plan}}
+      @endpoint="ticket-type"
+    />
+  </div>
+</div>
+
+<EmberWormhole @to="action-bar-bottom-right">
+  <button type="button" class="btn btn-success" {{on "click" this.save}}>
+      <FaIcon @icon="save" prefix="far"/>
+      Save Changes
+    </button>
+</EmberWormhole>

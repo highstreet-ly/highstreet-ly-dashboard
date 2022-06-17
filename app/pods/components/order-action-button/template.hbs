@@ -1,0 +1,15 @@
+{{#if (eq @order.status 'Paid')}}
+
+  <button type="button" class="btn btn-success btn-block" {{on "click" this.setInProgress}}>
+    Mark in progress
+  </button>
+
+{{/if}}
+
+{{#if (eq @order.status 'Processing')}}
+
+  <button type="button" class="btn btn-success btn-block" {{on "click" this.setComplete}}>
+    Mark complete
+  </button>
+
+{{/if}}

@@ -1,0 +1,7 @@
+{{page-title "Create New Shop"}}
+
+{{#if this.loading}}
+<LoadingIcon />
+{{else}}
+<Forms::EventInstance @eventInstance={{this.eventInstance}} save={{fn this.saveNew}} cancel={{fn this.cancel}}/>
+{{/if}}

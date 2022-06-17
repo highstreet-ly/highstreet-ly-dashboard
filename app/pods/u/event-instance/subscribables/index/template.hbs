@@ -1,0 +1,23 @@
+<div class="col-lg-12 grid-margin stretch-card">
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-6 text-left">
+          <h2>
+            Subscribables
+          </h2>
+        </div>
+        {{!-- <div class="col-6 text-right">
+                    <LinkTo @route="u.admin.plans" class="btn btn-primary">{{fa-icon "backward"}} Back</LinkTo>
+                </div> --}}
+      </div>
+    </div>
+  </div>
+</div>
+<Panels::PlansPanel
+  @query={{this.plansQuery}}
+  @searchQuery={{this.searchQuery}}
+  @subscribable={{true}}
+  @editRoute={{this.editRoute}}
+  @subscribersRoute={{this.subscribersRoute}}
+/>

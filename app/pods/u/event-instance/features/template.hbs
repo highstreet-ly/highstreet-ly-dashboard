@@ -1,0 +1,37 @@
+<div class="form-section">
+    <h3 class="form-section-title">
+        Optional Features
+    </h3>
+    <p class="small lighter">
+        They're optional.
+    </p>
+    <div class="table-responsive">
+        <table class="table-st">
+            <thead>
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {{#each this.features as |feature|}}
+                <tr>
+                    <td>
+                        {{feature.name}}
+                    </td>
+                    <td>
+                        {{feature.description}}
+                    </td>
+                    <td class="text-right">
+                        <FeatureToggle @feature={{feature}} @parent={{this.eventInstance}} @onClick={{this.toggleFeature}} />
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,295 @@
+<div class="position-relative">
+  <div class="extra-group">
+    <div class="row">
+      <div class="col-3">
+        <div class="form-group">
+          <label for="group-name" class="text-muted d-block">
+            Group Name
+          </label>
+          {{#if this.editMode}}
+            <Input
+              @value={{@group.name}}
+              type="text"
+              class="form-control group-name"
+              maxlength="100"
+            />
+          {{else}}
+            <span class="group-name font-weight-bold">
+              {{@group.name}}
+            </span>
+          {{/if}}
+        </div>
+      </div>
+      {{!--<div class="col-6">
+          <div class="form-group">
+              <label for="group-description">Description</label>
+              <Input @value={{group.description}} id="group-description" type="text" class="form-control" />
+          </div>
+      </div>--}}
+      <div class="col-1">
+        <div class="form-group">
+          <label for="group-min" class="text-muted d-block">
+            Min
+          </label>
+          {{#if this.editMode}}
+            <Input
+              @value={{@group.minSelectable}}
+              type="number"
+              min="0"
+              class="form-control group-min"
+            />
+          {{else}}
+            <span class="group-min font-weight-bold">
+              {{@group.minSelectable}}
+            </span>
+          {{/if}}
+        </div>
+      </div>
+      <div class="col-1">
+        <div class="form-group">
+          <label for="group-max" class="text-muted d-block">
+            Max
+          </label>
+          {{#if this.editMode}}
+            <Input
+              @value={{@group.maxSelectable}}
+              type="number"
+              min="0"
+              class="form-control group-max"
+            />
+          {{else}}
+            <span class="group-max font-weight-bold">
+              {{@group.maxSelectable}}
+            </span>
+          {{/if}}
+        </div>
+      </div>
+      <div class="col-7">
+        <div class="text-right" role="group">
+          {{#if this.reorderMode}}
+            <button
+              id="save-product"
+              type="button"
+              class="btn btn-outline-success btn-icon-text btn-xs"
+              {{on "click" (fn (mut this.reorderMode) false)}}
+            >
+              {{fa-icon "check"}}
+              Done
+            </button>
+          {{else if this.editMode}}
+            <button
+              type="button"
+              id="cancel-save-product"
+              class="btn btn-outline-danger btn-icon-text btn-xs"
+              {{on "click" this.cancelSave}}
+            >
+              {{fa-icon "times"}}
+              Cancel
+            </button>
+            <button
+              type="button"
+              id="cancel-save-product"
+              class="btn btn-outline-secondary btn-icon-text btn-xs"
+              {{on "click" (fn (mut this.reorderMode) true)}}
+            >
+              {{fa-icon "arrows-alt-v"}}
+              Reorder
+            </button>
+
+            {{#unless this.isNew}}
+              <button
+                id="save-product"
+                type="button"
+                class="btn btn-outline-success btn-icon-text btn-xs"
+                {{on "click" this.save}}
+              >
+                <FaIcon @icon="save" @prefix="far" />
+                Save Changes
+              </button>
+            {{/unless}}
+          {{else}}
+            <button
+              type="button"
+              id="cancel-save-product"
+              class="btn btn-outline-danger btn-icon-text btn-xs"
+              {{on "click" (fn (mut this.confirmDelete) true)}}
+            >
+              {{fa-icon "times"}}
+              Delete
+            </button>
+            <button
+              id="delete-product"
+              type="button"
+              class="btn btn-outline-secondary btn-icon-text btn-xs"
+              {{on "click" this.edit}}
+            >
+              {{fa-icon "edit"}}
+              Edit
+            </button>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+    {{#if this.reorderMode}}
+      <div class="row mt-3">
+        <div class="col-12">
+          <p>
+            Set what order the options will show in the list by
+            dragging/dropping them into the desired order. Click "Done" when
+            you're happy.
+          </p>
+        </div>
+      </div>
+    {{/if}}
+  </div>
+  <div class="table-st extras">
+    <div class="thead">
+      <div class="tr">
+        <div class="th extra-name">
+          Name
+        </div>
+        <div class="th extra-description">
+          Description
+        </div>
+        <div class="th extra-price">
+          Price
+        </div>
+        {{#if this.editMode}}
+          <div class="th extra-options"></div>
+        {{/if}}
+      </div>
+    </div>
+    <div class="tbody">
+      {{#if this.reorderMode}}
+        <SortableObjects
+          @sortableObjectList={{@group.productExtras}}
+          @enableSort={{true}}
+          @sortEndAction={{fn this.reordered}}
+        >
+          {{#each @group.productExtras as |extra|}}
+            <DraggableObject
+              @content={{extra}}
+              @overrideClass="tr"
+              @isSortable={{true}}
+            >
+              <div class="extras-item">
+                <div class="td extra-name">
+                  {{extra.name}}
+                </div>
+                <div class="td extra-description">
+                  {{extra.description}}
+                </div>
+                <div class="td extra-price">
+                  £
+                  {{extra.priceFormatted}}
+                </div>
+                <div class="td extra-options text-center">
+                  <FaIcon @icon="arrows-alt-v" />
+                </div>
+              </div>
+            </DraggableObject>
+          {{/each}}
+        </SortableObjects>
+      {{else}}
+        {{#each this.sortedExtras as |extra|}}
+          <div class="tr">
+            <div class="extras-item">
+              <div class="td extra-name">
+                {{#if this.editMode}}
+                  <Input
+                    @value={{extra.name}}
+                    type="text"
+                    class="form-control extra-name"
+                    maxlength="100"
+                  />
+                {{else}}
+                  {{extra.name}}
+                {{/if}}
+              </div>
+              <div class="td extra-description">
+                {{#if this.editMode}}
+                  <Input
+                    @value={{extra.description}}
+                    type="text"
+                    class="form-control extra-description"
+                  />
+                {{else}}
+                  {{extra.description}}
+                {{/if}}
+              </div>
+              <div class="td extra-price">
+                {{#if this.editMode}}
+                  <div class="input-group">
+                    <span class="input-group-prepend">
+                      <span class="input-group-text">
+                        £
+                      </span>
+                    </span>
+                    <InputMoney
+                      @number={{extra.priceDecimal}}
+                      class="form-control"
+                      id="product-price"
+                      @insert-newline={{fn this.addExtra @group}}
+                    />
+                  </div>
+                {{else}}
+                  £{{extra.priceFormatted}}
+                {{/if}}
+              </div>
+              {{#if this.editMode}}
+                <div class="td extra-options text-right">
+                  <span
+                    class="btn btn-danger btn-xs"
+                    role="button"
+                    {{on "click" (fn this.removeExtra extra)}}
+                  >
+                    Delete
+                  </span>
+                </div>
+              {{/if}}
+            </div>
+          </div>
+        {{/each}}
+      {{/if}}
+    </div>
+  </div>
+  {{#if this.editMode}}
+
+    {{#unless this.reorderMode}}
+
+      <div class="extra-group">
+        <div class="text-center mt-2">
+          <button
+            type="button"
+            class="btn btn-primary btn-sm add-item-button"
+            {{on "click" (fn this.addExtra @group)}}
+          >
+            Add an item
+            {{#if @group.name}}
+              to the{{@group.name}}group
+            {{/if}}
+          </button>
+        </div>
+      </div>
+    {{else}}
+      <div class="extra-group p-3"></div>
+    {{/unless}}
+
+  {{else}}
+    <div class="extra-group p-3"></div>
+  {{/if}}
+  {{#if this.loading}}
+    <LoadingBlocker />
+  {{/if}}
+</div>
+<SweetAlert
+  @show={{this.confirmDelete}}
+  @text="Are you sure you want to delete this group? This cannot be undone."
+  @icon="warning"
+  @iconColor="#ff4747"
+  @showCancelButton={{true}}
+  @confirmButtonText="Yes, delete this group"
+  @confirmButtonColor="#ff4747"
+  @onConfirm={{this.removeGroup}}
+  @onCancel={{fn (mut this.confirmDelete) false}}
+/>

@@ -1,0 +1,26 @@
+{{page-title "Reports"}}
+
+<h1>Tickets Sold</h1>
+<div class="row">
+    {{#each this.statsService.ticketsSoldByDayByInstanceStatsGroupedChartData as |stat| }}
+    <div class="col-4">
+        <EmberChart @type='line' @data={{stat.chartData}} @width="200" @height="100"/>
+    </div>
+    {{/each}}
+</div>
+<h1>Orders Processed</h1>
+<div class="row">
+    {{#each this.statsService.ordersProcessedByDayByInstanceStatsGroupedChartData as |stat| }}
+    <div class="col-4">
+        <EmberChart @type='line' @data={{stat.chartData}} @width="200" @height="100"/>
+    </div>
+    {{/each}}
+</div>
+<h1>Registered Interests</h1>
+<div class="row">
+    {{#each this.statsService.registeredInterestByInstanceStatsGroupedChartData as |stat| }}
+    <div class="col-4">
+        <EmberChart @type='line' @data={{stat.chartData}} @width="200" @height="100"/>
+    </div>
+    {{/each}}
+</div>

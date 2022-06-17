@@ -1,0 +1,212 @@
+<h2 class="card-title">
+  Edit Add-On
+</h2>
+<div class="form-section">
+  <h3 class="form-section-title">
+    {{this.addOn.name}}
+  </h3>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>
+          Name
+        </label>
+          <span class="form-control">
+          {{this.addOn.name}}
+          </span>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>
+          Description
+        </label>
+
+          <span class="form-control">
+          {{this.addOn.description}} &nbsp;
+          </span>
+
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>
+          Pricing Model
+        </label>
+
+          <span class="form-control">
+          {{this.addOn.pricingModel}}
+          </span>
+
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>
+          price
+        </label>
+
+          <span class="form-control">
+          {{this.addOn.price}}
+          </span>
+
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>
+          Status
+        </label>
+
+          <span class="form-control">
+          {{this.addOn.status}}
+          </span>
+
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>
+          Charge Type
+        </label>
+          <span class="form-control">
+          {{this.addOn.chargeType}}
+          </span>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>
+          Currency Code
+        </label>
+
+          <span class="form-control">
+          {{this.addOn.currencyCode}}
+          </span>
+
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>
+          Period
+        </label>
+
+          <span class="form-control">
+          {{this.addOn.period}}
+          </span>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>
+          Period Unit
+        </label>
+          <span class="form-control">
+          {{this.addOn.periodUnit}}
+          </span>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>
+          Enabled In Portal
+        </label>
+          <span class="form-control">
+          {{this.addOn.enabledInPortal}}
+          </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="form-section">
+  <h3 class="form-section-title">
+    Plans
+  </h3>
+  <p class="small lighter">
+    Plans directly linked to this add-on.
+  </p>
+  <div class="table-responsive">
+    <table class="table-st">
+      <thead>
+        <tr>
+          <th>
+            Name
+          </th>
+          <th style="width:50px;">
+            Status
+          </th>
+          <th style="width:90px;"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each this.addOn.plans as |plan|}}
+          <tr>
+            <td>
+              {{plan.name}}
+            </td>
+            <td>
+              <StatusLabel @statusObject={{plan}} />
+            </td>
+            <td class="text-right">
+              <LinkTo @value="u.admin.plan-edit" @model={{plan.id}} class="btn btn-info btn-fw btn-xs">
+                <FaIcon @icon="edit" @prefix="far" />
+                View
+              </LinkTo>
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="form-section">
+  <h3 class="form-section-title">
+    Features
+  </h3>
+  <p class="small lighter">
+    Features directly linked to this add-on.
+  </p>
+  <div class="table-responsive">
+    <table class="table-st">
+      <thead>
+        <tr>
+          <th>
+            Name
+          </th>
+          <th style="width:180px;">
+
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each this.features as |feature|}}
+          <tr>
+            <td>
+              {{feature.name}}
+            </td>
+            <td class="text-right">
+              <FeatureToggle @feature={{feature}} @parent={{this.addOn}} @onClick={{this.toggleFeature}} />
+              <LinkTo @value="u.admin.feature-edit" @model={{feature.id}} class="btn btn-info btn-fw btn-xs">
+                <FaIcon @icon="edit" @prefix="far" />
+                View
+              </LinkTo>
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</div>

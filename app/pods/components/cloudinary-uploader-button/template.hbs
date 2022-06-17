@@ -1,0 +1,10 @@
+<div class="cloudinary-uploader-button" {{did-insert this.didInsert}}>
+  <button
+    type="button"
+    class="btn btn-sm btn-primary"
+    {{on "click" this.showUploadModal}}
+  >
+    <FaIcon @icon="cloud-upload-alt" />
+    {{this.buttonText}}
+  </button>
+</div>

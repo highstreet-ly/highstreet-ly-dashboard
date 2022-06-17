@@ -1,0 +1,107 @@
+<div class="options text-right position-absolute top-0 right-0">
+  {{#if this.reorderMode}}
+    <button type="button" class="btn btn-outline-danger btn-xs" role="button" {{on "click" (fn this.cancel)}}>
+      <FaIcon @icon="times" />
+      Cancel
+    </button>
+    <button type="button" class="btn btn-outline-success btn-xs" role="button" {{on "click" (fn this.save)}}>
+      <FaIcon @icon="save" @prefix="far"/>
+      Save
+    </button>
+  {{else}}
+    <button class="btn btn-outline-secondary btn-xs" type="button" role="button" {{on "click" (fn (mut this.reorderMode)
+      true)}}>
+      <FaIcon @icon="edit" @prefix="far" />
+      Reorder
+    </button>
+  {{/if}}
+</div>
+<h2 class="card-title">
+  Plans
+</h2>
+{{#if this.loading}}
+  <LoadingIcon />
+{{else}}
+  {{#if this.reorderMode}}
+    <div class="mb-3">
+      <p>
+        <b>
+          Set what order the plans will be displayed by dragging/dropping them into the desired order. Click "Save" when
+          you're happy.
+        </b>
+      </p>
+    </div>
+  {{/if}}
+  <div class="table-st plans">
+    <div class="thead">
+      <div class="tr">
+        <div class="th name grow">
+          Name
+        </div>
+        {{#unless this.reorderMode}}
+          <div class="th model">
+            Pricing Model
+          </div>
+          <div class="th price">
+            Price
+          </div>
+          <div class="th price">
+            Show in UI
+          </div>
+          <div class="th status">
+            Status
+          </div>
+        {{/unless}}
+        <div class="th options"></div>
+      </div>
+    </div>
+    <div class="tbody">
+      {{#if this.reorderMode}}
+        <SortableObjects @sortableObjectList={{this.plans}} @enableSort={{true}} @sortEndAction={{fn this.reordered}}>
+          {{#each this.plans as |plan|}}
+            <DraggableObject @content={{plan}} @overrideClass="tr" @isSortable={{true}}>
+              <div class="td name grow">
+                {{plan.name}}
+              </div>
+              <div class="td options text-right">
+                <FaIcon @icon="arrows-alt-v" />
+              </div>
+            </DraggableObject>
+          {{/each}}
+        </SortableObjects>
+      {{else}}
+        {{#each this.sortedPlans as |plan|}}
+          <div class="tr">
+            <div class="td name grow">
+              {{plan.name}}
+            </div>
+            <div class="td model">
+              {{plan.pricingModel}}
+            </div>
+            <div class="td price">
+              {{currency plan.price true}}
+            </div>
+            <div class="td show">
+              {{plan.publiclyVisible}}
+            </div>
+            <div class="td status">
+              <StatusLabel @statusObject={{plan}} />
+            </div>
+            <div class="td options text-right">
+              <LinkTo @route={{@subscribersRoute}} @model={{plan.id}} class="btn btn-outline-secondary btn-xs">
+                <FaIcon @icon="users" />
+                Subscribers
+              </LinkTo>
+              <LinkTo @route={{@editRoute}} @model={{plan.id}} class="btn btn-info btn-xs ml-2">
+                <FaIcon @icon="edit" @prefix="far" />
+                Manage
+              </LinkTo>
+            </div>
+          </div>
+        {{/each}}
+      {{/if}}
+    </div>
+  </div>
+  <SimplePagination @recordCount={{this.recordCount}} @pageSize={{this.pageSize}} @pageNumber={{this.pageNumber}}
+    @onPageSelect={{this.getPage}} />
+{{/if}}

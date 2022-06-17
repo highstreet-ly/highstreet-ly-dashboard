@@ -1,0 +1,81 @@
+name: Build the WAYNE docker image
+
+on:
+  push:
+    tags:
+      - v*
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: docker registry credentials
+        env:
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          DOCKER_USERNAME: sonatribe
+        run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+      - run: npm install -g yarn
+
+      - uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
+
+      - uses: actions/cache@v2
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - run: npm install -g ember-cli
+      - run: npm install
+      - id: get_version
+        uses: battila7/get-version-action@v2
+      - run: echo ${{ steps.get_version.outputs.version }}
+
+      - run: ember build production --env=production
+        env:
+          CI: true
+          A_RECORD: highstreetly
+          DASH_API: https://api.dashboard.highstreetly.xyz
+          DASH_UI: https://dashboard.highstreetly.xyz
+          OPS_API: https://api.ops.highstreetly.xyz
+          OPS_UI: https://ops.highstreetly.xyz
+          DOMAIN: highstreetly.xyz
+          IDS: https://ids.highstreetly.xyz
+          MAIN_API: https://api.highstreetly.xyz
+          MAIN_UI: https://highstreetly.xyz
+          NAMESPACE: highstreetly-xyz
+          ORDERS_API: https://api.orders.highstreetly.xyz
+          ORDERS_UI: https://orders.highstreetly.xyz
+          TICKETS_API: https://api.shop.highstreetly.xyz
+          TICKETS_UI: https://shop.highstreetly.xyz
+          TLD: xyz
+          WIDGET_API: https://api.widget.highstreetly.xyz
+          VERSION: ${{ steps.get_version.outputs.version }}
+          STRIPE_CLIENT_ID: ca_BZCgKyvK7Ywug3UOghG5VHADqYbNRTz9
+          STRIPE_KEY: pk_test_KLsvb9WFdUIEjkyEv0UyefHQ
+
+      - name: Build the Docker image sonatribe/highstreet-dashboard-wayne
+        run: docker build -t sonatribe/highstreet-dashboard-wayne:${{ steps.get_version.outputs.version }}-arm-64 -f ./Dockerfile.Arm64 .
+      - name: push sonatribe/highstreet-dashboard-wayne
+        run: docker push sonatribe/highstreet-dashboard-wayne:${{ steps.get_version.outputs.version }}-arm-64
+

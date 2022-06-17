@@ -1,0 +1,85 @@
+<EmberWormhole @to="action-bar-top-right">
+  <button
+    type="button"
+    class="btn btn-primary btn-sm"
+    id="add-product"
+    {{on "click" this.addNewProduct}}
+  >
+    <FaIcon @icon="plus-circle" />
+    New Product
+  </button>
+</EmberWormhole>
+
+<div class="row">
+  <div class="col-12">
+    <p class="light card-note">
+      Products are the items you're selling. Note that they are organised by their category, both here and on your shop. Reorder what order they're displayed by clicking the "Reorder" button above the list. Add more and manage existing categories
+      <LinkTo
+        @route="u.event-instance.products.categories"
+        @model="{{@eventInstance.slug}}"
+      >
+        here
+      </LinkTo>
+      .
+    </p>
+  </div>
+</div>
+{{#unless this.reorderMode}}
+  <div class="panel-search">
+    <div class="input-group">
+      <Input
+        @value={{this.search}}
+        @insert-newline={{fn this.doSearch this.search}}
+        class="form-control input-lg"
+        placeholder="Search for a product"
+        {{on "keyup" (fn this.doSearch this.search)}}
+      />
+      <span class="input-group-prepend">
+        <button
+          type="button"
+          class="input-group-text"
+          {{on "click" this.doSearch}}
+        >
+          {{fa-icon "search"}}
+        </button>
+      </span>
+    </div>
+  </div>
+{{/unless}}
+{{#if this.loading}}
+  <LoadingIcon />
+{{else}}
+  <div class="position-relative">
+    {{#if this.sortedProductCategories}}
+      <div class="table-responsive">
+        <div class="table-st products mb-4">
+        {{#each this.sortedProductCategories as |productCategory|}}
+          {{!--{{#if productCategory.ticketTypes.length}}--}}
+          <ProductPanelBlock
+            @productCategory={{productCategory}}
+            @eventInstance={{@eventInstance}}
+            @hideReorder={{this.search}}
+          />
+          {{!--{{/if}}--}}
+        {{/each}}
+      </div>
+      </div>
+    {{else}}
+      <div class="my-5 text-center font-bold">
+        You've not added any products or categories yet.
+        <LinkTo
+          @route="u.event-instance.products.categories.new"
+          @model="{{@eventInstance.slug}}"
+        >
+          Lets get started →
+        </LinkTo>
+      </div>
+    {{/if}}
+  </div>
+{{/if}}
+<SimplePagination
+  @recordCount={{this.recordCount}}
+  @pageSize={{this.pageSize}}
+  @pageNumber={{this.pageNumber}}
+  @onPageSelect={{this.getPage}}
+/>

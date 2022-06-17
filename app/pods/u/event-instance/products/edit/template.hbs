@@ -1,0 +1,14 @@
+{{page-title
+  (concat "Editing " this.product.name)
+}}
+<h2 class="card-title">
+  Edit Product
+</h2>
+<Forms::ProductForm
+  @allGroups={{this.allGroups}}
+  @product={{this.product}}
+  @allProducts={{this.products}}
+  @eventInstance={{this.eventInstance}}
+  @productCategories={{this.productCategories}}
+/>
+{{outlet}}

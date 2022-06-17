@@ -1,0 +1,35 @@
+<script src="https://js.chargebee.com/v2/chargebee.js" data-cb-site="{{this.chargeBeeSiteName}}"></script>
+
+<div class="container-scroller">
+  <SonaticketHeader @services={{this.services}} />
+  <div class="container-fluid page-body-wrapper">
+    <div class="main-panel">
+      <div class="content-wrapper">
+        {{outlet}}
+      </div>
+      <footer class="footer">
+        <div class="w-100 clearfix">
+          <span
+            class="text-muted d-block text-center text-sm-left d-sm-inline-block"
+          >
+            Copyright ©
+            {{this.year}}
+            <a
+              href="https://highstreet.ly/"
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              Highstreet.ly
+            </a>
+            . All rights reserved.
+            {{this.version}}
+          </span>
+        </div>
+      </footer>
+    </div>
+  </div>
+</div>
+<script
+  id="ze-snippet"
+  src="https://static.zdassets.com/ekr/snippet.js?key=218b8bda-9f42-4582-9637-96a120ae9e5f"
+></script>

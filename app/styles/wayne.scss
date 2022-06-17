@@ -1,0 +1,45 @@
+.login{
+    background: transparent url("/img/auth-bg.jpg") center no-repeat;
+    background-size: cover;
+    min-height: 100%;
+  }
+
+  .daterangepicker .drp-calendar {
+    max-width: none;
+    display: inherit;
+  }
+  .daterangepicker {
+    z-index: 3000!important;
+  }
+
+
+.hide-ranges > .ranges{
+  display:none
+}
+
+input.form-control:disabled {
+    background-color: $panel-dark;
+}
+
+
+.account-card:hover {
+ border: 1px solid white;
+}
+
+.account-card-selected {
+  border: 1px solid white;
+ }
+
+
+.account-card-unselected {
+  border: 1px solid black;
+ }
+
+
+//This breaks on mobile
+/*
+ .modal-lg {
+  max-width: 50%;
+}*/
+
+

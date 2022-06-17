@@ -1,0 +1,258 @@
+<div class="sonaticket-header horizontal-menu">
+  <nav class="navbar top-navbar col-lg-12 col-12 p-0">
+    <div class="container">
+      <div
+        class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center"
+      >
+        <LinkTo @route="u.index" class="navbar-brand brand-logo">
+          <img src="/img/logo.png" alt="Highstreet.ly" />
+        </LinkTo>
+      </div>
+      <div
+        class="navbar-menu-wrapper d-flex align-items-center justify-content-end"
+      >
+        <ul class="navbar-nav mr-lg-2"></ul>
+        <ul class="navbar-nav navbar-nav-right">
+          <li class="nav-item nav-profile dropdown">
+            {{!<span style="display:inline-block; margin-right:8px; font-size:11px;">Hey Chris!</span>}}
+            <a
+              class="nav-link"
+              href="#"
+              data-toggle="dropdown"
+              id="profileDropdown"
+            >
+              {{#if (eq this.currentUser.userModel.avatarType null)}}
+                <LetterAvatar
+                  @text={{this.currentUser.firstLetter}}
+                  @size="80"
+                />
+              {{/if}}
+              {{#if (eq this.currentUser.userModel.avatarType 0)}}
+                <img
+                  src="https://www.gravatar.com/avatar/
+                    {{this.currentUser.emailHash}}
+                    ?d=mp"
+                  alt="You!"
+                />
+              {{/if}}
+              {{#if (eq this.currentUser.userModel.avatarType 1)}}
+                <LetterAvatar
+                  @text={{this.currentUser.firstLetter}}
+                  @size="80"
+                />
+              {{/if}}
+              {{#if (eq this.currentUser.userModel.avatarType 2)}}
+                <CloudinaryImage
+                  @imageId={{this.currentUser.userModel.uploadedAvatarId}}
+                  @options={{this.imageOptions}}
+                />
+              {{/if}}
+            </a>
+            <div
+              class="dropdown-menu dropdown-menu-right navbar-dropdown"
+              aria-labelledby="profileDropdown"
+            >
+              <LinkTo @route="u.account-settings" class="dropdown-item">
+                <FaIcon @icon="cog" />
+                Account Settings
+              </LinkTo>
+              <LinkTo @route="u.subscription" class="dropdown-item">
+                <FaIcon @icon="user-plus" />
+                Subscription
+              </LinkTo>
+              <a
+                href="javascript:;"
+                class="dropdown-item"
+                {{on "click" this.logout}}
+              >
+                <FaIcon @icon="sign-out-alt" />
+                Logout
+              </a>
+            </div>
+          </li>
+        </ul>
+        <button
+          class="navbar-toggler navbar-toggler-right d-lg-none align-self-center"
+          type="button"
+          data-toggle="horizontal-menu-toggle"
+        >
+          <span class="ti-menu"></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+  <nav class="bottom-navbar">
+    <div class="container">
+      <ul class="nav page-navigation">
+        <li class="nav-item">
+          <LinkTo @route="u.index" class="nav-link">
+            <FaIcon @icon="home" />
+            <span class="menu-title">
+              Dashboard
+            </span>
+          </LinkTo>
+        </li>
+        <li class="nav-item">
+          {{#if (eq this.currentUser.eventOrganiser.schemaType "Simple")}}
+            <LinkTo
+              @route="u.event-series"
+              @model="{{this.defaultEventSeries.slug}}"
+              class="nav-link"
+            >
+              <FaIcon @icon="shopping-cart" />
+              <span class="menu-title">
+                Your Shops
+              </span>
+            </LinkTo>
+          {{else}}
+            <a href="#" class="nav-link">
+              <FaIcon @icon="shopping-cart" />
+              <span class="menu-title">
+                {{t "header.item-group-label"}}
+              </span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="submenu">
+              <ul class="submenu-item">
+                {{#each @services as |service|}}
+                  <li class="nav-item">
+                    <LinkTo
+                      @route="u.event-series"
+                      @model="{{service.slug}}"
+                      class="nav-link"
+                    >
+                      {{service.name}}
+                    </LinkTo>
+                  </li>
+                {{/each}}
+              </ul>
+              <div>
+                {{#if (eq this.currentUser.eventOrganiser.schemaType "Simple")}}
+                  <LinkTo
+                    @route="u.add-event-to-series"
+                    @model={{this.defaultEventSeries.slug}}
+                    class="btn btn-warning rounded-0 text-white"
+                  >
+                    <i class="ti-plus text-primary mr-1"></i>
+                    {{t "event-instance-route.create-new-item-group-label"}}
+                  </LinkTo>
+                {{else}}
+                  <LinkTo
+                    @route="u.create-new-event"
+                    class="btn btn-primary btn-block"
+                  >
+                    <FaIcon @icon="plus-circle" class="mr-1" />
+                    {{t "header.create-new-label"}}
+                  </LinkTo>
+                {{/if}}
+              </div>
+            </div>
+          {{/if}}
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <FaIcon @icon="cog" />
+            <span class="menu-title">
+              Settings
+            </span>
+            <i class="menu-arrow"></i>
+          </a>
+          <div class="submenu">
+            <ul class="submenu-item">
+              <li class="nav-item">
+                <LinkTo @route="u.payment-methods" class="nav-link">
+                  Payment Integrations
+                </LinkTo>
+              </li>
+              {{! Commenting out at this page seems to do nothing }}
+              {{!-- <li class="nav-item">
+                {{#link-to "u.basic-info" class="nav-link"}}Basic Info{{/link-to}}
+              </li> --}}
+              {{#if this.hasTeamFeature}}
+                <li class="nav-item">
+                  <LinkTo @route="u.admin.team" class="nav-link">
+                    Team
+                  </LinkTo>
+                </li>
+              {{else}}
+                <li class="nav-item">
+                  <LinkTo @route="u.subscription" class="nav-link">
+                    Team
+                  </LinkTo>
+                </li>
+              {{/if}}
+            </ul>
+          </div>
+        </li>
+        {{#if this.isAdmin}}
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <FaIcon @icon="lock" />
+              <span class="menu-title">
+                Admin
+              </span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="submenu">
+              <ul class="submenu-item">
+                <li class="nav-item">
+                  <LinkTo @route="u.admin.logs" class="nav-link">
+                    System Logs
+                  </LinkTo>
+                </li>
+                <li class="nav-item">
+                  <LinkTo @route="u.admin.operators" class="nav-link">
+                    Operators
+                  </LinkTo>
+                </li>
+                <li class="nav-item">
+                  <LinkTo @route="u.admin.onboarding" class="nav-link">
+                    Onboarding
+                  </LinkTo>
+                </li>
+                <li class="nav-item">
+                  <LinkTo @route="u.admin.user-management" class="nav-link">
+                    Users
+                  </LinkTo>
+                </li>
+                <li class="nav-item">
+                  <LinkTo @route="u.admin.plans" class="nav-link">
+                    Plans
+                  </LinkTo>
+                </li>
+                <li class="nav-item">
+                  <LinkTo @route="u.admin.add-ons" class="nav-link">
+                    Add-ons
+                  </LinkTo>
+                </li>
+                <li class="nav-item">
+                  <LinkTo @route="u.admin.features" class="nav-link">
+                    Features
+                  </LinkTo>
+                </li>
+                <li class="nav-item">
+                  <LinkTo @route="u.admin.business-types" class="nav-link">
+                    Business Types
+                  </LinkTo>
+                </li>
+              </ul>
+            </div>
+          </li>
+        {{/if}}
+        <li class="nav-item">
+          <a
+            href="https://highstreet.stonly.com/kb/en"
+            class="nav-link"
+            target="_blank"
+            rel="noreferrer noopener"
+          >
+            <FaIcon @icon="info-circle" />
+            <span class="menu-title">
+              Help & Support
+            </span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>

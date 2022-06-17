@@ -1,0 +1,63 @@
+<h2 class="card-title">
+  Operators
+</h2>
+
+<div class="panel-search">
+  <div class="input-group">
+    <Input @value={{this.search}} @key-up={{fn this.doSearch this.search}} @insert-newline={{fn this.doSearch
+      this.search}} class="form-control input-lg" placeholder="Search for an operator" />
+    <span class="input-group-prepend">
+      <button type="button" class="input-group-text" {{on 'click' this.doSearch}}>
+        {{fa-icon "search"}}
+      </button>
+    </span>
+  </div>
+</div>
+{{#if this.loading}}
+  <LoadingIcon />
+{{else}}
+  <div class="table-responsive">
+    <table class="table-st">
+      <thead>
+        <tr>
+          <th>
+            Name
+          </th>
+          <th>
+            Stripe?
+          </th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each this.eventOrganisers as |eventOrganiser|}}
+          <tr>
+            <td>
+              {{eventOrganiser.name}}
+            </td>
+            <td>
+              {{#if eventOrganiser.isConnectedToStripe}}
+                <FaIcon @icon="check" class="text-success" />
+              {{else}}
+                <FaIcon @icon="times" class="text-danger" />
+              {{/if}}
+            </td>
+            <td class="text-right">
+              <LinkTo @route="u.admin.operators.view" @models={{array eventOrganiser.id}}
+                class="btn btn-info btn-fw btn-xs">
+                <FaIcon @icon="edit" @prefix="far" />
+                {{t "operators-panel.item-view-button-label"}}
+              </LinkTo>
+            </td>
+          </tr>
+        {{else}}
+          <tr>
+            <td colspan="3" class="text-center font-bold">There are no operators yet</td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+{{/if}}
+<SimplePagination @recordCount={{this.recordCount}} @pageSize={{this.pageSize}} @pageNumber={{this.pageNumber}}
+  @onPageSelect={{fn this.getPage}} />

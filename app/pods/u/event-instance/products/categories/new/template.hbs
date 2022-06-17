@@ -1,0 +1,6 @@
+{{page-title (concat "Adding product category for " this.eventInstance.name)}}
+
+<h2 class="card-title">New Category</h2>
+<Forms::ProductCategoryForm @productCategory={{this.productCategory}} @eventInstance={{this.eventInstance}}/>
+
+{{outlet}}

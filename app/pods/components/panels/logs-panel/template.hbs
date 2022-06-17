@@ -1,0 +1,119 @@
+<div class="row" {{did-insert this.didInsert}}>
+  <div class="col-md-4">
+    <div class="form-group">
+      <label for="log-type">
+        Log type
+      </label>
+      <UI::Select id="log-type" @value={{this.selectedSource}} @onSelect={{this.didSelectSource}} as |sb|>
+        <sb.SelectedOption>
+          {{kebab-to-title-case this.selectedSource}}
+        </sb.SelectedOption>
+        <sb.Options>
+          {{#each this.sources as |source|}}
+            <sb.Option @value={{source}}>
+              {{kebab-to-title-case source}}
+            </sb.Option>
+          {{/each}}
+        </sb.Options>
+      </UI::Select>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-group">
+      <label for="log-level">
+        Log level
+      </label>
+      <UI::Select id="log-level" @value={{this.selectedLogLevel}} @onSelect={{this.didSelectLogLevel}} as |sb|>
+        <sb.SelectedOption>
+          {{this.selectedLogLevel}}
+        </sb.SelectedOption>
+        <sb.Options>
+          {{#each this.logLevels as |level|}}
+            <sb.Option @value={{level}}>
+              {{level}}
+            </sb.Option>
+          {{/each}}
+        </sb.Options>
+      </UI::Select>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-group">
+      <label for="log-level">
+        Time range
+      </label>
+      <UI::Select id="log-level" @value={{this.selectedTimeFilter}} @onSelect={{this.didSelectTimeFilter}} as |sb|>
+        <sb.SelectedOption>
+          {{this.selectedTimeFilter}}
+        </sb.SelectedOption>
+        <sb.Options>
+          {{#each this.timeFilters as |timeFilter|}}
+            <sb.Option @value={{timeFilter}}>
+              {{timeFilter}}
+            </sb.Option>
+          {{/each}}
+        </sb.Options>
+      </UI::Select>
+    </div>
+  </div>
+</div>
+
+{{#if this.loading}}
+  <LoadingIcon />
+{{else}}
+
+  <div class="row">
+    <div class="col-12">
+      <table class="table-st text-sm">
+        <thead>
+          <tr>
+            <th>
+              Level
+            </th>
+            <th>
+              Message
+            </th>
+
+            <th class="text-right" style="width:150px;">
+              Date
+            </th>
+            <th>
+
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each this.model as |log|}}
+            <tr>
+              <td>
+                {{log.level}}
+              </td>
+              <td style="word-break: break-all;">
+                {{log.message}}
+              </td>
+
+              <td class="text-right">
+                {{moment-format log.raiseDate 'YYYY/MM/DD'}}
+                <br>
+                {{moment-format log.raiseDate 'HH:mm:ss'}}
+              </td>
+              <td>
+                <button type="button" class="btn btn-danger btn-sm" {{on 'click' (fn this.onShowLog log)}}>
+                  View
+                </button>
+              </td>
+            </tr>
+
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <SimplePagination @recordCount={{this.recordCount}} @pageSize={{this.pageSize}} @pageNumber={{this.pageNumber}}
+    @onPageSelect={{this.getPage}} />
+
+{{/if}}
+
+{{#if this.showLog}}
+  <LogView @log={{this.selectedLog}} @onShowLogCancel={{fn (mut this.showLog) false }} />
+{{/if}}
