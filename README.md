@@ -1,59 +1,17 @@
-# sonaticket-dashboard..
+# Highstreet.ly dashboard monorepo
 
-![Node.js CI](https://github.com/sonaticket/sonaticket-dashboard-v2/workflows/Node.js%20CI/badge.svg)
+This is a reference implementation of a deliveroo "like" system. The system comprises of multiple parts:
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+  - Backend services
+  - Dashboard management UI
+  - Operator app
+  - Marketing site
+  - Pulumi IaC
 
-## Prerequisites
+This code was actually the v1 of a startup myself and a friend tried to bootstrap which unfortunately failed. Rather than keep the code private and eventually delete it I am making it public so that it can act as an extension to my CV and maybe help others interested in K8s, Pulumi, ES/CQRS etc.
 
-You will need the following things properly installed on your computer.
+While there are tests for the backend code, there isn't anywhere near as many as I would like but this was code that lived somewhere between POC and Beta - the aim was to use it to show the concept and get funding. So please bare in mind this is not what I would consider production code.
 
-* [Git](https://git-scm.com/)
-* [Node.js](https://nodejs.org/) (with npm)
-* [Ember CLI](https://ember-cli.com/)
-* [Google Chrome](https://google.com/chrome/)
+The system ran on 3 x DL380 G10 servers in a datacenter in Brighton which I hosted behind a SonicWALL TZ250/SOHO firewall. I implemented the k8s cluster on an array of ESXi VM hosts running Ubuntu. 
 
-## Installation
-
-* `git clone <repository-url>` this repository
-* `cd sonaticket-dashboard`
-* `npm install`
-
-## Running / Development
-
-* `ember serve`
-* Visit your app at [http://localhost:4200](http://localhost:4200).
-* Visit your tests at [http://localhost:4200/tests](http://localhost:4200/tests).
-
-### Code Generators
-
-Make use of the many generators for code, try `ember help generate` for more details
-
-### Running Tests
-
-* `ember test`
-* `ember test --server`
-
-### Linting
-
-* `npm run lint:hbs`
-* `npm run lint:js`
-* `npm run lint:js -- --fix`
-
-### Building
-
-* `ember build` (development)
-* `ember build --environment production` (production)
-
-### Deploying
-
-Specify what it takes to deploy your app.
-
-## Further Reading / Useful Links
-
-* [ember.js](https://emberjs.com/)
-* [ember-cli](https://ember-cli.com/)
-* Development Browser Extensions
-  * [ember inspector for chrome](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi)
-  * [ember inspector for firefox](https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/)
+The k8s cluster was initialized using Ansible / Kubespray and then the infrastructure was installed into that using Pulumi. 
